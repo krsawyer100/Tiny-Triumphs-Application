@@ -5,6 +5,7 @@ import sessionOptions from "../config/session"
 import useLogout from "../hooks/useLogout"
 import Link from "next/link.js"
 import { useState } from "react"
+import DashboardHeader from "../components/dashboardHeader"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -89,21 +90,13 @@ export default function Settings(props) {
     return (
         <div>
             <Head>
-                <title>{props.user.username}'s Settings</title>
+                <title>{props.user.username}&apos;s Settings</title>
             </Head>
 
-            <header>
-                <Link href='/'>Tiny Triumphs</Link>
-                <>
-                <div>
-                    <Link href='/settings'>Settings</Link>
-                    <p onClick={logout} style={{ cursor: "pointer" }}>Logout</p>
-                </div>
-                </>
-            </header>
+            <DashboardHeader username={props?.user?.username}/>
 
             <main>
-                <h1>{props.user.username}'s Settings</h1>
+                <h1>{props.user.username}&apos;s Settings</h1>
                 <form onSubmit={handleUpdate}>
                     <label htmlFor="firstName">First Name: </label>
                     <input 

@@ -30,7 +30,7 @@ export default function Home(props) {
                 <title>Tiny Triumphs</title>
             </Head>
 
-            <Header isLoggedIn={props.isLoggedIn} username={props?.user?.username} />
+            <Header/>
 
             <main>
                 <h1>Tiny Triumphs Homepage</h1>

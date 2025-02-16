@@ -63,7 +63,7 @@ export default function Login(props) {
                 <title>Login</title>
             </Head>
 
-            <Header isLoggedIn={props.isLoggedIn} firstName={props?.user?.firstName}/>
+            <Header/>
 
             <main>
                 <div>
@@ -89,7 +89,7 @@ export default function Login(props) {
                         <button>Login</button>
                     </form>
                     <Link href="/signup">
-                        <p>Dont have an account? Sign up here!</p>
+                        <p>Don&apos;t have an account? Sign up here!</p>
                     </Link>
                 </div>
             </main>

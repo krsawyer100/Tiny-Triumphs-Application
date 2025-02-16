@@ -1,4 +1,4 @@
-import Header from "../components/header/index.jsx"
+import DashboardHeader from "../components/dashboardHeader/index.jsx"
 import Head from "next/head"
 import { useRouter } from 'next/router'
 import { withIronSessionSsr } from "iron-session/next"
@@ -28,23 +28,13 @@ export default function Dashboard(props) {
     return (
         <div>
             <Head>
-                <title>{props.user.username}'s Dashboard</title>
+                <title>{props.user.username}&apos;s Dashboard</title>
             </Head>
 
-            <header>
-                <Link href='/'>Tiny Triumphs</Link>
-                <>
-                <div>
-                    <Link href='/settings'>Settings</Link>
-                    <p onClick={logout} style={{ cursor: "pointer" }}>Logout</p>
-                </div>
-                </>
-            </header>
-
-            {/* <Header isLoggedIn={props.isLoggedIn} firstName={props?.user?.firstName}/> */}
+            <DashboardHeader username={props?.user?.username}/>
 
             <main>
-                <h1>{props.user.username}'s  Dashboard</h1>
+                <h1>{props.user.username}&apos;s  Dashboard</h1>
             </main>
 
         </div>
