@@ -32,6 +32,7 @@ export default function Settings(props) {
         email: props.user.email
     })
     const [error, setError] = useState('')
+    const [confirm, setConfirm] = useState('')
 
     function handleChange(e) {
         setForm(prevForm => ({
@@ -54,7 +55,8 @@ export default function Settings(props) {
             })
 
             if (res.status === 200) {
-                return router.push('/dashboard')
+                setConfirm('User updated successfully')
+                return confirm
             }
 
             const { error: message } = await res.json()
@@ -78,6 +80,7 @@ export default function Settings(props) {
             })
 
             if (res.status === 200) {
+                setConfirm('User deleted successfully')
                 return router.push('/')
             } else {
                 console.error('Delete failed')
@@ -97,6 +100,7 @@ export default function Settings(props) {
 
             <main>
                 <h1>{props.user.username}&apos;s Settings</h1>
+                {confirm && <p>{confirm}</p>}
                 <form onSubmit={handleUpdate}>
                     <label htmlFor="firstName">First Name: </label>
                     <input 
