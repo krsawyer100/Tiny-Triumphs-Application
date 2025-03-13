@@ -44,11 +44,17 @@ async function logout(req, res) {
 async function signup(req, res) {
     try {
         const {firstName, lastName, username, email, password} = req.body
+        const {sessionId} = req.session._id
         const {
             password: _,
             ...otherFields
         } = await db.user.create(firstName, lastName, username, email, password)
         req.session.user = otherFields
+
+        if (sessionId) {
+            // Check for temporary routines and save it to the user as their routines 
+        }
+
         await req.session.save()
         if (res.status === 200) router.push()
         res.redirect('/dashboard')

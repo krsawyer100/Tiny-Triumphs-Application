@@ -7,6 +7,7 @@ import TemporaryRoutine from '../models/temporaryRoutine'
 export async function create (firstName, lastName, username, email, password, sessionId) {
     if (!(firstName && lastName && username && email && password))
         throw new Error ('Must include first name, last name, username, email, and password')
+
     await dbConnect()
 
     const user = await User.create({firstName, lastName, username, email, password})
@@ -19,9 +20,7 @@ export async function create (firstName, lastName, username, email, password, se
 
         if (temporaryRoutine) {
             const newRoutine = await Routine.create({ user: user._id, ...temporaryRoutine.routineData })
-            
             await User.findByIdAndUpdate(user._id, { $push: { routines: newRoutine._id } })
-
             await TemporaryRoutine.deleteOne({ sessionId })
         }
     }

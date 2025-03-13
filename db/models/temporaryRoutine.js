@@ -1,4 +1,5 @@
 import { Schema, model, models } from "mongoose";
+import TaskSchema from "./task";
 
 const TemporaryRoutineSchema = new Schema({
     sessionId: { 
@@ -7,22 +8,22 @@ const TemporaryRoutineSchema = new Schema({
     },
     routineData: {
         lowEnergy: { 
-            morning: [{type: String}], 
-            afternoon: [{type: String}], 
-            evening: [{type: String}], 
-            night: [{type: String}] 
+            morning: [TaskSchema], 
+            afternoon: [TaskSchema], 
+            evening: [TaskSchema], 
+            night: [TaskSchema] 
         },
         mediumEnergy: { 
-            morning: [{type: String}], 
-            afternoon: [{type: String}], 
-            evening: [{type: String}], 
-            night: [{type: String}] 
+            morning: [TaskSchema], 
+            afternoon: [TaskSchema], 
+            evening: [TaskSchema], 
+            night: [TaskSchema] 
         },
         highEnergy: { 
-            morning: [{type: String}], 
-            afternoon: [{type: String}], 
-            evening: [{type: String}], 
-            night: [{type: String}] 
+            morning: [TaskSchema], 
+            afternoon: [TaskSchema], 
+            evening: [TaskSchema], 
+            night: [TaskSchema] 
         }
     },
     createdAt: { 

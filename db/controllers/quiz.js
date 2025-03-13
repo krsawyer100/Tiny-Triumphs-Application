@@ -1,9 +1,14 @@
-import User from '../models/user'
-import dbConnect from './util/connection'
-import Routine from '../models/routine'
-import TemporaryRoutine from '../models/temporaryRoutine'
-import quizQuestions from '../models/quizQuestions'
+import QuizQuestion from '../models/quizQuestions';
+import dbConnect from './util/connection';
 
-export async function generatedQuestions() {
-    
+export async function getAllQuestions() {
+    await dbConnect();
+
+    try {
+        const questions = await QuizQuestion.find({});
+        return questions;
+    } catch (error) {
+        console.error("Error fetching quiz questions:", error);
+        throw new Error("Could not retrieve quiz questions");
+    }
 }

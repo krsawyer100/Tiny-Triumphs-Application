@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
 import useLogout from "../hooks/useLogout"
-import Link from "next/link.js"
 import { useState } from "react"
 import DashboardHeader from "../components/dashboardHeader"
 

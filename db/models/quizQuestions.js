@@ -5,6 +5,7 @@ const QuizQuestionSchema = new Schema({
         type: String,
         required: true,
     },
+    category: { type: String, required: true },
     answers: [
         {
             text: { type: String, required: true },
@@ -29,8 +30,7 @@ const QuizQuestionSchema = new Schema({
                 }
             },
         }
-    ],
-    category: { type: String, required: true }
+    ]
 });
 
 export default models.QuizQuestion || model("QuizQuestion", QuizQuestionSchema);

@@ -1,0 +1,49 @@
+import { useState } from "react"
+export default function ContactForm() {
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [stateMessage, setStateMessage] = useState(null)
+
+    const sendEmail = (e) => {
+        e.preventDefault()
+        setIsSubmitting(true)
+
+        emailjs
+            .sendForm(
+                process.env.REACT_APP_SERVICE_ID,
+                process.env.REACT_APP_TEMPLATE_ID,
+                e.target,
+                process.env.REACT_APP_PUBLIC_KEY
+            )
+            .then(
+                (result) => {
+                    setStateMessage('Message sent!')
+                    setIsSubmitting(false)
+                    setTimeout(() => {
+                        setStateMessage(null)
+                    }, 5000)
+                    e.target.reset()
+                },
+                (error) => {
+                    setStateMessage('Something went wrong, please try again later')
+                    setIsSubmitting(false)
+                    setTimeout(() => {
+                        setStateMessage(null)
+                    }, 5000)
+                }
+            )
+    }
+
+    return (
+        <div>
+            <h2>Contact Form</h2>
+            <form onSubmit={sendEmail}>
+                {stateMessage && <p>{stateMessage}</p>}
+                <input type="text" id='name' name='name' placeholder='Name' required/>
+                <input type="email" id='email' name='email' placeholder='Email' required/>
+                <input type="text" id="category" name='category' placeholder='Message category (i.e. New Features, Complaint, etc.)' required/>
+                <textarea id='message' name='message' placeholder='Message' required/>
+                <button type='submit' disabled={isSubmitting}>Send</button>
+            </form>
+        </div>
+    )
+}

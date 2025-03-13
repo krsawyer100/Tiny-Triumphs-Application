@@ -28,6 +28,9 @@ export default function Header() {
             <p>
               <Link href="/login" className={styles.headerInfoLink}>Login</Link>
             </p>
+            <p>
+              <Link href="/quiz" className={styles.headerInfoLink}>Try Our Quiz</Link>
+            </p>
           </div>
         </>
       </div>

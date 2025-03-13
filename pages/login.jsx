@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { withIronSessionSsr } from 'iron-session/next'
 import sessionOptions from '../config/session'
-import Header from '../components/header'
+import { Header, Footer } from "../components"
 import useLogout from "../hooks/useLogout"
 
 export const getServerSideProps = withIronSessionSsr(

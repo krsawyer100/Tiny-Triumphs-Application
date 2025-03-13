@@ -29,7 +29,7 @@ const UserSchema = new Schema({
     routines: [{
         type: Schema.Types.ObjectId,
         ref: "Routine"
-    }]
+    }],
 })
 
 UserSchema.pre('save', async function(next) {
