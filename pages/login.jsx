@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { withIronSessionSsr } from 'iron-session/next'
 import sessionOptions from '../config/session'
-import { Header, Footer } from "../components"
+import Header from "../components/header"
+import Footer from '../components/footer'
 import useLogout from "../hooks/useLogout"
 
 export const getServerSideProps = withIronSessionSsr(
@@ -93,6 +94,7 @@ export default function Login(props) {
                     </Link>
                 </div>
             </main>
+            <Footer />
         </div>
     )
 

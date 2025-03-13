@@ -1,4 +1,6 @@
-import {Header, Footer, ContactForm} from '../components'
+import Header from '../components/header'
+import Footer from '../components/footer'
+import ContactForm from '../components/contactForm'
 
 export default function Contact() {
     return (

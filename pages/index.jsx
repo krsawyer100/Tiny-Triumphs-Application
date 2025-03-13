@@ -1,4 +1,5 @@
-import { Header, Footer } from "../components"
+import Header from "../components/header"
+import Footer from "../components/footer"
 import Head from "next/head"
 import { useRouter } from 'next/router'
 import Link from "next/link";
@@ -40,22 +41,31 @@ export default function Home(props) {
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic perferendis amet repudiandae beatae rem sequi, pariatur vel excepturi vero nulla non expedita repellendus quidem? Tempora obcaecati aspernatur maiores numquam itaque.</p>
                         </div>
                         <div>
-                            <Image 
+                            <img 
                                 src="https://picsum.photos/200/300"
                                 alt="Placeholder"
-                                width={300}
-                                height={200}
+
                             />
+                            {/* <Image 
+                                src="https://picsum.photos/200/300"
+                                alt="Placeholder"
+
+                            /> */}
                         </div>
                     </div>
                     <div>
                         <div>
-                            <Image 
+                            <img 
+                                src="https://picsum.photos/200/300"
+                                alt="Placeholder"
+
+                            />
+                            {/* <Image 
                                 src="https://picsum.photos/200/300"
                                 alt="Placeholder"
                                 width={300}
                                 height={200}
-                            />
+                            /> */}
                         </div>
                         <div>
                             <h2>Statistic about mental health and chronic illness</h2>
@@ -67,32 +77,44 @@ export default function Home(props) {
                 <section>
                     <h2>Benefits of the Tiny Triumphs Application</h2>
                     <div>
-                        <Image 
+                        <img 
+                            src="https://picsum.photos/200"
+                            alt="Placeholder"
+                        />
+                        {/* <Image 
                             src="https://picsum.photos/200"
                             alt="Placeholder"
                             width={200}
                             height={200}
-                        />
+                        /> */}
                         <h3>Benefit #1</h3>
                         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas expedita eaque debitis officiis reiciendis optio ullam aperiam officia minima sed! Aspernatur tenetur sed impedit ratione vitae voluptatum quo, odit minus!</p>
                     </div>
                     <div>
-                        <Image 
+                        <img 
+                            src="https://picsum.photos/200"
+                            alt="Placeholder"
+                        />
+                        {/* <Image 
                             src="https://picsum.photos/200"
                             alt="Placeholder"
                             width={200}
                             height={200}
-                        />
+                        /> */}
                         <h3>Benefit #2</h3>
                         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas expedita eaque debitis officiis reiciendis optio ullam aperiam officia minima sed! Aspernatur tenetur sed impedit ratione vitae voluptatum quo, odit minus!</p>
                     </div>
                     <div>
-                        <Image 
+                        <img 
+                            src="https://picsum.photos/200"
+                            alt="Placeholder"
+                        />
+                        {/* <Image 
                             src="https://picsum.photos/200"
                             alt="Placeholder"
                             width={200}
                             height={200}
-                        />
+                        /> */}
                         <h3>Benefit #3</h3>
                         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas expedita eaque debitis officiis reiciendis optio ullam aperiam officia minima sed! Aspernatur tenetur sed impedit ratione vitae voluptatum quo, odit minus!</p>
                     </div>
@@ -102,32 +124,44 @@ export default function Home(props) {
                     <h2>Check out our reccommended resources</h2>
                     <div>
                         <div>
-                            <Image 
+                            <img 
+                                src="https://picsum.photos/200"
+                                alt="Placeholder"
+                            />
+                            {/* <Image 
                                 src="https://picsum.photos/200"
                                 alt="Placeholder"
                                 width={200}
                                 height={200}
-                            />
+                            /> */}
                             <h3>Mental Health Resources</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo expedita adipisci dolor minus numquam quos tempore alias error, facilis veniam veritatis ea vero laudantium soluta obcaecati nobis sed commodi neque.</p>
                         </div>
                         <div>
-                            <Image 
+                            <img 
+                                src="https://picsum.photos/200"
+                                alt="Placeholder"
+                            />
+                            {/* <Image 
                                 src="https://picsum.photos/200"
                                 alt="Placeholder"
                                 width={200}
                                 height={200}
-                            />
+                            /> */}
                             <h3>Physical Health Resources</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo expedita adipisci dolor minus numquam quos tempore alias error, facilis veniam veritatis ea vero laudantium soluta obcaecati nobis sed commodi neque.</p>
                         </div>
                         <div>
-                            <Image 
+                            <img 
+                                src="https://picsum.photos/200"
+                                alt="Placeholder"
+                            />
+                            {/* <Image 
                                 src="https://picsum.photos/200"
                                 alt="Placeholder"
                                 width={200}
                                 height={200}
-                            />
+                            /> */}
                             <h3>Self-care Resources</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo expedita adipisci dolor minus numquam quos tempore alias error, facilis veniam veritatis ea vero laudantium soluta obcaecati nobis sed commodi neque.</p>
                         </div>
