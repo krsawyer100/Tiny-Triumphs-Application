@@ -26,6 +26,8 @@ export default function Dashboard(props) {
     const localDate = new Date().toLocaleDateString("en-CA");
     
     const [date, setDate] = useState(localDate);
+    const [quote, setQuote] = useState("")
+    const [author, setAuthor] = useState("")
 
     const [routine, setRoutine] = useState(null)
     const [energySelected, setEnergySelected] = useState(false)
@@ -36,6 +38,27 @@ export default function Dashboard(props) {
         fetchRoutine()
     }, [date])
 
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            fetchQuote()
+        }
+    }, [])
+    async function fetchQuote() {
+        try {
+            const res = await fetch('https://thequoteshub.com/api/tags/inspiration')
+
+            if (!res.ok) throw new Error(`failed to fetch quote: ${res}`)
+
+            const data = await res.json()
+            console.log("Quote data: ", data)
+            const singleQuote = data.quotes[Math.floor(Math.random() * data.quotes.length)]
+            console.log("Single Quote: ", singleQuote)
+            setQuote(singleQuote.text)
+            setAuthor(singleQuote.author)
+        } catch (err) {
+            console.error("error getting quote: ", err)
+        }
+    }
     async function fetchRoutine() {
         try {
             const res = await fetch(`/api/routine/get-daily-routine?date=${date}`, {
@@ -69,8 +92,6 @@ export default function Dashboard(props) {
     }
 
     async function handleEnergySelection(level) {
-        const localDate = new Date(date)
-
         try {
             const res = await fetch(`/api/routine/create-daily-routine`, {
                 method: "POST",
@@ -267,7 +288,8 @@ export default function Dashboard(props) {
                     </section>
                     <section>
                         <div>
-                            {/* Quote pulled in from the api I selected */}
+                            <h4>"{quote}"</h4>
+                            <h5>~ {author}</h5>
                         </div>
                         {energySelected ? (
                             <div>

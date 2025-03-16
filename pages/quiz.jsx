@@ -69,7 +69,7 @@ export default function Quiz(props) {
     }
 
     function saveRoutineToLocalStorage() {
-        const routineData = {
+        const routineData = JSON.parse(localStorage.getItem("temporaryRoutine")) || {
             lowEnergy: { morning: [], afternoon: [], evening: [], night: [] },
             mediumEnergy: { morning: [], afternoon: [], evening: [], night: [] },
             highEnergy: { morning: [], afternoon: [], evening: [], night: [] }

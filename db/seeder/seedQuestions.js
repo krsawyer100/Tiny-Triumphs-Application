@@ -192,7 +192,857 @@ const questions = [
             },
         ],
         category: "Energy Levels & Symptoms"
+    },
+    {
+        question: "How do your symptoms change throughout the day? (Select all that apply)",
+        answers: [
+          {
+            text: "Mornings are the hardest, I gain energy later in the day",
+            tasks: {
+              lowEnergy: {
+                morning: [{ task: "Do gentle stretches in bed", completed: false }],
+                afternoon: [{ task: "Eat a nutritious snack or hydrate", completed: false }],
+                evening: [{ task: "Practice a 5-minute breathing exercise", completed: false }],
+                night: [{ task: "Lay out clothes for next day and go to bed early", completed: false }]
+              },
+              mediumEnergy: {
+                morning: [{ task: "Prepare a simple breakfast or tea", completed: false }],
+                afternoon: [{ task: "Take a short, refreshing walk", completed: false }],
+                evening: [{ task: "Engage in a relaxing activity", completed: false }],
+                night: [{ task: "Organize essentials for tomorrow", completed: false }]
+              },
+              highEnergy: {
+                morning: [{ task: "Shower and tidy living space", completed: false }],
+                afternoon: [{ task: "Enjoy a creative or social activity", completed: false }],
+                evening: [{ task: "Plan and prep for the next day", completed: false }],
+                night: [{ task: "Perform a calming bedtime routine", completed: false }]
+              }
+            }
+          },
+          {
+            text: "I experience energy crashes randomly",
+            tasks: {
+              lowEnergy: {
+                morning: [{ task: "Start with simple morning care", completed: false }],
+                afternoon: [{ task: "Rest or nap to manage energy crash", completed: false }],
+                evening: [{ task: "Prepare an easy-to-make dinner", completed: false }],
+                night: [{ task: "Prioritize early sleep", completed: false }]
+              },
+              mediumEnergy: {
+                morning: [{ task: "Eat a protein rich breakfast", completed: false }],
+                afternoon: [{ task: "Complete a restful activity", completed: false }],
+                evening: [{ task: "Choose a calm activity like reading", completed: false }],
+                night: [{ task: "Complete a deep breathing exercise", completed: false }]
+              },
+              highEnergy: {
+                morning: [{ task: "Complete you top priority task", completed: false }],
+                afternoon: [{ task: "Do manageable tasks in short bursts with rest in between", completed: false }],
+                evening: [{ task: "Complete a fun activity or hobby", completed: false }],
+                night: [{ task: "Engage in light relaxation", completed: false }]
+              }
+            }
+          },
+          {
+            text: "I experience afternoon slumps",
+            tasks: {
+              lowEnergy: {
+                morning: [{ task: "Complete top essential task", completed: false }],
+                afternoon: [{ task: "Take scheduled rest breaks", completed: false }],
+                evening: [{ task: "Do minimal-effort self-care activities", completed: false }],
+                night: [{ task: "Engage in a deep breathing or mediation exercise", completed: false }]
+              },
+              mediumEnergy: {
+                morning: [{ task: "Eat a simple breakfast", completed: false }],
+                afternoon: [{ task: "Have a small energy-boosting snack", completed: false }],
+                evening: [{ task: "Prepare a simple dinner and unwind", completed: false }],
+                night: [{ task: "Reflect on the day through journaling", completed: false }]
+              },
+              highEnergy: {
+                morning: [{ task: "Eat a balanced breakfast", completed: false }],
+                afternoon: [{ task: "Take a 15 minute walk", completed: false }],
+                evening: [{ task: "Perform relaxing wind-down tasks", completed: false }],
+                night: [{ task: "Practice short meditation or stretches", completed: false }]
+              }
+            }
+          }
+        ],
+        category: "Energy Levels & Symptoms"
     }, 
+    {
+        question: "On high-energy days, what additional activities do you like to include? (Select all that apply)",
+        answers: [
+          {   
+            text: "Cooking a full meal",
+            tasks: {
+              lowEnergy: {
+                morning: [{task: "Eat a simple breakfast (i.e. cereal, banana, etc.)", completed: false}],
+                afternoon: [{task: "Eat a snack", completed: false}],
+                evening: [{task: "Heat up a pre-made meal", completed: false}],
+                night: [{task: "Clean up kitchen minimally", completed: false}]
+              },
+              mediumEnergy: {
+                morning: [{ task: "Find a easy meal to cook", completed: false}],
+                afternoon: [{ task: "Prep ingredients for dinner", completed: false}],
+                evening: [{ task: "Cook a simple nutritious meal", completed: false}],
+                night: [{ task: "Quick kitchen tidy-up", completed: false}]
+              },
+              highEnergy: {
+                morning: [{ task: "Select a complex recipe", completed: false}],
+                afternoon: [{ task: "Shop for fresh ingredients", completed: false}],
+                evening: [{ task: "Enjoy cooking a full meal", completed: false}],
+                night: [{ task: "Complete thorough kitchen cleanup", completed: false}]
+              },
+            } 
+          },
+          {
+            text: "Deep cleaning or organizing", 
+            tasks: {
+              lowEnergy: {
+                morning: [{ task: "Identify small area to tidy", completed: false}],
+                afternoon: [{ task: "Do brief tidying session", completed: false}],
+                evening: [{ task: "Organize essentials only", completed: false}],
+                night: [{ task: "Plan next cleaning priority", completed: false}]
+              },
+              mediumEnergy: {
+                morning: [{ task: "Select a manageable area to clean", completed: false}],
+                afternoon: [{ task: "Clean or organize briefly", completed: false}],
+                evening: [{ task: "Finish tidying tasks", completed: false}],
+                night: [{ task: "Prepare cleaning supplies for tomorrow", completed: false}]
+              },
+              highEnergy: {
+                morning: [{ task: "Make a detailed cleaning plan", completed: false}],
+                afternoon: [{ task: "Complete deep-cleaning project", completed: false}],
+                evening: [{ task: "Organize or declutter thoroughly", completed: false}],
+                night: [{ task: "Enjoy your organized space", completed: false}]
+              },
+            } 
+          },
+          {
+            text: "Exercising or going outside",
+            tasks: {
+              lowEnergy: {
+                morning: [{ task: "Do gentle stretches indoors", completed: false}],
+                afternoon: [{ task: "Sit outside briefly", completed: false}],
+                evening: [{ task: "Light indoor stretching", completed: false}],
+                night: [{ task: "Perform relaxing yoga poses", completed: false}]
+              },
+              mediumEnergy: {
+                morning: [{ task: "Take a short walk", completed: false}],
+                afternoon: [{ task: "Enjoy outdoor time or moderate exercise", completed: false}],
+                evening: [{ task: "Do restorative stretching", completed: false}],
+                night: [{ task: "Relax with a calming activity", completed: false}]
+              },
+              highEnergy: {
+                morning: [{ task: "Go for a brisk walk or workout", completed: false}],
+                afternoon: [{ task: "Engage in extended outdoor activity", completed: false}],
+                evening: [{ task: "Try a new exercise class or activity", completed: false}],
+                night: [{ task: "Stretch thoroughly or meditate", completed: false}]
+              }
+            } 
+          },
+          {
+            text: "Running errands",
+            tasks: {
+              lowEnergy: {
+                morning: [{ task: "List essential errands only", completed: false}],
+                afternoon: [{ task: "Complete the most urgent errand", completed: false}],
+                evening: [{ task: "Rest after errands", completed: false}],
+                night: [{ task: "Plan tomorrow's errands briefly", completed: false}]
+              },
+              mediumEnergy: {
+                morning: [{ task: "Prioritize errands for efficiency", completed: false}],
+                afternoon: [{ task: "Run one or two errands", completed: false}],
+                evening: [{ task: "Organize items from errands", completed: false}],
+                night: [{ task: "Update errands list for next day", completed: false}]
+              },
+              highEnergy: {
+                morning: [{ task: "Create detailed errands checklist", completed: false}],
+                afternoon: [{ task: "Run multiple errands efficiently", completed: false}],
+                evening: [{ task: "Organize purchases and home setup", completed: false}],
+                night: [{ task: "Plan errands for future days", completed: false}]
+              }
+            } 
+          }
+        ],
+        category: "Energy Levels & Symptoms"
+    },
+    {
+        question: "What self-care tasks feel essential regardless of energy levels (Select all that apply)",
+        answers: [
+            {   
+                text: "Brushing teeth",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{task: "Use mouthwash if brushing feels too difficult", completed: false}],
+                        night: [{task: "Brush teeth while sitting down", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "Do a quick 30 second brush", completed: false}],
+                        night: [{ task: "Brush for full 2 minutes", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "Brush for full 2 minutes", completed: false}],
+                        night: [{ task: "Brush, floss, and use mouthwash", completed: false}]
+                    },
+                } 
+            },
+            {
+                text: "Eating at least one meal", 
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                } 
+            },
+            {
+                text: "Drinking water or staying hydrated",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "Drink 1/2 a cup of water after getting out of bed", completed: false}],
+                        afternoon: [{ task: "Sip water using a straw", completed: false}],
+                        evening: [{ task: "Keep water bottle near by for frequent sipping", completed: false}],
+                        night: [{ task: "Take a few sips of water before bed", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "Drink a full glass of water after getting out of bed", completed: false}],
+                        afternoon: [{ task: "Set a reminder to drink water every 2 hours", completed: false}],
+                        evening: [{ task: "Drink a herbal tea or glass of water", completed: false}],
+                        night: [{ task: "Check hydration and drink water accordingly", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "Start day with some fruit water or electrolytes", completed: false}],
+                        afternoon: [{ task: "Drink a glass of water every 2-3 hours", completed: false}],
+                        evening: [{ task: "Track water intake", completed: false}],
+                        night: [{ task: "Drink an extra glass of water if needed", completed: false}]
+                    }
+                } 
+            },
+            {
+                text: "Showering/Bathing",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+            {
+                text: "Putting on a full outfit",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+            {
+                text: "Skincare routine",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+            {
+                text: "Hair care routine",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+            {
+                text: "Decluttering",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+            {
+                text: "Exercising/Stretching",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+        ],
+        category: "Personal Care Priorities"
+    },
+    {
+        question: "What sensory sensitivities impact personal care? (Select all that apply)",
+        answers: [
+            {   
+                text: "Temperatures",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{task: "", completed: false}],
+                        afternoon: [{task: "", completed: false}],
+                        evening: [{task: "", completed: false}],
+                        night: [{task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                } 
+            },
+            {
+                text: "Loud sounds", 
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                } 
+            },
+            {
+                text: "Textures",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+            {
+                text: "Strong smells",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+            {
+                text: "Light sensitivity",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+        ],
+        category: "Sensory & Accessibility Needs"
+    },
+    {
+        question: "Do you want social interaction built into your routine?",
+        answers: [
+            {   
+                text: "Yes, no matter my energy level",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{task: "", completed: false}],
+                        afternoon: [{task: "", completed: false}],
+                        evening: [{task: "", completed: false}],
+                        night: [{task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                } 
+            },
+            {
+                text: "Sometimes, depending on energy level", 
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                } 
+            },
+            {
+                text: "No, I prefer solo self-care"
+            },
+        ],
+        category: "Social & Emotional Well-Being"
+    },
+    {
+        question: "How does socializing impact your energy?",
+        answers: [
+            {   
+                text: "It energizes me, even when I'm tired",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{task: "", completed: false}],
+                        afternoon: [{task: "", completed: false}],
+                        evening: [{task: "", completed: false}],
+                        night: [{task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                } 
+            },
+            {
+                text: "It depends on the person and situation", 
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                } 
+            },
+            {
+                text: "It drains me, especially on low-energy days",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+        ],
+        category: "Energy Levels & Symptoms"
+    },
+    {
+        question: "How do you recharge best?",
+        answers: [
+            {   
+                text: "Quiet time alone",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{task: "", completed: false}],
+                        afternoon: [{task: "", completed: false}],
+                        evening: [{task: "", completed: false}],
+                        night: [{task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                } 
+            },
+            {
+                text: "Light movement", 
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                } 
+            },
+            {
+                text: "Creative activity",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+            {
+                text: "Watching tv",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+            {
+                text: "Talking to a family member or friend",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+            {
+                text: "Reading",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+        ],
+        category: "Social & Emotional Well-Being"
+    },
+    {
+        question: "Do you want to include mental health check-ins in your routine?",
+        answers: [
+            {   
+                text: "Yes, daily affirmations",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{task: "", completed: false}],
+                        afternoon: [{task: "", completed: false}],
+                        evening: [{task: "", completed: false}],
+                        night: [{task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                } 
+            },
+            {
+                text: "Yes, mediation or mindfulness", 
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                } 
+            },
+            {
+                text: "No, I prefer to focus on physical self-care",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    mediumEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    },
+                    highEnergy: {
+                        morning: [{ task: "", completed: false}],
+                        afternoon: [{ task: "", completed: false}],
+                        evening: [{ task: "", completed: false}],
+                        night: [{ task: "", completed: false}]
+                    }
+                } 
+            },
+        ],
+        category: "Social & Emotional Well-Being"
+    },
 ]
 
 const seedQuestions = async () => {
@@ -211,1556 +1061,3 @@ const seedQuestions = async () => {
 };
 
 seedQuestions();
-
-    // {
-    //     question: "How do your symptoms change throughout the day? (Select all that apply)",
-    //     answers: [
-    //         {
-    //             text: "Mornings are the hardest, I gain energy later in the day", 
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: ["Start with a slow, gentle wake-up routine (deep breathing, soft stretching)", "Have a warm drink"],
-    //                     afternoon: ["Take a short walk", "Listen to calming music while being productive"],
-    //                     evening: ["Engage in light movement"],
-    //                     night: ["Prepare for the next morning"]
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: ["Do gentle stretching", "Eat a protein-rich breakfast"],
-    //                     evening: ["Engage in a hobby if able"],
-    //                     night: ["Follow a guided deep breathing exercise"]
-    //                 },
-    //                 highEnergy: {
-    //                     morning: ["Do light exercise (i.e. walk)"],
-    //                     afternoon: ["Work on a project or task"],
-    //                     evening: ["Engage in stimulating activity"],
-    //                     night: ["Complete a guided meditation"]
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "My energy is highest in the morning but fades quickly.", 
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [""],
-    //                     afternoon: [""],
-    //                     evening: [""],
-    //                     night: [""]
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [""],
-    //                     afternoon: [""],
-    //                     evening: [""],
-    //                     night: [""]
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [""],
-    //                     afternoon: [""],
-    //                     evening: [""],
-    //                     night: [""]
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "I experience energy crashes randomly", 
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [""],
-    //                     afternoon: [""],
-    //                     evening: [""],
-    //                     night: [""]
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [""],
-    //                     afternoon: [""],
-    //                     evening: [""],
-    //                     night: [""]
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [""],
-    //                     afternoon: [""],
-    //                     evening: [""],
-    //                     night: [""]
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "I experience afternoon slumps", 
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [""],
-    //                     afternoon: [""],
-    //                     evening: [""],
-    //                     night: [""]
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [""],
-    //                     afternoon: [""],
-    //                     evening: [""],
-    //                     night: [""]
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [""],
-    //                     afternoon: [""],
-    //                     evening: [""],
-    //                     night: [""]
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "My energy/symptoms are unpredictable"
-    //         },
-    //     ],
-    //     category: "Energy Levels & Symptoms"
-    // },
-    // {
-    //     question: "On high-energy days, what additional activities do you like to include?",
-    //     answers: [
-    //         {
-    //             text: "Cooking a Full Meal",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Deep Cleaning or Organizing",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Exercising or going outside",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Running errands or Socializing",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //     ],
-    //     category: "Energy Levels & Symptoms"
-    // },
-    // {
-    //     question: "What self-care tasks feel essential regardless of energy levels",
-    //     answers: [
-    //         {
-    //             text: "Brushing teeth",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: ["Use mouthwash if brushing feels too difficult"],
-    //                     night: ["Brush teeth while sitting down"]
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: ["Do a quick 30-second brush"],
-    //                     night: ["Brush for full 2 minutes"]
-    //                 },
-    //                 highEnergy: {
-    //                     morning: ["Brush for full 2 minutes"],
-    //                     night: ["Brush, floss, and use mouth wash"]
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Taking medication/supplements",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Eating at least one meal",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Drinking water or staying hydrated",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: ["Drink 1/2 a cup of water after getting out of bed"],
-    //                     afternoon: ["Sip water using a straw"],
-    //                     evening: ["Keep water bottle near by for frequent sipping"],
-    //                     night: ["Take a few sips of water before bed"]
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: ["Drink a full glass of water after getting out of bed"],
-    //                     afternoon: ["Set a reminder to drink water every 2 hours"],
-    //                     evening: ["Drink a herbal tea or glass of water"],
-    //                     night: ["Check hydration and drink water accordingly"]
-    //                 },
-    //                 highEnergy: {
-    //                     morning: ["Start the day with some fruit water"],
-    //                     afternoon: ["Drink glass of water every 2-3 hours"],
-    //                     evening: ["Track water intake"],
-    //                     night: ["Drink an extra glass of water if needed"]
-    //                 }
-    //             }  
-    //         },
-    //         {
-    //             text: "Showering/Bathing",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Putting on a full outfit",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             }  
-    //         },
-    //         {
-    //             text: "Skincare routine",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Hair care routine",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //     ],
-    //     category: "Personal Care Priorities"
-    // },
-    // {
-    //     question: "Which tasks are difficult but important for you?",
-    //     answers: [
-    //         {
-    //             text: "Brushing teeth",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Showering/Bathing",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Cooking a meal",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Staying hydrated",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Cleaning up after eating",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Decluttering",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Skincare routine",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Exercising/Stretching",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //     ],
-    //     category: "Personal Care Priorities"
-    // },
-    // {
-    //     question: "What self-care tasks do you consider optional on low-energy days? (Select all that apply)",
-    //     answers: [
-    //         {
-    //             text: "Skincare beyond basics",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Shaving",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Full hair care routine",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Dressing in full outfits",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Makeup",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Exercise/Stretching",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //     ],
-    //     category: "Personal Care Priorities"
-    // },
-    // {
-    //     question: "On medium energy days, what additional self-care do you try to include?",
-    //     answers: [
-    //         {
-    //             text: "Showering/Bathing",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Light workout/Stretching",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Preparing a simple homemade meal",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "cleaning up my space",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //     ],
-    //     category: "Personal Care Priorities"
-    // },
-    // {
-    //     question: "What sensory sensitivities impact personal care?",
-    //     answers: [
-    //         {
-    //             text: "Temperatures",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Loud sounds",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Certain textures",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "strong smells",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "light sensitivity",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //     ],
-    //     category: "Sensory & Accessibility Needs"
-    // },
-    // {
-    //     question: "Do you want social interaction built into your routine?",
-    //     answers: [
-    //         {
-    //             text: "Yes, no matter my energy level",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Sometimes, depending on energy level.",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "No, I prefer solo self-care.",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //     ],
-    //     category: "Social & Emotional Well-Being"
-    // },
-    // {
-    //     question: "Do you want social interaction built into your routine?",
-    //     answers: [
-    //         {
-    //             text: "Yes, no matter my energy level",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Sometimes, depending on energy level.",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "No, I prefer solo self-care.",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //     ],
-    //     category: "Social & Emotional Well-Being"
-    // },
-    // {
-    //     question: "How often are you required to socialize on the average day?",
-    //     answers: [
-    //         {
-    //             text: "On occasion",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Multiple times a day.",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Frequently",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "All the time",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //     ],
-    //     category: "Social & Emotional Well-Being"
-    // },
-    // {
-    //     question: "How does socializing impact your energy?",
-    //     answers: [
-    //         {
-    //             text: "It energizes me, even when I'm tired.",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "It depends on the person and situation.",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "It drains me, especially on low-energy days",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //     ],
-    //     category: "Social & Emotional Well-Being"
-    // },
-    // {
-    //     question: "How do you recharge best?",
-    //     answers: [
-    //         {
-    //             text: "Quiet time alone", 
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Light movement.", 
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Creative activity", 
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Watching favorite shows/movies", 
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Talking with a friend or family member", 
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Reading", 
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //     ],
-    //     category: "Social & Emotional Well-Being"
-    // },
-    // {
-    //     question: "Do you want to include mental health check-ins in your routine?",
-    //     answers: [
-    //         {
-    //             text: "Yes, daily affirmations",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Yes, mediation or mindfulness",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "No, I prefer to focus on physical self-care",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //     ],
-    //     category: "Environment & Daily Structure"
-    // },
-    // {
-    //     question: "Do you need built-in breaks in your routine?",
-    //     answers: [
-    //         {
-    //             text: "Yes, frequent breaks",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "Yes, sometimes",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //         {
-    //             text: "No, I prefer to complete everything at once",
-    //             tasks: {
-    //                 lowEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 mediumEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 },
-    //                 highEnergy: {
-    //                     morning: [],
-    //                     afternoon: [],
-    //                     evening: [],
-    //                     night: []
-    //                 }
-    //             } 
-    //         },
-    //     ],
-    //     category: "Environment & Daily Structure"
-    // },
