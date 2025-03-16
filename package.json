@@ -1,12 +1,13 @@
 {
     "name": "tiny-triumphs",
     "version": "0.0.0",
+    "type": "module",
     "private": true,
     "config": {
         "DB_NAME": "tiny_triumphs_db"
     },
     "scripts": {
-        "dev": "npm run mongo && next dev",
+        "dev": "npm run mongo && npm run seed && next dev",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
@@ -16,7 +17,8 @@
         "mongo:stop": "docker container stop mongo-sandbox",
         "mongo:start:shell": "npm run mongo && npm run mongo:shell",
         "mongo:shell": "docker exec -it mongo-sandbox mongosh",
-        "mongo:check": "until docker exec -it mongo-sandbox mongosh --eval \"use $npm_package_config_DB_NAME;\"; do echo ...; sleep 1; done"
+        "mongo:check": "until docker exec -it mongo-sandbox mongosh --eval \"use $npm_package_config_DB_NAME;\"; do echo ...; sleep 1; done",
+        "seed": "node db/seeder/seedQuestions.js"
     },
     "dependencies": {
         "@emailjs/browser": "^4.4.1",
@@ -28,7 +30,8 @@
         "mongoose": "^7.0.0",
         "next": "13.0.0",
         "react": "18.2.0",
-        "react-dom": "18.2.0"
+        "react-dom": "18.2.0",
+        "react-router-dom": "^7.3.0"
     },
     "devDependencies": {
         "eslint": "8.26.0",

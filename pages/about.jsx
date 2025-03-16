@@ -3,8 +3,25 @@ import Footer from "../components/footer"
 import Head from "next/head"
 import { useRouter } from 'next/router'
 import Image from "next/image"
+import { withIronSessionSsr } from "iron-session/next";
+import sessionOptions from '../config/session'
 
-export default function About() {
+export const getServerSideProps = withIronSessionSsr(
+    async function getServerSideProps({req}) {
+        const user = req.session.user
+        const props = {}
+        if (user) {
+            props.user = req.session.user
+            props.isLoggedIn = true
+        } else {
+            props.isLoggedIn = false
+        }
+        return { props }
+    },
+    sessionOptions
+)
+
+export default function About(props) {
     const router = useRouter()
 
     return (
@@ -13,7 +30,9 @@ export default function About() {
                 <title>About Tiny Triumphs</title>
             </Head>
 
-            <Header />
+            <Header 
+                isLoggedIn={props.isLoggedIn}
+            />
             <main>
                 {/* About Tiny Triumphs */}
                 <section> 

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Header from "../components/header"
 import Footer from '../components/footer'
@@ -27,7 +27,7 @@ export default function Signup(props) {
     const router = useRouter()
     const logout = useLogout()
     const [
-        {firstName, lastName, username, email, password, "confirm-password": confirmPassword} , setForm,
+        { firstName, lastName, username, email, password, "confirm-password": confirmPassword } , setForm,
     ] = useState({
         firstName: '',
         lastName: '',
@@ -37,20 +37,33 @@ export default function Signup(props) {
         'confirm-password': ''
     })
     const [error, setError] = useState('')
+    const [temporaryRoutine, setTemporaryRoutine] = useState(null)
+
+    useEffect(() => {
+        const storedRoutine = localStorage.getItem("temporaryRoutine");
+        if (storedRoutine) {
+          setTemporaryRoutine(JSON.parse(storedRoutine));
+        }
+      }, []);
 
     function handleChange(e) {
-        setForm({
-          firstName,
-          lastName,
-          username,
-          email,
-          password,
-          "confirm-password": confirmPassword,
-          ...{ [e.target.name]: e.target.value.trim() },
-        });
+        // setForm({
+        //   firstName,
+        //   lastName,
+        //   username,
+        //   email,
+        //   password,
+        //   "confirm-password": confirmPassword,
+        //   ...{ [e.target.name]: e.target.value.trim() },
+        // });
+        setForm(prevForm => ({
+            ...prevForm,
+            [e.target.name]: e.target.value.trim()
+        }))
     }
+
     async function handleSignup(e) {
-        e.preventDefault(e)
+        e.preventDefault()
         if (!(firstName && lastName && username && email)) return setError('Must include first and last name, username, and email')
         
         if (password !== confirmPassword) return setError('Passwords must match')
@@ -61,14 +74,21 @@ export default function Signup(props) {
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify({ firstName, lastName, username, email, password })
+                body: JSON.stringify({ firstName, lastName, username, email, password, temporaryRoutine })
             })
-            if (res.status === 200)
-                return router.push('/dashboard')
-            const { error: message } = await res.json()
-            setError(message)
+            if (res.ok) {
+                const data = await res.json()
+                if (data.redirect) {
+                    if (temporaryRoutine) {
+                        localStorage.removeItem("temporaryRoutine");
+                    }
+                    return router.push(data.redirect)
+                }
+            } else {
+                setError("signup failed. please try again")
+            }
         } catch (error) {
-            console.log(error.message)
+            console.error('error:', error)
         }
     }
 
@@ -78,7 +98,9 @@ export default function Signup(props) {
                 <title>Sign Up</title>
             </Head>
 
-            <Header isLoggedIn={props.isLoggedIn} firstName={props?.user?.firstName}/>
+            <Header 
+                isLoggedIn={props.isLoggedIn}
+            />
 
             <main>
                 <div>

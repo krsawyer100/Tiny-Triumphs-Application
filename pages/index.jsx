@@ -4,9 +4,27 @@ import Head from "next/head"
 import { useRouter } from 'next/router'
 import Link from "next/link";
 import Image from "next/image"
+import { withIronSessionSsr } from "iron-session/next";
+import sessionOptions from '../config/session'
+
+export const getServerSideProps = withIronSessionSsr(
+    async function getServerSideProps({req}) {
+        const user = req.session.user
+        const props = {}
+        if (user) {
+            props.user = req.session.user
+            props.isLoggedIn = true
+        } else {
+            props.isLoggedIn = false
+        }
+        return { props }
+    },
+    sessionOptions
+)
 
 export default function Home(props) {
     const router = useRouter()
+    console.log()
 
     return (
         <div>
@@ -14,7 +32,9 @@ export default function Home(props) {
                 <title>Tiny Triumphs</title>
             </Head>
 
-            <Header />
+            <Header 
+                isLoggedIn={props.isLoggedIn}
+            />
             <main>
                 {/* Hero Section */}
                 <section> 
@@ -24,12 +44,16 @@ export default function Home(props) {
                             <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo minus corrupti sit ut, in omnis unde voluptatem pariatur quas nam vitae vel enim autem voluptatum qui odio fugit quia porro?</h4>
                         </div>
                         <div>
-                            <div>
-                                <Link href="/Quiz">Start your Journey Today</Link>
-                            </div>
-                            <div>
-                                <Link href="/login">Login</Link>
-                            </div>
+                            {props.isLoggedIn ? (
+                                <div>
+                                    <Link href="/dashboard">Go to Dashboard</Link>
+                                </div>
+                            ):(
+                                <div>
+                                    <Link href="/Quiz">Start your Journey Today</Link>
+                                    <Link href="/login">Login</Link>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </section>
@@ -123,7 +147,7 @@ export default function Home(props) {
                 <section>
                     <h2>Check out our reccommended resources</h2>
                     <div>
-                        <div>
+                        <Link href="/resources/mental-health">
                             <img 
                                 src="https://picsum.photos/200"
                                 alt="Placeholder"
@@ -136,8 +160,8 @@ export default function Home(props) {
                             /> */}
                             <h3>Mental Health Resources</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo expedita adipisci dolor minus numquam quos tempore alias error, facilis veniam veritatis ea vero laudantium soluta obcaecati nobis sed commodi neque.</p>
-                        </div>
-                        <div>
+                        </Link>
+                        <Link href="/resources/physical-health">
                             <img 
                                 src="https://picsum.photos/200"
                                 alt="Placeholder"
@@ -150,8 +174,8 @@ export default function Home(props) {
                             /> */}
                             <h3>Physical Health Resources</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo expedita adipisci dolor minus numquam quos tempore alias error, facilis veniam veritatis ea vero laudantium soluta obcaecati nobis sed commodi neque.</p>
-                        </div>
-                        <div>
+                        </Link>
+                        <Link href="/resources/self-care">
                             <img 
                                 src="https://picsum.photos/200"
                                 alt="Placeholder"
@@ -164,7 +188,7 @@ export default function Home(props) {
                             /> */}
                             <h3>Self-care Resources</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo expedita adipisci dolor minus numquam quos tempore alias error, facilis veniam veritatis ea vero laudantium soluta obcaecati nobis sed commodi neque.</p>
-                        </div>
+                        </Link>
                     </div>
                 </section>
             </main>

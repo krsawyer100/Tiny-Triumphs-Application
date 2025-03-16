@@ -1,11 +1,30 @@
 import Header from '../components/header'
 import Footer from '../components/footer'
 import ContactForm from '../components/contactForm'
+import { withIronSessionSsr } from "iron-session/next";
+import sessionOptions from '../config/session'
 
-export default function Contact() {
+export const getServerSideProps = withIronSessionSsr(
+    async function getServerSideProps({req}) {
+        const user = req.session.user
+        const props = {}
+        if (user) {
+            props.user = req.session.user
+            props.isLoggedIn = true
+        } else {
+            props.isLoggedIn = false
+        }
+        return { props }
+    },
+    sessionOptions
+)
+
+export default function Contact(props) {
     return (
         <>
-            <Header />
+            <Header 
+                isLoggedIn={props.isLoggedIn}
+            />
             <main>
                 <div>
                     <h1>Contact Us</h1>

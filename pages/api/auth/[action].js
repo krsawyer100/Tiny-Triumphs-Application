@@ -1,7 +1,6 @@
 import { withIronSessionApiRoute } from "iron-session/next";
 import sessionOptions from "../../../config/session";
 import db from "../../../db";
-import { useRouter } from "next/router";
 
 export default withIronSessionApiRoute(
     function handler(req, res) {
@@ -43,21 +42,32 @@ async function logout(req, res) {
 
 async function signup(req, res) {
     try {
-        const {firstName, lastName, username, email, password} = req.body
-        const {sessionId} = req.session._id
+        const {firstName, lastName, username, email, password, temporaryRoutine} = req.body
+
+        console.log("temporary routine: ", temporaryRoutine)
+
         const {
             password: _,
             ...otherFields
         } = await db.user.create(firstName, lastName, username, email, password)
         req.session.user = otherFields
 
-        if (sessionId) {
-            // Check for temporary routines and save it to the user as their routines 
+        await req.session.save()
+
+        console.log("user created: ", req.session.user)
+        
+        if (temporaryRoutine) {
+            const newRoutine = await db.routine.createRoutines(otherFields._id, temporaryRoutine)
+            
+            if (!newRoutine) throw new Error('error creating new routine: ', error)
+
+            console.log("new routines created: ", newRoutine._id)
+
+            return res.status(200).json({ redirect: "/dashboard" })
+        } if (temporaryRoutine === null) {
+            return res.status(200).json({ redirect: "/quiz" })
         }
 
-        await req.session.save()
-        if (res.status === 200) router.push()
-        res.redirect('/dashboard')
     } catch(err) {
         res.status(400).json({error: err.message})
     }

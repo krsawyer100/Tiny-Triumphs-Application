@@ -64,7 +64,9 @@ export default function Login(props) {
                 <title>Login</title>
             </Head>
 
-            <Header/>
+            <Header 
+                isLoggedIn={props.isLoggedIn}
+            />
 
             <main>
                 <div>

@@ -1,4 +1,7 @@
-import { Schema, model, models } from "mongoose";
+import mongoose from "mongoose"; 
+const { Schema, model, models } = mongoose;
+import TaskSchema from "./task.js";
+
 
 const QuizQuestionSchema = new Schema({
     question: {
@@ -11,22 +14,22 @@ const QuizQuestionSchema = new Schema({
             text: { type: String, required: true },
             tasks: {
                 lowEnergy: {
-                    morning: [{ type: String }],
-                    afternoon: [{ type: String }],
-                    evening: [{ type: String }],
-                    night: [{ type: String }]
+                    morning: [TaskSchema],
+                    afternoon: [TaskSchema],
+                    evening: [TaskSchema],
+                    night: [TaskSchema]
                 },
                 mediumEnergy: {
-                    morning: [{ type: String }],
-                    afternoon: [{ type: String }],
-                    evening: [{ type: String }],
-                    night: [{ type: String }]
+                    morning: [TaskSchema],
+                    afternoon: [TaskSchema],
+                    evening: [TaskSchema],
+                    night: [TaskSchema]
                 },
                 highEnergy: {
-                    morning: [{ type: String }],
-                    afternoon: [{ type: String }],
-                    evening: [{ type: String }],
-                    night: [{ type: String }]
+                    morning: [TaskSchema],
+                    afternoon: [TaskSchema],
+                    evening: [TaskSchema],
+                    night: [TaskSchema]
                 }
             },
         }

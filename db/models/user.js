@@ -26,10 +26,6 @@ const UserSchema = new Schema({
         minLength: 5,
         maxLength: 200
     },
-    routines: [{
-        type: Schema.Types.ObjectId,
-        ref: "Routine"
-    }],
 })
 
 UserSchema.pre('save', async function(next) {
