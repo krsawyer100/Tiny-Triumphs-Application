@@ -5,6 +5,7 @@ import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
 import { useState, useEffect } from "react"
 import Image from "next/image.js"
+import Link from "next/link.js"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -24,6 +25,8 @@ export const getServerSideProps = withIronSessionSsr(
 export default function Dashboard(props) {
     const router = useRouter()
     const localDate = new Date().toLocaleDateString("en-CA");
+    const [displayDate, setDisplayDate] = useState(new Date().toLocaleDateString())
+    console.log("Display date: ", displayDate)
     
     const [date, setDate] = useState(localDate);
     const [quote, setQuote] = useState("")
@@ -116,6 +119,8 @@ export default function Dashboard(props) {
     function changeDate(direction) {
         const newDate = new Date(date);
         newDate.setDate(newDate.getDate() + (direction === "next" ? 1 : -1));
+        const dateForDisplay = new Date(date)
+        dateForDisplay.setDate(newDate.getDate() + (direction === "next" ? 1 : -1));
     
         const today = new Date().toLocaleDateString("en-CA")
     
@@ -124,6 +129,7 @@ export default function Dashboard(props) {
         }
     
         setDate(newDate.toLocaleDateString("en-CA"));
+        setDisplayDate(dateForDisplay.toLocaleDateString())
     }
 
     async function toggleTaskCompletion(timeOfDay, taskIndex) {
@@ -172,7 +178,7 @@ export default function Dashboard(props) {
                             {hasPastRoutine && (
                                 <button onClick={() => changeDate("prev")}>⬅️</button>
                             )}
-                            <h2>{date}</h2>
+                            <h2>{displayDate}</h2>
                             {!isToday && (
                                 <button onClick={() => changeDate("next")}>➡️</button>
                             )}
@@ -288,7 +294,7 @@ export default function Dashboard(props) {
                     </section>
                     <section>
                         <div>
-                            <h4>"{quote}"</h4>
+                            <h4>&quot;{quote}&quot;</h4>
                             <h5>~ {author}</h5>
                         </div>
                         {energySelected ? (
@@ -308,7 +314,7 @@ export default function Dashboard(props) {
                         )}
                         <div>
                             <h3>Need to change your routines?</h3>
-                            <button>Edit Here</button>
+                            <Link href="/settings">Edit Here</Link>
                         </div>
                     </section>
                 </section>
