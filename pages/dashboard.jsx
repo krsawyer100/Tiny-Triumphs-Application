@@ -135,7 +135,7 @@ export default function Dashboard(props) {
     return (
         <>
             <Head>
-                <title>{props.user.username}'s Dashboard</title>
+                <title>{props.user.username}&apos;s Dashboard</title>
             </Head>
 
             <DashboardHeader username={props?.user?.username}/>
