@@ -29,6 +29,7 @@ export default function ReviewRoutine(props) {
 
     const [routine, setRoutine] = useState({ lowEnergy: {}, mediumEnergy: {}, highEnergy: {} })
     const [editingTask, setEditingTask] = useState(null)
+    const [newTaskInput, setNewTaskInput] = useState({})
     
 
     useEffect(() => {
@@ -72,6 +73,13 @@ export default function ReviewRoutine(props) {
         setRoutine(updatedRoutine);
         localStorage.setItem("temporaryRoutine", JSON.stringify(updatedRoutine));
     }
+
+    function handleNewTaskChange(e, energyLevel, timeOfDay) {
+        setNewTaskInput((prev) => ({
+            ...prev,
+            [`${energyLevel}-${timeOfDay}`]: e.target.value
+        }))
+    }
     
     function addTask(energyLevel, timeOfDay, newTask) {
         if (!newTask.trim()) return
@@ -86,6 +94,10 @@ export default function ReviewRoutine(props) {
 
         setRoutine(updatedRoutine)
         localStorage.setItem("temporaryRoutine", JSON.stringify(updatedRoutine))
+        setNewTaskInput((prev) => ({
+            ...prev,
+            [`${energyLevel}-${timeOfDay}`]: ""
+        }))
     }
 
     function renderAddTask(energyLevel, timeOfDay) {
@@ -96,12 +108,12 @@ export default function ReviewRoutine(props) {
                 <input
                     type="text"
                     placeholder="Add new task"
-                    value={newTask}
-                    onChange={(e) => setNewTask(e.target.value)}
+                    value={newTaskInput[`${energyLevel}-${timeOfDay}`] || ""}
+                    onChange={(e) => handleNewTaskChange(e, energyLevel, timeOfDay)}
                 />
                 <button onClick={() => {
+                    const newTask = newTaskInput[`${energyLevel}-${timeOfDay}`]
                     addTask(energyLevel, timeOfDay, newTask)
-                    setNewTask("")
                 }}>Add Task</button>
             </div>
         )
