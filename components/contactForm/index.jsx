@@ -10,10 +10,10 @@ export default function ContactForm() {
 
         emailjs
             .sendForm(
-                process.env.REACT_APP_SERVICE_ID,
-                process.env.REACT_APP_TEMPLATE_ID,
+                process.env.NEXT_PUBLIC_SERVICE_ID,
+                process.env.NEXT_PUBLIC_TEMPLATE_ID,
                 e.target,
-                process.env.REACT_APP_PUBLIC_KEY
+                process.env.NEXT_PUBLIC_PUBLIC_KEY
             )
             .then(
                 (result) => {
@@ -26,6 +26,7 @@ export default function ContactForm() {
                 },
                 (error) => {
                     setStateMessage('Something went wrong, please try again later')
+                    console.log(error)
                     setIsSubmitting(false)
                     setTimeout(() => {
                         setStateMessage(null)
@@ -43,7 +44,7 @@ export default function ContactForm() {
                 <input type="email" id='email' name='email' placeholder='Email' required/>
                 <input type="text" id="category" name='category' placeholder='Message category (i.e. New Features, Complaint, etc.)' required/>
                 <textarea id='message' name='message' placeholder='Message' required/>
-                <button type='submit' disabled={isSubmitting}>Send</button>
+                <button type='submit' disabled={isSubmitting}>Send Message</button>
             </form>
         </div>
     )

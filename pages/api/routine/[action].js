@@ -2,8 +2,6 @@ import { withIronSessionApiRoute } from "iron-session/next";
 import sessionOptions from "../../../config/session";
 import db from "../../../db";
 import dbConnect from "../../../db/controllers/util/connection";
-import mongoose from "mongoose";
-import { redirect } from "next/dist/server/api-utils";
 
 export default withIronSessionApiRoute(
     function handler(req, res) {
