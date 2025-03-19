@@ -101,8 +101,6 @@ export default function ReviewRoutine(props) {
     }
 
     function renderAddTask(energyLevel, timeOfDay) {
-        const [newTask, setNewTask] = useState("")
-
         return (
             <div>
                 <input
