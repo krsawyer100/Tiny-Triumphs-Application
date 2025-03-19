@@ -34,7 +34,7 @@ export default function DashboardHeader(props) {
         <div>
           <p>Welcome, {props.username}</p>
           <nav>
-            <Link href="/settings">User Settings</Link>
+            <Link href="/settings">Account Settings</Link>
             <p onClick={logout} style={{ cursor: "pointer" }}>Logout</p>
           </nav>
         </div> 

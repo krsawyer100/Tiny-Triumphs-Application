@@ -42,9 +42,7 @@ export default function Dashboard(props) {
     }, [date])
 
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            fetchQuote()
-        }
+        fetchQuote()
     }, [])
     async function fetchQuote() {
         try {
@@ -75,15 +73,17 @@ export default function Dashboard(props) {
 
             const today = new Date().toLocaleDateString("en-CA")
             const isSameDate = date === today
-            
+
             console.log(`Comparing dates - Selected: ${date}, Today: ${today}, isToday: ${isSameDate}`);
             setIsToday(isSameDate);
 
             if (data.routine) {
+                console.log("Routine exists for this date:", data.routine);
                 setRoutine(data.routine)
                 setEnergySelected(true)
                 setHasPastRoutine(true)
             } else {
+                console.log("No routine for this date:", date);
                 setEnergySelected(false)
                 if (new Date(date) < new Date()) {
                     setHasPastRoutine(false)
@@ -117,19 +117,25 @@ export default function Dashboard(props) {
     }
 
     function changeDate(direction) {
+        console.log(`Current date: ${date}, Direction ${direction}`)
+
         const newDate = new Date(date);
         newDate.setDate(newDate.getDate() + (direction === "next" ? 1 : -1));
-        const dateForDisplay = new Date(date)
-        dateForDisplay.setDate(newDate.getDate() + (direction === "next" ? 1 : -1));
     
         const today = new Date().toLocaleDateString("en-CA")
+        const newDateString = newDate.toLocaleDateString("en-CA")
+
+        console.log(`Attempting to set new date: ${newDateString}`);
     
         if (direction === "next" && newDate.toLocaleDateString("en-CA") > today) {
+            console.log("🚫 Prevented from moving past today")
             return;
         }
     
-        setDate(newDate.toLocaleDateString("en-CA"));
-        setDisplayDate(dateForDisplay.toLocaleDateString())
+        setDate(newDateString);
+        setDisplayDate(newDate.toLocaleDateString())
+
+        fetchRoutine()
     }
 
     async function toggleTaskCompletion(timeOfDay, taskIndex) {
@@ -175,7 +181,7 @@ export default function Dashboard(props) {
                     {/* Routine */}
                     <section>
                         <div>
-                            {hasPastRoutine && (
+                            {hasPastRoutine && date !== new Date().toLocaleDateString("en-CA") && (
                                 <button onClick={() => changeDate("prev")}>⬅️</button>
                             )}
                             <h2>{displayDate}</h2>

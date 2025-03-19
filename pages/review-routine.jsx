@@ -73,6 +73,39 @@ export default function ReviewRoutine(props) {
         localStorage.setItem("temporaryRoutine", JSON.stringify(updatedRoutine));
     }
     
+    function addTask(energyLevel, timeOfDay, newTask) {
+        if (!newTask.trim()) return
+
+        const updatedRoutine = {...routine}
+
+        if (!updatedRoutine[energyLevel][timeOfDay]) {
+            updatedRoutine[energyLevel][timeOfDay] = []
+        }
+
+        updatedRoutine[energyLevel][timeOfDay].push({ task: newTask })
+
+        setRoutine(updatedRoutine)
+        localStorage.setItem("temporaryRoutine", JSON.stringify(updatedRoutine))
+    }
+
+    function renderAddTask(energyLevel, timeOfDay) {
+        const [newTask, setNewTask] = useState("")
+
+        return (
+            <div>
+                <input
+                    type="text"
+                    placeholder="Add new task"
+                    value={newTask}
+                    onChange={(e) => setNewTask(e.target.value)}
+                />
+                <button onClick={() => {
+                    addTask(energyLevel, timeOfDay, newTask)
+                    setNewTask("")
+                }}>Add Task</button>
+            </div>
+        )
+    }
 
     function updateTask(energyLevel, timeOfDay, index, newText) {
         if (!newText.trim()) return;
@@ -146,32 +179,43 @@ export default function ReviewRoutine(props) {
                             <h2>Low Energy Routine</h2>
                             <h3>Morning</h3>
                             {renderTasks(routine.lowEnergy.morning, "lowEnergy", "morning")}
+                            {renderAddTask("lowEnergy", "morning")}
                             <h3>Afternoon</h3>
                             {renderTasks(routine.lowEnergy.afternoon, "lowEnergy", "afternoon")}
+                            {renderAddTask("lowEnergy", "afternoon")}
                             <h3>Evening</h3>
                             {renderTasks(routine.lowEnergy.evening, "lowEnergy", "evening")}
+                            {renderAddTask("lowEnergy", "evening")}
                             <h3>Night</h3>
                             {renderTasks(routine.lowEnergy.night, "lowEnergy", "night")}
+                            {renderAddTask("lowEnergy", "night")}
 
                             <h2>Medium Energy Routine</h2>
                             <h3>Morning</h3>
                             {renderTasks(routine.mediumEnergy.morning, "mediumEnergy", "morning")}
+                            {renderAddTask("mediumEnergy", "morning")}
                             <h3>Afternoon</h3>
                             {renderTasks(routine.mediumEnergy.afternoon, "mediumEnergy", "afternoon")}
+                            {renderAddTask("mediumEnergy", "afternoon")}
                             <h3>Evening</h3>
                             {renderTasks(routine.mediumEnergy.evening, "mediumEnergy", "evening")}
+                            {renderAddTask("mediumEnergy", "evening")}
                             <h3>Night</h3>
                             {renderTasks(routine.mediumEnergy.night, "mediumEnergy", "night")}
-
+                            {renderAddTask("mediumEnergy", "night")}
                             <h2>High Energy Routine</h2>
                             <h3>Morning</h3>
                             {renderTasks(routine.highEnergy.morning, "highEnergy", "morning")}
+                            {renderAddTask("highEnergy", "morning")}
                             <h3>Afternoon</h3>
                             {renderTasks(routine.highEnergy.afternoon, "highEnergy", "afternoon")}
+                            {renderAddTask("highEnergy", "afternoon")}
                             <h3>Evening</h3>
                             {renderTasks(routine.highEnergy.evening, "highEnergy", "evening")}
+                            {renderAddTask("highEnergy", "evening")}
                             <h3>Night</h3>
                             {renderTasks(routine.highEnergy.night, "highEnergy", "night")}
+                            {renderAddTask("highEnergy", "night")}
                         </div>
                     ) : (
                         <p>Loading routine...</p>

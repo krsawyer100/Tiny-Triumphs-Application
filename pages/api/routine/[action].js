@@ -10,12 +10,20 @@ export default withIronSessionApiRoute(
         switch(req.query.action) {
             case 'create-routine':
                 return createRoutines(req,res)
+            case 'get-routine':
+                return getRoutines(req, res)
             case 'create-daily-routine':
                 return createDailyRoutine(req,res)
             case 'get-daily-routine':
                 return getDailyRoutine(req, res)
             case 'toggle-task':
                 return toggleTaskCompletion(req, res)
+            case 'add-task':
+                return addTask(req, res)
+            case 'edit-task':
+                return editTask(req, res)
+            case 'delete-task':
+                    return deleteTask(req, res)
             default:
                 return res.status(404).end()
         }
@@ -46,6 +54,24 @@ async function createRoutines(req, res) {
         return res.status(201).json({ message: "Routine saved successfully", routine: newRoutine, redirect: "/dashboard" });
     } catch (error) {
         console.error("Error saving routine:", error);
+    }
+}
+
+async function getRoutines(req, res) {
+    await dbConnect()
+
+    try {
+        const userId = req.session.user?._id
+
+        if (!userId) {
+            return res.status(401).json({redirect: "/login"})
+        }
+
+        const routine = await db.routine.getRoutines(userId)
+
+        return res.status(200).json({ routine })
+    } catch (err) {
+        console.error("error fetching generated routines: ", err)
     }
 }
 
@@ -123,5 +149,67 @@ async function toggleTaskCompletion(req, res) {
         return res.json({ routine: updatedRoutine })
     } catch (err) {
         console.error("Error toggling task completion: ", err)
+    }
+}
+
+async function addTask(req, res) {
+    await dbConnect()
+
+    try {
+        const userId = req.session.user?._id
+        const { energyLevel, timeOfDay, task } = req.body
+
+        if (!userId) {
+            return res.status(401).json({ redirect: "/login" })
+        }
+
+        const updatedRoutine = await db.task.addTask(userId, energyLevel, timeOfDay, task)
+
+        return res.status(201).json({ message: "task added successfully", routine: updatedRoutine })
+    } catch (err) {
+        console.error("error adding task: ", err)
+        return res.status(500)
+    }
+}
+
+async function editTask(req, res) {
+    await dbConnect()
+
+    try {
+        const userId = req.session.user?._id
+        const { energyLevel, timeOfDay, taskIndex, updatedTask } = req.body
+
+        if (!userId) {
+            return res.status(401).json({ redirect: "/login" })
+        }
+
+        const updatedRoutine = await db.task.editTask(userId, energyLevel, timeOfDay, taskIndex, updatedTask)
+
+        return res.status(200).json({ message: "task updated successfully", routine: updatedRoutine })
+    } catch (err) {
+        console.error("error editing task: ", err)
+        return res.status(500)
+    }
+}
+
+async function deleteTask(req, res) {
+    await dbConnect()
+
+    try {
+        const userId = req.session.user?._id
+        const { energyLevel, timeOfDay, taskIndex } = req.body
+
+        if (!userId) {
+            return res.status(401).json({ redirect: "/login" })
+        }
+
+        const updatedRoutine = await db.task.deleteTask(userId, energyLevel, timeOfDay, taskIndex)
+
+        console.log("updated routine from api: ", updatedRoutine)
+
+        return res.status(201).json({ message: "task deleted successfully", routine: updatedRoutine })
+    } catch (err) {
+        console.error("error deleting task: ", err)
+        return res.status(500)
     }
 }

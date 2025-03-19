@@ -2,7 +2,6 @@ import GeneratedRoutine from '../models/generatedRoutine';
 import DailyRoutine from '../models/dailyRoutine';
 import dbConnect from './util/connection';
 import mongoose from 'mongoose';
-import user from '../models/user';
 
 export async function createRoutines(userId, temporaryRoutine) {
     await dbConnect();
@@ -23,6 +22,31 @@ export async function createRoutines(userId, temporaryRoutine) {
     } catch (error) {
         console.error("Error creating routine:", error);
         throw new Error("Could not create routine");
+    }
+}
+
+export async function getRoutines(userId) {
+    await dbConnect()
+
+    try {
+        console.log("userId: ", userId)
+        if (!userId) {
+            throw new Error ("no user found")
+        }
+
+        const validUserId = new mongoose.Types.ObjectId(userId)
+
+        const generatedRoutines = await GeneratedRoutine.findOne({ userId: validUserId })
+
+        console.log("controller generated routines: ", generatedRoutines)
+
+        if (!generatedRoutines) {
+            throw new Error("no generated routines found")
+        }
+
+        return generatedRoutines
+    } catch (err) {
+        console.error("error getting routines", err)
     }
 }
 

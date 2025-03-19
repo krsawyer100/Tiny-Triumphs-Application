@@ -1,5 +1,6 @@
 import dbConnect from "./util/connection";
 import DailyRoutine from "../models/dailyRoutine"
+import GeneratedRoutine from "../models/generatedRoutine"
 import mongoose from "mongoose";
 
 export async function toggleTaskCompletion(userId, date, timeOfDay, taskIndex) {
@@ -43,5 +44,88 @@ export async function toggleTaskCompletion(userId, date, timeOfDay, taskIndex) {
         return routine
     } catch (err) {
         console.error("Error toggling task completion: ", err)
+    }
+}
+
+export async function addTask(userId, energyLevel, timeOfDay, task) {
+    await dbConnect()
+
+    try {
+        if (!userId || !energyLevel || !timeOfDay || !task) {
+            throw new Error("missing required information")
+        }
+
+        const validUserId = new mongoose.Types.ObjectId(userId)
+        let routine = await GeneratedRoutine.findOne({ userId: validUserId })
+
+        if (!routine) {
+            throw new Error("generated routines not found")
+        }
+
+        routine.routine[energyLevel][timeOfDay].push({ task, completed: false })
+        await routine.save()
+
+        return routine
+    } catch (err) {
+        console.error("error adding task: ", err)
+    }
+}
+
+export async function editTask(userId, energyLevel, timeOfDay, taskIndex, updatedTask) {
+    await dbConnect()
+
+    try {
+        if (!userId || !energyLevel || !timeOfDay || taskIndex === undefined || !updatedTask) {
+            throw new Error("Missing required information")
+        }
+
+        const validUserId = new mongoose.Types.ObjectId(userId)
+        let routine = await GeneratedRoutine.findOne({ userId: validUserId })
+
+        if (!routine) {
+            throw new Error ("generated routines not found")
+        }
+
+        if (!routine.routine[energyLevel][timeOfDay][taskIndex]) {
+            throw new Error("task not found")
+        }
+
+        routine.routine[energyLevel][timeOfDay][taskIndex].task = updatedTask
+        await routine.save()
+
+        return routine
+    } catch (err) {
+        console.error("error editing task: ", err)
+    }
+}
+
+export async function deleteTask(userId, energyLevel, timeOfDay, taskIndex) {
+    await dbConnect()
+
+    try {
+        if (!userId || !energyLevel || !timeOfDay || taskIndex === undefined) {
+            throw new Error("Missing required information")
+        }
+
+        const validUserId = new mongoose.Types.ObjectId(userId)
+        const routine = await GeneratedRoutine.findOne({ userId: validUserId })
+
+        if (!routine) {
+            throw new Error ("generated routines not found")
+        }
+
+        console.log("Routine structure: ", JSON.stringify(routine.routine, null, 2))
+        console.log("Attemping to delete task at: ", energyLevel, timeOfDay, taskIndex)
+
+        if (!routine.routine[energyLevel][timeOfDay][taskIndex]) {
+            throw new Error("task not found")
+        }
+
+        routine.routine[energyLevel][timeOfDay].splice(taskIndex, 1) 
+        await routine.save()
+
+        return routine
+    } catch (err) {
+        console.error("error deleting task: ", err)
     }
 }
