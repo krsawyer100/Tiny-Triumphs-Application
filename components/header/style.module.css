@@ -1,6 +1,6 @@
 .headerContainer {
     background-color: var(--white);
-    border-bottom: var(--primary) 2px solid;
+    border-bottom: var(--orange) 2px solid;
   }
   
   .headerInfo {
@@ -8,14 +8,20 @@
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    padding: 5px 10px;
+    padding: 5px 15px;
   }
   
   .headerInfo > p, .headerInfoLink {
-    font-size: 1.25rem;
+    font-size: 16px;
     font-weight: 500;
     text-decoration: none;
-    color: var(--primary);
+    color: var(--orange);
+  }
+
+  .headerInfo > p:hover, .headerInfoLink:hover,   .headerInfo > p:focus, .headerInfoLink:focus {
+    transform: scale(.99);
+    transition: .3s;
+    color: var(--blue);
   }
 
   .dropdownContainer {
@@ -40,10 +46,41 @@
   .dropdownItem {
     padding: 10px;
     text-decoration: none;
-    color: black;
+    color: var(--orange);
     display: block;
+    font-weight: 400;
+    font-size: 14px;
   }
   
   .dropdownItem:hover {
     background-color: #f0f0f0;
+  }
+
+  .logoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logo {
+    object-fit: contain;
+  }
+
+  .quizBtn {
+    text-decoration: none;
+    background-color: var(--blue);
+    padding: 10px 15px;
+    border-radius: 50px;
+    color: var(--white);
+    box-shadow: 0 0 7px 1px rgba(0, 0, 0, .3);
+  }
+
+  .quizBtn:hover, .quizBtn:focus {
+    transition: .3s;
+    background-color: var(--orange);
+  }
+
+  .logoContainer:hover, .logoContainer:focus {
+    transform: scale(.98);
+    transition: .3s;
   }

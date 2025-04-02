@@ -6,6 +6,7 @@ import useLogout from "../hooks/useLogout"
 import { useState, useEffect } from "react"
 import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
+import styles from "../public/styles/ReviewRoutines.module.css"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -181,9 +182,10 @@ export default function ReviewRoutine(props) {
             />
 
             <main>
-                <h1>Review Your Generated Routines</h1>
+                <h1>Personalized Routines</h1>
+                <h2>Please review your personalized routines and edit them as you need to meet your needs and desires! Don&apos;t worry, you can always edit them later if needed.</h2>
                 <>
-                <div>
+                <div className={styles.routinesContainer}>
                     {routine ? (
                         <div>
                             <h2>Low Energy Routine</h2>

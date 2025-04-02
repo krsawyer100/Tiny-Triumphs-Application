@@ -4,6 +4,7 @@ import useLogout from "../../hooks/useLogout";
 import { useState } from "react";
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from "../../config/session";
+import Image from "next/image";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
@@ -31,7 +32,16 @@ export default function Header(props) {
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerInfo}>
-        <Link href="/">Tiny Triumphs 🧘‍♂️</Link>
+        <Link href="/" className={styles.logoContainer}>
+          <Image 
+            src="/images/Logo-horizontal.png"
+            alt=""
+            width={200}
+            height={100}
+            className={styles.logo}
+          />
+        
+        </Link>
         <div className={styles.headerInfo}>
           {props.isLoggedIn ? (
             <>
@@ -69,7 +79,7 @@ export default function Header(props) {
                 Logout
               </p>
               <p>
-                <Link href="/quiz" className={styles.headerInfoLink}>
+                <Link href="/quiz" className={styles.quizBtn}>
                   Try Our Quiz
                 </Link>
               </p>
@@ -112,7 +122,7 @@ export default function Header(props) {
                 </Link>
               </p>
               <p>
-                <Link href="/quiz" className={styles.headerInfoLink}>
+                <Link href="/quiz" className={styles.quizBtn}>
                   Try Our Quiz
                 </Link>
               </p>

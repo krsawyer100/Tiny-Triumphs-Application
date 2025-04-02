@@ -6,6 +6,7 @@ import useLogout from "../hooks/useLogout"
 import { useState, useEffect } from "react"
 import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
+import styles from "../public/styles/Quiz.module.css"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({ req }) {
@@ -30,10 +31,8 @@ export default function Quiz(props) {
     const [questions, setQuestions] = useState([])
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [selectedAnswers, setSelectedAnswers] = useState([])
+    const [hasStarted, setHasStarted] = useState(false)
 
-    useEffect(() => {
-        getQuestions()
-    }, [])
     async function getQuestions() {
         try {
             const res = await fetch('/api/quiz/questions', {
@@ -56,6 +55,11 @@ export default function Quiz(props) {
         } catch (error) {
             console.error("Error:", error);
         }
+    }
+
+    async function handleStartQuiz() {
+        await getQuestions()
+        setHasStarted(true)
     }
 
     function handleAnswerSelection(answer) {
@@ -100,6 +104,7 @@ export default function Quiz(props) {
 
     function handleFinishQuiz() {
         saveRoutineToLocalStorage()
+        setHasStarted(false)
         router.push("review-routine")
     }
 
@@ -113,37 +118,62 @@ export default function Quiz(props) {
                 isLoggedIn={props.isLoggedIn}
             />
 
-            <main>
-                <h1>Quiz Page</h1>
-                {questions.length > 0 && questions[currentQuestion] ? (
-                    <div>
-                        <h2>{questions[currentQuestion].category}</h2>
-                        <h3>{questions[currentQuestion].question}</h3>
-                        <ul>
-                            {questions[currentQuestion].answers.map((answer, index) => (
-                                <li key={index}>
-                                    <input 
+            <main className={styles.main}>
+                {!hasStarted ? (
+                    <div className={styles.startMenu}>
+                        <h1>Start your Journey Today</h1>
+                        <h2>All it takes is one click to start your journey to self-care routines generated just for you!</h2>
+                        <button onClick={handleStartQuiz}>Start Quiz</button>
+                    </div>
+                ):(
+                    questions.length > 0 && questions[currentQuestion] ? (
+                        <div className={styles.questionsContainer}>
+                            <h2>{questions[currentQuestion].category}</h2>
+                            <h4>{questions[currentQuestion].question}</h4>
+                            <div className={styles.answerChoices}>
+                                {questions[currentQuestion].answers.map((answer, index) => (
+                                    <label
+                                        key={index}
+                                        className={`${styles.answerChoice} ${selectedAnswers.includes(answer) ? styles.selected : ''}`}
+                                    >
+                                    <input
                                         type="checkbox"
                                         checked={selectedAnswers.includes(answer)}
-                                        onChange={() => handleAnswerSelection(answer)} 
+                                        onChange={() => handleAnswerSelection(answer)}
+                                        readOnly
+                                        style={{ display: 'none' }}
                                     />
-                                    {answer.text}
-                                </li>
-                            ))}
-                        </ul>
-                        {currentQuestion < questions.length - 1 ? (
-                            <button onClick={handleNextQuestion}>Next Question</button>
+                                        {answer.text}
+                                    </label>
+                                ))}
+                            </div>
+                            <div className={styles.questionNav}>
+                                {currentQuestion > 0 ? (
+                                    <button onClick={() => setCurrentQuestion(currentQuestion - 1)}>
+                                        &larr; Previous
+                                    </button>
+                                ): (
+                                    <div style={{ visibility: "hidden" }}>Button Placeholder</div>
+                                )}
+                                <div className={styles.questionCount}>
+                                    {questions.map((_, index) => (
+                                        <span
+                                            key={index}
+                                            className={`${styles.dot} ${index === currentQuestion ? styles.active : ''}`}
+                                        />
+                                    ))}
+                                </div>
+                                {currentQuestion < questions.length - 1 ? (
+                                    <button onClick={handleNextQuestion}>Next &rarr;</button>
+                                ) : (
+                                    <button onClick={handleFinishQuiz}>Review your Routines</button>
+                                )}
+                            </div>
+                        </div>
                         ) : (
-                            <button onClick={handleFinishQuiz}>Review your Routines</button>
-                        )}
-                    </div>
-                    ) : (
-                        <p>Fetching questions...</p>
-                    )
-                }
-                <div>
-                    {/* Temporary routines for editting before save here after completion of quiz */}
-                </div>
+                            <p>Fetching questions...</p>
+                        )
+                    )}
             </main>
             <Footer />
         </>

@@ -1,0 +1,82 @@
+.about > h1 {
+    color: var(--orange);
+    text-align: center;
+}
+
+.about > div {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+}
+
+.about {
+    margin: 70px 50px;
+}
+
+.aboutImg {
+    border-radius: 30px;
+    border: var(--purple) 2px solid;
+    width: 400px;
+    height: 400px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.aboutTextContainer {
+    max-width: 700px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.aboutImgContainer {
+    max-width: 600px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.aboutTextContainer > div > h4 {
+    color: var(--blue);
+    margin-bottom: 5px;
+}
+
+
+.creator {
+    background-image: url("~/public/images/stripped-background.jpg");
+    background-color: var(--orange);
+    background-blend-mode: multiply;
+    color: var(--white);
+}
+
+.creator > h2 {
+    text-align: center;
+    padding: 50px 50px 0;
+}
+
+.creatorContainer {
+    display: flex;
+    padding: 0 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.creatorTextContainer {
+    width: 50%;
+    padding-bottom: 50px;
+}
+
+.creatorImgContainer {
+    display: flex;
+    justify-content: center;
+    align-self: end;
+}
+
+.creatorImg {
+    width: auto;
+    object-fit: cover;
+    height: 600px;
+}

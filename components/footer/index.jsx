@@ -1,32 +1,22 @@
-// import styles from "./style.module.css";
+import styles from "./style.module.css";
 import Link from "next/link";
 
 export default function Footer() {
 
   return (
     
-    <footer>
-      <div>
+    <footer className={styles.footer}>
+      <div className={styles.footerContainer}>
         <>
-          <div>
-            <p>
-              <Link href="/about">About</Link>
-            </p>
-            <p>
-              <Link href="/resources">Resources</Link>
-            </p>
-            <p>
-              <Link href="/contact">Contact</Link>
-            </p>
-            <p>
-              <Link href="/login">Login</Link>
-            </p>
-            <p>
-              <Link href="/quiz">Try Our Quiz</Link>
-            </p>
+          <div className={styles.sitemapContainer}>
+            <Link href="/about" className={styles.navLink}>About</Link>
+            <Link href="/resources/mental-health" className={styles.navLink}>Resources</Link>
+            <Link href="/contact" className={styles.navLink}>Contact</Link>
+            <Link href="/login" className={styles.navLink}>Login</Link>
+            <Link href="/quiz" className={styles.navLink}>Try Our Quiz</Link>
           </div>
-          <div>
-            <p>&copy; 2025 Tiny Triumphs - All Rights Reserved.</p>
+          <div className={styles.copyright}>
+            <p className={styles.copyrightText}>&copy; 2025 Tiny Triumphs - All Rights Reserved.</p>
           </div>
         </>
       </div>

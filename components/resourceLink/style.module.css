@@ -1,0 +1,42 @@
+.resourceLinkContainer {
+    background-color: var(--white);
+    width: 350px;
+    height: 500px;
+    border: var(--blue) 3px solid;
+    border-radius: 30px;
+    box-shadow: 0 0 10px 2px rgba(0,0,0,.3);
+}
+
+.resourceLink {
+    text-decoration: none;
+}
+
+.resourceImg {
+    border-radius: 26px 26px 0 0;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.resourceTextContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.resourceTextContainer > h3 {
+    color: var(--blue);
+    margin-bottom: 0;
+}
+
+.resourceTextContainer > p {
+    color: var(--black);
+}
+
+.resourceLinkContainer:hover, .resourceLinkContainer:focus {
+    transform: scale(.98);
+    transition: .3s;
+}

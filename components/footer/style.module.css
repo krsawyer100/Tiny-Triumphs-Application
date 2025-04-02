@@ -1,0 +1,35 @@
+.footer {
+    background-color: var(--blue);
+    border-top: var(--white) solid 2px;
+}
+
+.footerContainer {
+    padding: 50px;
+}
+
+.sitemapContainer {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    padding-bottom: 40px;
+}
+
+.navLink {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.navLink:hover, .navLink:focus {
+    transform: scale(.98);
+    transition: 2s;
+    text-decoration: underline;
+}
+
+.copyrightText {
+    color: var(--white);
+    font-weight: 300;
+    font-size: 12px;
+    text-align: center;
+}
