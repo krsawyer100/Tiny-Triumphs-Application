@@ -33,8 +33,16 @@
 }
 
 .emergencyResourcesContainer > div {
-    width: 25%;
+    width: 20%;
     text-align: center;
+}
+
+.emergencyResourceLink:nth-child(1) {
+    text-align: start;
+}
+
+.emergencyResourceLink:nth-child(5) {
+    text-align: end;
 }
 
 .emergencyResourcesContainer > div > h4 {
@@ -67,7 +75,7 @@
     background-image: url("~/public/images/white-background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: rgba(255, 252, 240, .7);
+    background-color: rgba(255, 252, 240, .8);
     background-blend-mode: overlay;
 }
 

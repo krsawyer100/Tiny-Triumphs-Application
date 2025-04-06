@@ -5,6 +5,11 @@ import sessionOptions from "../config/session"
 import useLogout from "../hooks/useLogout"
 import { useState, useEffect } from "react"
 import DashboardHeader from "../components/dashboardHeader"
+import Cropper from 'react-easy-crop'
+import getCroppedImg from '../utils/cropImage.js'
+import Image from "next/image.js"
+import styles from "../public/styles/Settings.module.css"
+
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -25,6 +30,7 @@ export default function Settings(props) {
     const router = useRouter()
     const logout = useLogout()
     const userId = props.user._id
+    const [profilePhoto, setProfilePhoto] = useState(props.user?.profilePhoto || "/images/account-icon-blue.png");
     const [{ firstName, lastName, username, email, password }, setForm] = useState({
         firstName: props.user.firstName,
         lastName: props.user.lastName,
@@ -34,9 +40,22 @@ export default function Settings(props) {
     const [error, setError] = useState('')
     const [confirm, setConfirm] = useState('')
 
+    const [oldPassword, setOldPassword] = useState('')
+    const [newPassword, setNewPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [passwordError, setPasswordError] = useState('')
+    const [passwordSuccess, setPasswordSuccess] = useState('')
+
     const [generatedRoutine, setGeneratedRoutine] = useState(null)
     const [newTaskInput, setNewTaskInput] = useState({})
     const [editingTask, setEditingTask] = useState(null)
+
+    const [selectedImage, setSelectedImage] = useState(null)
+    const [crop, setCrop] = useState({x:0, y:0})
+    const [zoom, setZoom] = useState(1)
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
+    const [croppedImage, setCroppedImage] = useState(null)
+    const [rotation, setRotation] = useState(0)
 
     useEffect(() => {
         fetchRoutines()
@@ -98,6 +117,38 @@ export default function Settings(props) {
             setError(message)
         } catch (error) {
             console.log(error.message)
+        }
+    }
+
+    async function handlePasswordUpdate(e) {
+        e.preventDefault()
+
+        try {
+            const res = await fetch('/api/user/update-password', {
+                method: 'PATCH',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({oldPassword, newPassword, confirmPassword})
+            })
+
+            const data = await res.json()
+
+            if (res.ok) {
+                setPasswordSuccess(data.message)
+                setPasswordError('')
+                setOldPassword('')
+                setNewPassword('')
+                setConfirmPassword('')
+            } else {
+                setPasswordError(data.error)
+                setPasswordSuccess('')
+            }
+
+        } catch (err) {
+            console.error('Error updating password:', error)
+            setPasswordError('An unexpected error occurred.')
+            setPasswordSuccess('')
         }
     }
 
@@ -249,109 +300,292 @@ export default function Settings(props) {
         )
     }
 
+    function onFileChange(e) {
+        const file = e.target.files[0]
+        if (file) {
+            const reader = new FileReader()
+            reader.onload = () => setSelectedImage(reader.result)
+            reader.readAsDataURL(file)
+        }
+    }
+
+    async function showCroppedImage() {
+        try {
+            console.log('Selected Image:', selectedImage);
+            console.log('Cropped Area Pixels:', croppedAreaPixels);
+            console.log('Rotation:', rotation);
+
+            if (!selectedImage || !croppedAreaPixels) {
+                console.error('Missing required data for cropping');
+                return;
+            }
+
+            const croppedImg = await getCroppedImg(selectedImage, croppedAreaPixels, rotation)
+            console.log('Cropped Image URL:', croppedImg);
+
+            setCroppedImage(croppedImg)
+            await uploadImageToServer(croppedImg)
+
+            setRotation(0);
+            setZoom(1);
+            setSelectedImage(null);
+            setCroppedAreaPixels(null);
+        } catch (err) {
+            console.error('Error in showCroppedImage: ', err)
+        }
+    }
+
+    async function uploadImageToServer(croppedImageUrl) {
+        const blob = await fetch(croppedImageUrl).then(res => res.blob());
+        const formData = new FormData();
+        formData.append('file', blob);
+        formData.append('rotation', rotation)
+    
+        try {
+            const res = await fetch('/api/user/upload-photo', {
+                method: 'POST',
+                body: formData,
+            });
+    
+            if (res.ok) {
+                const data = await res.json();
+                console.log('Upload success: ', data);
+                setProfilePhoto(data.filePath);
+                setSelectedImage(null);
+            } else {
+                console.error('Upload failed');
+            }
+        } catch (error) {
+            console.error('Error uploading image: ', error);
+        }
+    }
+
     return (
         <div>
             <Head>
                 <title>{props.user.username}&apos;s Settings</title>
             </Head>
 
-            <DashboardHeader username={props?.user?.username}/>
+            <DashboardHeader username={props?.user?.username} profilePhoto={profilePhoto}/>
 
-            <main>
+            <main className={styles.main}>
                 <h1>{props.user.username}&apos;s Settings</h1>
-                {confirm && <p>{confirm}</p>}
-                <h2>User Information</h2>
-                <form onSubmit={handleUpdate}>
-                    <label htmlFor="firstName">First Name: </label>
-                    <input 
-                        type="text"
-                        name='firstName'
-                        id='firstName'
-                        onChange={handleChange}
-                        value={firstName}
-                    />
-                    <label htmlFor="lastName">Last Name: </label>
-                    <input 
-                        type="text"
-                        name='lastName'
-                        id='lastName'
-                        onChange={handleChange}
-                        value={lastName}
-                    />
-                    <label htmlFor="username">Username: </label>
-                    <input 
-                        type="text"
-                        name='username'
-                        id='username'
-                        onChange={handleChange}
-                        value={username}
-                    />
-                    <label htmlFor="email">Email: </label>
-                    <input 
-                        type="email"
-                        name='email'
-                        id='email'
-                        onChange={handleChange}
-                        value={email}
-                    />
-                    {error && <p>{error}</p>}
-                    <button>Update Information</button>
-                </form>
-                <button onClick={handleDelete}>Delete Account</button>
-                <h2>Edit Routines</h2>
-                <div>
-                {generatedRoutine ? (
+                <section className={styles.userInformation}>
+                    <h2>User Information</h2>
                     <div>
                         <div>
-                            <h3>Low Energy Routine</h3>
-                            <h4>Morning</h4>
-                            {renderTasks(generatedRoutine.routine.lowEnergy.morning, "lowEnergy", "morning")}
-                            {renderAddTask("lowEnergy", "morning")}
-                            <h4>Afternoon</h4>
-                            {renderTasks(generatedRoutine.routine.lowEnergy.afternoon, "lowEnergy", "afternoon")}
-                            {renderAddTask("lowEnergy", "afternoon")}
-                            <h4>Evening</h4>
-                            {renderTasks(generatedRoutine.routine.lowEnergy.evening, "lowEnergy", "evening")}
-                            {renderAddTask("lowEnergy", "evening")}
-                            <h4>Night</h4>
-                            {renderTasks(generatedRoutine.routine.lowEnergy.night, "lowEnergy", "night")}
-                            {renderAddTask("lowEnergy", "night")}
-                        </div>
-                        <div>
-                        <h3>Medium Energy Routine</h3>
-                            <h4>Morning</h4>
-                            {renderTasks(generatedRoutine.routine.mediumEnergy.morning, "mediumEnergy", "morning")}
-                            {renderAddTask("mediumEnergy", "morning")}
-                            <h4>Afternoon</h4>
-                            {renderTasks(generatedRoutine.routine.mediumEnergy.afternoon, "mediumEnergy", "afternoon")}
-                            {renderAddTask("mediumEnergy", "afternoon")}
-                            <h4>Evening</h4>
-                            {renderTasks(generatedRoutine.routine.mediumEnergy.evening, "mediumEnergy", "evening")}
-                            {renderAddTask("mediumEnergy", "evening")}
-                            <h4>Night</h4>
-                            {renderTasks(generatedRoutine.routine.mediumEnergy.night, "mediumEnergy", "night")}
-                            {renderAddTask("mediumEnergy", "night")}
-                        </div>
-                        <div>
-                        <h3>High Energy Routine</h3>
-                            <h4>Morning</h4>
-                            {renderTasks(generatedRoutine.routine.highEnergy.morning, "highEnergy", "morning")}
-                            {renderAddTask("highEnergy", "morning")}
-                            <h4>Afternoon</h4>
-                            {renderTasks(generatedRoutine.routine.highEnergy.afternoon, "highEnergy", "afternoon")}
-                            {renderAddTask("highEnergy", "afternoon")}
-                            <h4>Evening</h4>
-                            {renderTasks(generatedRoutine.routine.highEnergy.evening, "highEnergy", "evening")}
-                            {renderAddTask("highEnergy", "evening")}
-                            <h4>Night</h4>
-                            {renderTasks(generatedRoutine.routine.highEnergy.night, "highEnergy", "night")}
-                            {renderAddTask("highEnergy", "night")}
+                            <Image
+                                src={profilePhoto.startsWith('/uploads') ? profilePhoto : `/images/account-icon-blue.png`}
+                                alt=""
+                                width={150}
+                                height={150}
+                                className={styles.newProfilePhoto}
+                            />
+                            <input type="file" accept="image/*" onChange={onFileChange} className={styles.uploadBtn}/>
+                            <div>
+                {selectedImage && (
+                    <div className={styles.cropModal}>
+                        <div className={styles.cropModalBorder}>
+                            <div className={styles.imgContainer}>
+                                <Cropper
+                                    image={selectedImage}
+                                    crop={crop}
+                                    zoom={zoom}
+                                    rotation={rotation}
+                                    aspect={1}
+                                    cropShape="round"
+                                    showGrid={false}
+                                    onCropChange={setCrop}
+                                    onZoomChange={setZoom}
+                                    onRotationChange={setRotation}
+                                    onCropComplete={(_, croppedAreaPixels) => {
+                                        console.log('Crop complete:', croppedAreaPixels);
+                                        setCroppedAreaPixels(croppedAreaPixels)}
+                                    }
+                                />
+                            </div>
+                            <div style={{ marginTop: '10px', textAlign: 'center' }}>
+                                    <button 
+                                        onClick={() => setRotation((prev) => prev - 90)} 
+                                        style={{ marginRight: '5px' }}
+                                    >
+                                        Rotate Left
+                                    </button>
+                                    <div style={{ marginTop: '15px', textAlign: 'center' }}>
+  {/* Zoom Slider */}
+  <label htmlFor="zoomSlider" style={{ marginRight: '10px' }}>Zoom:</label>
+  <input
+    id="zoomSlider"
+    type="range"
+    min={1}
+    max={3}
+    step={0.1}
+    value={zoom}
+    onChange={(e) => setZoom(e.target.value)}
+    style={{ width: '60%' }}
+  />
+</div>
+                                    <button onClick={() => setRotation((prev) => prev + 90)}>
+                                        Rotate Right
+                                    </button>
+                                </div>
+                            <div className={styles.btnsContainer}>
+                                <button 
+                                    onClick={() => setSelectedImage(null)}
+                                    className={styles.modalBtn}
+                                 >
+                                    Cancel
+                                </button>
+                                <button 
+                                    onClick={() => showCroppedImage()} 
+                                    className={styles.modalBtn}
+                               >
+                                    Save Crop
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    ) : (
-                        <p>Loading routine...</p>
-                    )}
+                )} 
                 </div>
+                        </div>
+                        <div>
+                        <form onSubmit={handleUpdate}>
+                            <div>
+                                <label htmlFor="firstName">First Name: </label>
+                                <input 
+                                    type="text"
+                                    name='firstName'
+                                    id='firstName'
+                                    onChange={handleChange}
+                                    value={firstName}
+                                />
+                                <label htmlFor="lastName">Last Name: </label>
+                                <input 
+                                    type="text"
+                                    name='lastName'
+                                    id='lastName'
+                                    onChange={handleChange}
+                                    value={lastName}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="username">Username: </label>
+                                <input 
+                                    type="text"
+                                    name='username'
+                                    id='username'
+                                    onChange={handleChange}
+                                    value={username}
+                                />
+                                <label htmlFor="email">Email: </label>
+                                <input 
+                                    type="email"
+                                    name='email'
+                                    id='email'
+                                    onChange={handleChange}
+                                    value={email}
+                                />
+
+                            </div>         
+                            {error && <p>{error}</p>}
+                            {confirm && <p>{confirm}</p>}
+                            <button>Update Information</button>
+                        </form>
+                        </div>
+                    </div>
+                    <span></span>
+                    <form onSubmit={handlePasswordUpdate}>
+                        <div>
+                            <label htmlFor="oldPassword">Old Password:</label>
+                            <input
+                                type="password"
+                                id="oldPassword" 
+                                value={oldPassword}
+                                onChange={(e) => setOldPassword(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="newPassword">New Password:</label>
+                            <input
+                                type="password"
+                                id="newPassword" 
+                                value={newPassword}
+                                onChange={(e) => setNewPassword(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="confirmPassword">Old Password:</label>
+                            <input
+                                type="password"
+                                id="confirmPassword" 
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
+                        </div>
+                        {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
+                        {passwordSuccess && <p style={{ color: 'green' }}>{passwordSuccess}</p>}
+                        <button>Update Password</button>
+                    </form>
+                    <span></span>
+                    <button onClick={handleDelete}>Delete Account</button>
+                </section>
+                <section className={styles.routineInformation}>
+                    <h2>Edit Routines</h2>
+
+                    <div>
+                    {generatedRoutine ? (
+                        <div>
+                            <div>
+                                <h3>Low Energy Routine</h3>
+                                <h4>Morning</h4>
+                                {renderTasks(generatedRoutine.routine.lowEnergy.morning, "lowEnergy", "morning")}
+                                {renderAddTask("lowEnergy", "morning")}
+                                <h4>Afternoon</h4>
+                                {renderTasks(generatedRoutine.routine.lowEnergy.afternoon, "lowEnergy", "afternoon")}
+                                {renderAddTask("lowEnergy", "afternoon")}
+                                <h4>Evening</h4>
+                                {renderTasks(generatedRoutine.routine.lowEnergy.evening, "lowEnergy", "evening")}
+                                {renderAddTask("lowEnergy", "evening")}
+                                <h4>Night</h4>
+                                {renderTasks(generatedRoutine.routine.lowEnergy.night, "lowEnergy", "night")}
+                                {renderAddTask("lowEnergy", "night")}
+                            </div>
+                            <div>
+                            <h3>Medium Energy Routine</h3>
+                                <h4>Morning</h4>
+                                {renderTasks(generatedRoutine.routine.mediumEnergy.morning, "mediumEnergy", "morning")}
+                                {renderAddTask("mediumEnergy", "morning")}
+                                <h4>Afternoon</h4>
+                                {renderTasks(generatedRoutine.routine.mediumEnergy.afternoon, "mediumEnergy", "afternoon")}
+                                {renderAddTask("mediumEnergy", "afternoon")}
+                                <h4>Evening</h4>
+                                {renderTasks(generatedRoutine.routine.mediumEnergy.evening, "mediumEnergy", "evening")}
+                                {renderAddTask("mediumEnergy", "evening")}
+                                <h4>Night</h4>
+                                {renderTasks(generatedRoutine.routine.mediumEnergy.night, "mediumEnergy", "night")}
+                                {renderAddTask("mediumEnergy", "night")}
+                            </div>
+                            <div>
+                            <h3>High Energy Routine</h3>
+                                <h4>Morning</h4>
+                                {renderTasks(generatedRoutine.routine.highEnergy.morning, "highEnergy", "morning")}
+                                {renderAddTask("highEnergy", "morning")}
+                                <h4>Afternoon</h4>
+                                {renderTasks(generatedRoutine.routine.highEnergy.afternoon, "highEnergy", "afternoon")}
+                                {renderAddTask("highEnergy", "afternoon")}
+                                <h4>Evening</h4>
+                                {renderTasks(generatedRoutine.routine.highEnergy.evening, "highEnergy", "evening")}
+                                {renderAddTask("highEnergy", "evening")}
+                                <h4>Night</h4>
+                                {renderTasks(generatedRoutine.routine.highEnergy.night, "highEnergy", "night")}
+                                {renderAddTask("highEnergy", "night")}
+                            </div>
+                        </div>
+                        ) : (
+                            <p>Loading routine...</p>
+                        )}
+                    </div>
+                </section>
             </main>
         </div>
     )

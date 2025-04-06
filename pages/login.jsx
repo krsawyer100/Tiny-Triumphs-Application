@@ -7,6 +7,7 @@ import sessionOptions from '../config/session'
 import Header from "../components/header"
 import Footer from '../components/footer'
 import useLogout from "../hooks/useLogout"
+import styles from "../public/styles/Login.module.css"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({ req }) {
@@ -68,32 +69,34 @@ export default function Login(props) {
                 isLoggedIn={props.isLoggedIn}
             />
 
-            <main>
-                <div>
-                    <h1>Login Page</h1>
-                    <form onSubmit={handleLogin}>
-                        <label htmlFor='username'>Username:</label>
-                        <input 
-                            type="text"
-                            name='username'
-                            id='username'
-                            onChange={handleChange}
-                            value={username}
-                        />
-                        <label htmlFor='password'>Password:</label>
-                        <input
-                            type='password'
-                            name='password'
-                            id='password'
-                            onChange={handleChange}
-                            value={password}   
-                        />
-                        {error && <p>{error}</p>}
+            <main className={styles.main}>
+                <div className={styles.loginContainer}>
+                    <h2>Login Page</h2>
+                    <form onSubmit={handleLogin} className={styles.form}>
+                        <div>
+                            <label htmlFor='username'>Username:</label>
+                            <input 
+                                type="text"
+                                name='username'
+                                id='username'
+                                onChange={handleChange}
+                                value={username}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor='password'>Password:</label>
+                            <input
+                                type='password'
+                                name='password'
+                                id='password'
+                                onChange={handleChange}
+                                value={password}   
+                            />
+                        </div>
+                        {error && <p className={styles.error}>{error}</p>}
                         <button>Login</button>
                     </form>
-                    <Link href="/signup">
-                        <p>Don&apos;t have an account? Sign up here!</p>
-                    </Link>
+                    <p>Don&apos;t have an account? <Link href="/signup" className={styles.link}>Sign up here!</Link></p>
                 </div>
             </main>
             <Footer />

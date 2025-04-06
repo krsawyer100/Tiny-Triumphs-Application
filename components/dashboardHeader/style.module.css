@@ -1,19 +1,148 @@
-.headerContainer {
+.header {
     background-color: var(--white);
-    border-bottom: var(--primary) 2px solid;
-  }
+    border-bottom: var(--orange) 2px solid;
+    padding: 10px 20px;
+    position: relative;
+    z-index: 10;
+}
   
-  .headerInfo {
+.navContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
     padding: 5px 10px;
+}
+
+.navLogo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+  width: 200px;
+  gap: 10px;
+  color: #512f20;
+}
+
+.navLogo:hover, .navLogo:focus {
+  transform: scale(.98);
+  transition: .2s;
+}
+
+.navContainer > div {
+  display: flex;
+  color: var(--orange);
+  align-items: center;
+  gap: 10px;
+}
+
+.navContainer > div > button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.navContainer > div > button:hover, .navContainer > div > button:focus {
+  transform: scale(.98);
+  transition: .2s;
+}
+
+.navMenuContainer {
+  position: absolute;
+  right: 0;
+  top: 110px;
+  opacity: 0;
+  transform: translateY(-100%);
+  z-index: 9;
+  padding: 20px 50px;
+  border: var(--orange) solid 2px;
+  background-color: var(--white);
+  width: 200px;
+  text-align: end;
+}
+
+.navMenuContainer.open {
+  opacity: 1;
+  animation: slideDownMenu 0.6s forwards;
+}
+
+.navMenuContainer.close {
+  animation: slideUpMenu 0.6s forwards;
+}
+
+.navMenu > p {
+ cursor: pointer;
+}
+
+.navLink {
+  text-decoration: none;
+}
+
+.navBtnImg {
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px var(--blue) solid;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--brown-overlay);
+  opacity: 0;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.overlay.open {
+  pointer-events: auto;
+  animation: fadeInOverlay 0.6s forwards;
+}
+
+.overlay.close {
+  animation: fadeOutOverlay 0.6s forwards;
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
   }
-  
-  .headerInfo > p, .headerInfoLink {
-    font-size: 1.25rem;
-    font-weight: 500;
-    text-decoration: none;
-    color: var(--primary);
+  to {
+    opacity: 1;
   }
+}
+
+@keyframes fadeOutOverlay {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideDownMenu {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUpMenu {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}

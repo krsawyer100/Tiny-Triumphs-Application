@@ -16,6 +16,7 @@
     font-weight: 500;
     text-decoration: none;
     color: var(--orange);
+    cursor: pointer;
   }
 
   .headerInfo > p:hover, .headerInfoLink:hover,   .headerInfo > p:focus, .headerInfoLink:focus {

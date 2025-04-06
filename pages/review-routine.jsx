@@ -7,6 +7,7 @@ import { useState, useEffect } from "react"
 import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
 import styles from "../public/styles/ReviewRoutines.module.css"
+import Image from "next/image"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -101,23 +102,6 @@ export default function ReviewRoutine(props) {
         }))
     }
 
-    function renderAddTask(energyLevel, timeOfDay) {
-        return (
-            <div>
-                <input
-                    type="text"
-                    placeholder="Add new task"
-                    value={newTaskInput[`${energyLevel}-${timeOfDay}`] || ""}
-                    onChange={(e) => handleNewTaskChange(e, energyLevel, timeOfDay)}
-                />
-                <button onClick={() => {
-                    const newTask = newTaskInput[`${energyLevel}-${timeOfDay}`]
-                    addTask(energyLevel, timeOfDay, newTask)
-                }}>Add Task</button>
-            </div>
-        )
-    }
-
     function updateTask(energyLevel, timeOfDay, index, newText) {
         if (!newText.trim()) return;
     
@@ -148,9 +132,9 @@ export default function ReviewRoutine(props) {
         if (!tasks || tasks.length === 0) return <p>No tasks available</p>;
     
         return (
-            <ul>
+            <div>
                 {tasks.map((taskObj, index) => (
-                    <li key={index} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <p key={index} className={styles.task}>
                         {editingTask === taskObj.task ? (
                             <input
                                 type="text"
@@ -160,15 +144,48 @@ export default function ReviewRoutine(props) {
                                 autoFocus
                             />
                         ) : (
-                            <span onClick={() => handleEdit(taskObj.task)} style={{ cursor: "pointer" }}>
+                            <span onClick={() => handleEdit(taskObj.task)}>
                                 {taskObj.task}
                             </span>
                         )}
-                        <button onClick={() => deleteTask(energyLevel, timeOfDay, index)}>delete</button>
-                    </li>
+                        <button className={styles.deleteBtn} onClick={() => deleteTask(energyLevel, timeOfDay, index)}>
+                            <Image
+                                src="/images/delete-icon.png"
+                                alt=""
+                                width={25}
+                                height={25}
+                                className={styles.deleteBtnIcon}
+                            />
+                        </button>
+                    </p>
                 ))}
-            </ul>
+            </div>
         );
+    }
+
+    function renderAddTask(energyLevel, timeOfDay) {
+        return (
+            <div className={styles.addTaskContainer}>
+                <input
+                    type="text"
+                    placeholder="Add new task"
+                    value={newTaskInput[`${energyLevel}-${timeOfDay}`] || ""}
+                    onChange={(e) => handleNewTaskChange(e, energyLevel, timeOfDay)}
+                />
+                <button className={styles.addBtn} onClick={() => {
+                    const newTask = newTaskInput[`${energyLevel}-${timeOfDay}`]
+                    addTask(energyLevel, timeOfDay, newTask)
+                }}>
+                    <Image
+                        src="/images/add-icon.png"
+                        alt=""
+                        width={25}
+                        height={25}
+                        className={styles.addBtnIcon}
+                    />
+                </button>
+            </div>
+        )
     }
 
     return (
@@ -181,59 +198,156 @@ export default function ReviewRoutine(props) {
                 isLoggedIn={props.isLoggedIn}
             />
 
-            <main>
+            <main className={styles.main}>
                 <h1>Personalized Routines</h1>
                 <h2>Please review your personalized routines and edit them as you need to meet your needs and desires! Don&apos;t worry, you can always edit them later if needed.</h2>
                 <>
                 <div className={styles.routinesContainer}>
                     {routine ? (
-                        <div>
-                            <h2>Low Energy Routine</h2>
-                            <h3>Morning</h3>
+                        <div className={styles.routine}>
+                            <h3>Low Energy Routine:</h3>
+                            <h4>
+                                <Image
+                                    src="/images/morning-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Morning
+                            </h4>
                             {renderTasks(routine.lowEnergy.morning, "lowEnergy", "morning")}
                             {renderAddTask("lowEnergy", "morning")}
-                            <h3>Afternoon</h3>
+                            <h4>
+                                <Image
+                                    src="/images/afternoon-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Afternoon
+                            </h4>
                             {renderTasks(routine.lowEnergy.afternoon, "lowEnergy", "afternoon")}
                             {renderAddTask("lowEnergy", "afternoon")}
-                            <h3>Evening</h3>
+                            <h4>
+                                <Image
+                                    src="/images/evening-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Evening
+                            </h4>
                             {renderTasks(routine.lowEnergy.evening, "lowEnergy", "evening")}
                             {renderAddTask("lowEnergy", "evening")}
-                            <h3>Night</h3>
+                            <h4>
+                                <Image
+                                    src="/images/night-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Night
+                            </h4>
                             {renderTasks(routine.lowEnergy.night, "lowEnergy", "night")}
                             {renderAddTask("lowEnergy", "night")}
-
-                            <h2>Medium Energy Routine</h2>
-                            <h3>Morning</h3>
+                            <span className={styles.divider}></span>
+                            <h3>Medium Energy Routine:</h3>
+                            <h4>
+                                <Image
+                                    src="/images/morning-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Morning
+                            </h4>
                             {renderTasks(routine.mediumEnergy.morning, "mediumEnergy", "morning")}
                             {renderAddTask("mediumEnergy", "morning")}
-                            <h3>Afternoon</h3>
+                            <h4>
+                                <Image
+                                    src="/images/afternoon-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Afternoon
+                            </h4>
                             {renderTasks(routine.mediumEnergy.afternoon, "mediumEnergy", "afternoon")}
                             {renderAddTask("mediumEnergy", "afternoon")}
-                            <h3>Evening</h3>
+                            <h4>
+                                <Image
+                                    src="/images/evening-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Evening
+                            </h4>
                             {renderTasks(routine.mediumEnergy.evening, "mediumEnergy", "evening")}
                             {renderAddTask("mediumEnergy", "evening")}
-                            <h3>Night</h3>
+                            <h4>
+                                <Image
+                                    src="/images/night-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Night
+                            </h4>
                             {renderTasks(routine.mediumEnergy.night, "mediumEnergy", "night")}
                             {renderAddTask("mediumEnergy", "night")}
-                            <h2>High Energy Routine</h2>
-                            <h3>Morning</h3>
+                            <span className={styles.divider}></span>
+                            <h3>High Energy Routine:</h3>
+                            <h4>
+                                <Image
+                                    src="/images/morning-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Morning
+                            </h4>
                             {renderTasks(routine.highEnergy.morning, "highEnergy", "morning")}
                             {renderAddTask("highEnergy", "morning")}
-                            <h3>Afternoon</h3>
+                            <h4>
+                                <Image
+                                    src="/images/afternoon-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Afternoon
+                            </h4>
                             {renderTasks(routine.highEnergy.afternoon, "highEnergy", "afternoon")}
                             {renderAddTask("highEnergy", "afternoon")}
-                            <h3>Evening</h3>
+                            <h4>
+                                <Image
+                                    src="/images/evening-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Evening
+                            </h4>
                             {renderTasks(routine.highEnergy.evening, "highEnergy", "evening")}
                             {renderAddTask("highEnergy", "evening")}
-                            <h3>Night</h3>
+                            <h4>
+                                <Image
+                                    src="/images/night-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Night
+                            </h4>
                             {renderTasks(routine.highEnergy.night, "highEnergy", "night")}
                             {renderAddTask("highEnergy", "night")}
+                            <button className={styles.saveBtn} onClick={saveRoutine}>Save Routines</button>
                         </div>
                     ) : (
                         <p>Loading routine...</p>
                     )}
                 </div>
-                <button onClick={saveRoutine}>Save Routines</button>
                 </>
             </main>
             <Footer />

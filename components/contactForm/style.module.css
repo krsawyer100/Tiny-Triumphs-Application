@@ -1,0 +1,85 @@
+.contactContainer {
+    background-image: url("~/public/images/form-background.jpg");
+    background-color: #79657c;
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formContainer {
+    background-color: var(--white);
+    padding: 30px 50px;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    border: var(--purple) 3px solid;
+    border-radius: 30px;
+}
+
+.formContainer > h2 {
+    color: var(--blue);
+    padding-bottom: 20px;
+}
+
+.formContainer > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding-bottom: 20px;
+}
+
+.formContainer > div > label {
+    font-weight: 500;
+}
+
+.formContainer > div > input, .formContainer > div > textarea, .formContainer > div > select {
+    background-color: var(--white);
+    border: var(--purple) solid 2px;
+    border-radius: 10px;
+    padding: 5px 10px;
+    box-shadow: 0 0 1px 1px rgba(0,0,0,.3);
+    font-family: "Playpen Sans", cursive;
+    font-size: 14px;
+}
+
+.formContainer > div > input {
+    height: 30px;
+}
+
+.formContainer > div > textarea {
+    resize: vertical;
+    height: 150px;
+}
+
+.formContainer > div > select {
+    cursor: pointer;
+    height: 50px;
+    padding: 5px;
+}
+
+.formContainer > button {
+    width: 100%;
+    background-color: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    font-family: "Playpen Sans", cursive;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 20px 15px;
+    margin: 20px 0 30px;
+    cursor: pointer;
+    box-shadow: 0 0 2px 1px rgba(0,0,0,.3);
+}
+
+.formContainer > button:hover, .formContainer > button:focus {
+    transform: scale(.99);
+    transition: .2s;
+}

@@ -1,0 +1,91 @@
+.main {
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.userInformation, .routineInformation {
+    background-color: var(--white);
+    border: var(--blue) 3px solid;
+    border-radius: 30px;
+    width: 800px;
+}
+
+.userInformation > h2, .routineInformation > h2 {
+    background-color: var(--blue);
+    padding: 20px;
+    height: 40px;
+    margin: 0;
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 26px 26px 0 0;
+}
+
+.cropModal {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--brown-overlay);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.cropModalBorder {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.imgContainer {
+    position: relative; 
+    width: 100%; 
+    height: 400px;
+}
+
+.btnsContainer {
+    margin-top: 20px; 
+    text-align: center; 
+}
+
+.modalBtn {
+    margin-right: 10px;
+    padding: 8px 16px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: "Playpen Sans", cursive;
+    color: var(--white);
+    box-shadow: 0 0 5px 1px rgba(0,0,0,0.3);
+}
+
+.modalBtn:nth-child(1) {
+    background-color: var(--orange);
+}
+
+.modalBtn:nth-child(2) {
+    background-color: var(--blue);
+}
+
+.modalBtn:hover, .modalBtn:focus {
+    transform: scale(.99);
+    transition: .3s;
+}
+
+.newProfilePhoto {
+    object-fit: cover;
+    border-radius: 50%;
+}

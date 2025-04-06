@@ -14,7 +14,14 @@ export async function create (firstName, lastName, username, email, password, te
     if (!user)
         throw new Error('Error creating User')
 
-    return user.toJSON()
+    return {
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        username: user.username,
+        email: user.email,
+        profilePhoto: user.profilePhoto,
+    }
 }
 
 export async function updateUser (userId, firstName, lastName, username, email) {
@@ -36,4 +43,31 @@ export async function deleteUser (userId) {
     if (!deletedUser) return null
 
     return { message: 'User deleted successfully' }
+}
+
+export async function updateProfilePhoto(userId, profilePhoto) {
+    await dbConnect();
+    const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { profilePhoto },
+        { new: true }
+    );
+
+    return updatedUser;
+}
+
+export async function updateUserPassword(userId, hashedPassword) {
+    await dbConnect()
+    const updatedUser = User.findByIdAndUpdate(
+        userId,
+        {password: hashedPassword},
+        {new: true}
+    )
+
+    return updatedUser
+}
+
+export async function findUserById(userId) {
+    await dbConnect()
+    return await User.findById(userId)
 }

@@ -6,6 +6,7 @@ import sessionOptions from "../config/session"
 import { useState, useEffect } from "react"
 import Image from "next/image.js"
 import Link from "next/link.js"
+import styles from "../public/styles/Dashboard.module.css"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -24,6 +25,8 @@ export const getServerSideProps = withIronSessionSsr(
 
 export default function Dashboard(props) {
     const router = useRouter()
+    const [profilePhoto, setProfilePhoto] = useState(props.user?.profilePhoto || "/images/account-icon-blue.png");
+
     const localDate = new Date().toLocaleDateString("en-CA");
     const [displayDate, setDisplayDate] = useState(new Date().toLocaleDateString())
     console.log("Display date: ", displayDate)
@@ -44,6 +47,24 @@ export default function Dashboard(props) {
     useEffect(() => {
         fetchQuote()
     }, [])
+
+    useEffect(() => {
+        fetchUserProfile();
+    }, []);
+
+    async function fetchUserProfile() {
+        try {
+          const res = await fetch('/api/user/get-current');
+          if (res.ok) {
+            const data = await res.json();
+            setProfilePhoto(data.user.profilePhoto);
+        } else {
+            console.error('Failed to fetch user profile');
+          }
+        } catch (error) {
+          console.error('Error fetching user profile:', error);
+        }
+    }
     async function fetchQuote() {
         try {
             const res = await fetch('https://thequoteshub.com/api/tags/inspiration')
@@ -171,26 +192,26 @@ export default function Dashboard(props) {
                 <title>{props.user.username}&apos;s Dashboard</title>
             </Head>
 
-            <DashboardHeader username={props?.user?.username}/>
+            <DashboardHeader username={props?.user?.username} profilePhoto={profilePhoto}/>
 
-            <main>
+            <main className={styles.main}>
                 <h1>{props.user.username}&apos;s Dashboard</h1>
 
                 {/* Dashboard Components */}
-                <section>
+                <section className={styles.dashboardContainer}>
                     {/* Routine */}
-                    <section>
-                        <div>
+                    <section className={styles.routineContainer}>
+                        <div className={styles.dateContainer}>
                             {hasPastRoutine && date !== new Date().toLocaleDateString("en-CA") && (
-                                <button onClick={() => changeDate("prev")}>⬅️</button>
+                                <button onClick={() => changeDate("prev")} className={styles.prevDateBtn}>⬅</button>
                             )}
-                            <h2>{displayDate}</h2>
+                            <h2 className={styles.dateText}>{displayDate}</h2>
                             {!isToday && (
-                                <button onClick={() => changeDate("next")}>➡️</button>
+                                <button onClick={() => changeDate("next")} className={styles.nextDateBtn}>➡️</button>
                             )}
                         </div>
                         {routine ? (
-                        <div>
+                        <div className={styles.routine}>
                             <div>
                                 <div>
                                     {/* <Image 
@@ -293,35 +314,43 @@ export default function Dashboard(props) {
                             </div>
                         </div>
                         ) : (
-                            <div>
-                                <h3>How are you feeling today? Let us know so we can help you reach your self-care goals!</h3>
+                            <div className={styles.routine}>
+                                <h3>How are you feeling today?</h3>
+                                <h4>Let us know so we can help you reach your self-care goals!</h4>
                             </div>
                         )}
                     </section>
-                    <section>
+                    <section className={styles.imgContainer}>
+                        <Image
+                            src="/images/dashboard-decorative.jpg"
+                            alt=""
+                            width={200}
+                            height={150}
+                            className={styles.decorativeImg}
+                        />
+                    </section>
+                    <section className={styles.quoteContainer}>
                         <div>
-                            <h4>&quot;{quote}&quot;</h4>
-                            <h5>~ {author}</h5>
+                            <p>&quot;{quote}&quot;</p>
+                            <h4>~ {author}</h4>
                         </div>
+                    </section>
+                    <section className={styles.energyContainer}>
                         {energySelected ? (
-                            <div>
+                            <div className={styles.energyInfo}>
                                 <h2>Thanks for sharing how you are feeling today.</h2>
                                 <p>Keep up the great work!</p>
                             </div>
                         ) : (
-                            <div>
+                            <div className={styles.energyInfo}>
                             <h2>How are you feeling today?</h2>
-                            <div>
-                                <button onClick={() => handleEnergySelection("lowEnergy")}>Low Energy</button>
-                                <button onClick={() => handleEnergySelection("mediumEnergy")}>Medium Energy</button>
+                            <div className={styles.btnsContainer}>
                                 <button onClick={() => handleEnergySelection("highEnergy")}>High Energy</button>
+                                <button onClick={() => handleEnergySelection("mediumEnergy")}>Medium Energy</button>
+                                <button onClick={() => handleEnergySelection("lowEnergy")}>Low Energy</button>
                             </div>
                             </div>
                         )}
-                        <div>
-                            <h3>Need to change your routines?</h3>
-                            <Link href="/settings">Edit Here</Link>
-                        </div>
                     </section>
                 </section>
             </main>

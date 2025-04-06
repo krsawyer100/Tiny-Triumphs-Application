@@ -26,6 +26,10 @@ const UserSchema = new Schema({
         minLength: 5,
         maxLength: 200
     },
+    profilePhoto: {
+        type: String,
+        default: "/images/account-icon-blue.png"
+    }
 })
 
 UserSchema.pre('save', async function(next) {

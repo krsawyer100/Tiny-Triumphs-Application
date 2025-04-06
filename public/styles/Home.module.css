@@ -55,58 +55,111 @@
 }
 
 .applicationInfo {
-    margin: 50px 40px;
-    display: flex;
-    flex-direction: column;
+    padding: 100px;
+    display: grid;
+    grid-auto-rows: minmax(500px, auto);
+    grid-template-areas: 
+        "about"
+        "statistic"
+    ;
+    gap: 50px;
+    justify-items: center;
+    align-content: center;
 }
 
-.about, .statistic {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 50px;
-    gap: 20px;
+.about {
+    width: 80%;
+    display: grid;
+    grid-area: about;
+    grid-template-columns: 1.5fr 1fr;
+    grid-auto-rows: minmax(40px, auto);
+    grid-template-areas: 
+        "aboutTitle aboutImg"
+        "aboutParagraphOne aboutImg"
+        "aboutParagraphTwo aboutImg"
+    ;
+    justify-items: center;
+    align-content: center;
+    grid-column-gap: 70px;
+    grid-row-gap: 20px;
 }
 
-.aboutText > h3, .statisticText > h3 {
+.aboutTitle {
+    grid-area: aboutTitle;
+    justify-self: start;
     color: var(--orange);
 }
 
-.aboutText > div> h4, .statisticText > div > h4 {
+.aboutParagraphOne {
+    grid-area: aboutParagraphOne;
+}
+
+.aboutParagraphTwo {
+    grid-area: aboutParagraphTwo;
+}
+
+.aboutParagraphOne > h3, .aboutParagraphTwo > h3 {
     color: var(--blue);
 }
 
-.statisticText > div > h4 > a {
-    color: var(--blue);
-}
-
-.statisticText > div > h4 > a:hover, .statisticText > div > h4 > a:focus {
-    font-size: 17.8px;
-    color: var(--purple);
-    transition: .3s;
-}
-
-.aboutText, .statisticText {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-}
-
-.aboutImgContainer, .statisticImgContainer {
-    display: flex;
-    justify-content: center;
-    width: 50%;
-    display: flex;
+.aboutImg {
+    grid-area: aboutImg;
+    width: 600px;
+    height: 400px;
+    align-self: center;
 }
 
 .aboutImg, .statisticImg {
-    object-fit: cover;
-    border: var(--purple) 3px solid;
+    border: var(--purple) solid 3px;
     border-radius: 30px;
+    object-fit: cover;
 }
 
-.aboutImgMobileContainer, .statisticImgMobileContainer {
-    display: none;
+.statistic {
+    width: 80%;
+    grid-area: statistic;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    grid-auto-rows: minmax(40px, auto);
+    grid-template-areas: 
+        "statisticImg statisticTitle"
+        "statisticImg statisticQuote"
+        "statisticImg statisticDescription"
+    ;
+    justify-content: center;
+    align-content: center;
+    grid-column-gap: 50px;
+}
+
+.statisticImg {
+    grid-area: statisticImg;
+    width: 600px;
+    height: 400px;
+    align-self: center;
+}
+
+.statisticTitle {
+    grid-area: statisticTitle;
+    color: var(--orange);
+    justify-self: end;
+}
+
+.statisticQuote {
+    grid-area: statisticQuote;
+    color: var(--blue);
+}
+
+.statisticQuote > h3, .statisticQuote > h4 {
+    text-align: end;
+}
+
+.statisticQuote > h3 > a, .statisticQuote > h4 > a {
+    color: var(--blue);
+}
+
+.statisticDescription {
+    grid-area: statisticDescription;
+    text-align: end;
 }
 
 .benefits {

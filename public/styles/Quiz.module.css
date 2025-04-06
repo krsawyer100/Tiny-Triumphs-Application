@@ -5,7 +5,7 @@
     background-image: url("~/public/images/quiz-background.jpg");
     background-color: var(--brown-overlay);
     background-blend-mode: multiply;
-    min-width: 100vh;
+    min-height: 100vh;
     background-position: cover;
 }
 
@@ -42,6 +42,7 @@
 .startMenu > button:hover, .startMenu > button:focus {
     transform: scale(.98);
     transition: .2s;
+    cursor: pointer;
 }
 
 .questionsContainer {
@@ -86,9 +87,10 @@
     align-items: center;
 }
   
-.answerChoice:hover {
+.answerChoice:hover, .answerChoice:focus {
     background-color: var(--orange);
     color: var(--white);
+    cursor: pointer;
 }
   
 .selected {

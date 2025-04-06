@@ -1,0 +1,126 @@
+.main > h1 {
+    color: var(--orange);
+    text-align: center;
+}
+
+.dashboardContainer {
+    margin: 50px;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-template-rows: 250px 1fr 400px;
+    grid-template-areas: 
+        "routine img"
+        "routine quote"
+        "routine energy"
+        "routine energy"
+    ;
+    grid-gap: 30px;
+}
+
+.routineContainer {
+    grid-area: routine;
+    background-color: var(--blue);
+    border-radius: 30px;
+    color: var(--white);
+    border: var(--blue) solid 5px;
+}
+
+.dateContainer {
+    display: grid;
+    grid-template-columns: .5fr 1fr .5fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "prev date next"
+    ;
+    align-items: center;
+    justify-items: center;
+    gap: auto;
+    color: var(--blue);
+    background-color: var(--white);
+    width: 100%;
+    height: 100px;
+    border-radius: 26px 26px 0 0;
+}
+
+.prevDateBtn {
+    grid-area: prev;
+}
+
+.dateText {
+    grid-area: date;
+}
+
+.nextDateBtn {
+    grid-area: next;
+}
+
+.routine {
+    padding: 20px 50px;
+}
+
+.quoteContainer {
+    grid-area: quote;
+    background-color: var(--purple);
+    border-radius: 30px;
+    color: var(--white);
+    padding: 20px 50px;
+    text-align: end;
+}
+
+.imgContainer {
+    grid-area: img;
+    background-color: var(--orange);
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.energyContainer {
+    grid-area: energy;
+    border: var(--orange) solid 3px;
+    border-radius: 30px;
+    padding: 20px 50px;
+}
+
+.decorativeImg {
+    border-radius: 25px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.energyInfo > h2 {
+    text-align: center;
+}
+
+.btnsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 15px;
+}
+
+.btnsContainer > button {
+    height: 60px;
+    width: 100%;
+    border-radius: 50px;
+    font-family: "Playpen Sans", cursive;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+}
+
+.btnsContainer > button:nth-child(1) {
+    background-color: var(--orange);
+}
+
+.btnsContainer > button:nth-child(2) {
+    background-color: var(--blue);
+}
+
+.btnsContainer > button:nth-child(3) {
+    background-color: var(--purple);
+}

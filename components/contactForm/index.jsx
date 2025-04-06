@@ -1,5 +1,6 @@
 import { useState } from "react"
 import emailjs from "@emailjs/browser"
+import styles from './style.module.css'
 export default function ContactForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [stateMessage, setStateMessage] = useState(null)
@@ -36,14 +37,33 @@ export default function ContactForm() {
     }
 
     return (
-        <div>
-            <h2>Contact Form</h2>
-            <form onSubmit={sendEmail}>
+        <div className={styles.contactContainer}>
+            <form onSubmit={sendEmail} className={styles.formContainer}>
+                <h2>Contact Form</h2>
                 {stateMessage && <p>{stateMessage}</p>}
-                <input type="text" id='name' name='name' placeholder='Name' required/>
-                <input type="email" id='email' name='email' placeholder='Email' required/>
-                <input type="text" id="category" name='category' placeholder='Message category (i.e. New Features, Complaint, etc.)' required/>
-                <textarea id='message' name='message' placeholder='Message' required/>
+                <div>
+                    <label htmlFor="name">First & Last Name*</label>
+                    <input type="text" id='name' name='name' placeholder='Name' required/>
+                </div>
+                <div>
+                    <label htmlFor="email">Email*</label>
+                    <input type="email" id='email' name='email' placeholder='Email' required/>
+                </div>
+                <div>
+                    <label htmlFor="category">
+                        Reason for Contacting*
+                    </label>
+                    <select id="category" name='category' required>
+                        <optgroup>
+                            <option value="N/A">Select from the Options Provided</option>
+                            <option value="">Product</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div>
+                    <label htmlFor="message">Message*</label>
+                    <textarea id='message' name='message' placeholder='Message' required/>
+                </div>
                 <button type='submit' disabled={isSubmitting}>Send Message</button>
             </form>
         </div>

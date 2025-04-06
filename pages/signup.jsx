@@ -7,6 +7,7 @@ import Footer from '../components/footer'
 import { withIronSessionSsr } from 'iron-session/next'
 import sessionOptions from '../config/session'
 import useLogout from '../hooks/useLogout'
+import styles from '../public/styles/Login.module.css'
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({ req }) {
@@ -102,64 +103,74 @@ export default function Signup(props) {
                 isLoggedIn={props.isLoggedIn}
             />
 
-            <main>
-                <div>
-                    <h1>Sign up page</h1>
-                    <form onSubmit={handleSignup}>
-                        <label htmlFor='firstName'>First Name:</label>
-                        <input
-                            type='text'
-                            name='firstName'
-                            id='firstName'
-                            onChange={handleChange}
-                            value={firstName}
-                        />
-                        <label htmlFor='lastName'>Last Name:</label>
-                        <input
-                            type='text'
-                            name='lastName'
-                            id='lastName'
-                            onChange={handleChange}
-                            value={lastName}
-                        />
-                        <label htmlFor='email'>Email:</label>
-                        <input
-                            type='email'
-                            name='email'
-                            id='email'
-                            onChange={handleChange}
-                            value={email}
-                        />
-                        <label htmlFor='username'>Username:</label>
-                        <input
-                            type='text'
-                            name='username'
-                            id='username'
-                            onChange={handleChange}
-                            value={username}
-                        />
-                        <label htmlFor='password'>Password:</label>
-                        <input
-                            type='password'
-                            name='password'
-                            id='password'
-                            onChange={handleChange}
-                            value={password}
-                        />
-                        <label htmlFor='confirm-password'>Confirm Password:</label>
-                        <input
-                            type='password'
-                            name='confirm-password'
-                            id='confirm-password'
-                            onChange={handleChange}
-                            value={confirmPassword}
-                        />
-                        {error && <p>{error}</p>}
+            <main className={styles.main}>
+                <div className={styles.loginContainer}>
+                    <h2>Sign-Up</h2>
+                    <form onSubmit={handleSignup} className={styles.form}>
+                        <div>
+                            <label htmlFor='firstName'>First Name:</label>
+                            <input
+                                type='text'
+                                name='firstName'
+                                id='firstName'
+                                onChange={handleChange}
+                                value={firstName}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor='lastName'>Last Name:</label>
+                            <input
+                                type='text'
+                                name='lastName'
+                                id='lastName'
+                                onChange={handleChange}
+                                value={lastName}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor='email'>Email:</label>
+                            <input
+                                type='email'
+                                name='email'
+                                id='email'
+                                onChange={handleChange}
+                                value={email}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor='username'>Username:</label>
+                            <input
+                                type='text'
+                                name='username'
+                                id='username'
+                                onChange={handleChange}
+                                value={username}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor='password'>Password:</label>
+                            <input
+                                type='password'
+                                name='password'
+                                id='password'
+                                onChange={handleChange}
+                                value={password}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor='confirm-password'>Confirm Password:</label>
+                            <input
+                                type='password'
+                                name='confirm-password'
+                                id='confirm-password'
+                                onChange={handleChange}
+                                value={confirmPassword}
+                            />
+                        </div>
+                        {error && <p className={styles.error}>{error}</p>}
                         <button>Sign Up</button>
                     </form>
-                    <Link href="/Login">
-                        <p>Have an account? Login here!</p>
-                    </Link>
+                    <p>Have an account? <Link href="/login" className={styles.link}>Login here!</Link></p>
                 </div>
             </main>
             <Footer />

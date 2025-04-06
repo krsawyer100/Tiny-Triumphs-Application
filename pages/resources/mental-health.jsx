@@ -66,7 +66,7 @@ export default function Mental(props) {
                             <p>Call or text <a href="#" onClick={handleContactClick} className={styles.phone}>988</a> or visit <a href="https://988lifeline.org/" target="_BLANK" className={styles.web}>988lifeline.org</a></p>
                         </div>
                         <span className={styles.emergencyDivider}></span>
-                        <div className={styles.emergencyResourceLink}>
+                        <div className={styles.emergencyResourceLink} >
                             <h4>Crisis Text Line</h4>
                             <p>Text <emphasize>HOME</emphasize> to <a href="sms:741741?&body=HOME" className={styles.phone}>741741</a></p>
                         </div>
@@ -84,55 +84,55 @@ export default function Mental(props) {
                     <div className={styles.resourceLinksContainer}>
                         <ResourceLink
                             resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
+                            resourceImgURL="/images/nami.jpg"
                             resourceTitle="NAMI (National Alliance on Mental Illness)"
                             resourceDescription="Learn more about symptoms, treatment options, and support groups for all types of mental health conditions."
                         />
                         <ResourceLink
-                            resourceURL="#"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://themighty.com/"
+                            resourceImgURL="/images/mighty.jpg"
                             resourceTitle="The Mighty"
                             resourceDescription="A peer-driven platform with stories from people navigating mental illness, chronic pain, and neurodivergence. Real voices, shared experiences."
                         />
                         <ResourceLink
-                            resourceURL="#"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://mhanational.org/"
+                            resourceImgURL="/images/mha.jpg"
                             resourceTitle="Mental Health America (MHA)"
                             resourceDescription="Mental health screenings, tool kits, and advocacy resources for a wide range of emotional and behavioral health needs."
                         />
                         <ResourceLink
-                            resourceURL="#"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://adaa.org/"
+                            resourceImgURL="/images/adaa.jpg"
                             resourceTitle="ADAA (Anxiety & Depression Association of America)"
                             resourceDescription="Practical guides and tips for managing anxiety, depression, and related conditions."
                         />
                         <ResourceLink
-                            resourceURL="#"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://therapyforblackgirls.com/"
+                            resourceImgURL="/images/therapy-for-black-girls.jpg"
                             resourceTitle="Therapy for Black Girls"
                             resourceDescription="A safe space to find mental health resources and therapists who support the Black community."
                         />
                         <ResourceLink
-                            resourceURL="#"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://www.verywellmind.com/"
+                            resourceImgURL="/images/verywell-mind.jpg"
                             resourceTitle="Verywell Mind"
                             resourceDescription="Evidence-based, approachable articles on everything from burnout and grief to self-care and therapy options."
                         />
                         <ResourceLink
-                            resourceURL="#"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://www.inclusivetherapists.com/"
+                            resourceImgURL="/images/inclusive-therapists.jpg"
                             resourceTitle="Inclusive Therapists"
                             resourceDescription="A directory to help you find culturally affirming, neurodiversity-affirming, and trauma-informed care."
                         />
                         <ResourceLink
-                            resourceURL="#"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://therapistndc.org/"
+                            resourceImgURL="/images/therapist-neurodiversity-collective.jpg"
                             resourceTitle="Therapist Neurodiversity Collective"
                             resourceDescription="Offers free neurodiversity-affirming educational resources and information for families, therapists, and educators."
                         />
                         <ResourceLink
-                            resourceURL="#"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://hhd.psu.edu/"
+                            resourceImgURL="/images/project-spoonies.jpg"
                             resourceTitle="Project Spoonies"
                             resourceDescription="Provides a supportive community for individuals with chronic illnesses, fostering connections and shared experiences among &quot;spoonies.&quot;"
                         />

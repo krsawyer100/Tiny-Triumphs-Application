@@ -51,7 +51,7 @@ export default function Home(props) {
                                 </h5>
                             ):(
                                 <h5>
-                                    <Link href="/Quiz" className={styles.btnText}>Start your Journey Today</Link>
+                                    <Link href="/quiz" className={styles.btnText}>Start your Journey Today</Link>
                                 </h5>
                             )}
                         </div>
@@ -60,63 +60,38 @@ export default function Home(props) {
                 {/* Bit about the application and health */}
                 <section className={styles.applicationInfo}>
                     <div className={styles.about}>
-                        <div className={styles.aboutText}>
-                            <h3>About Tiny Triumphs</h3>
-                            <div className={styles.aboutImgMobileContainer}>
-                                <Image 
-                                    src="/images/about.jpg"
-                                    alt=""
-                                    width={400}
-                                    height={400}
-                                    className={styles.aboutImg}
-                                />
-                            </div>
-                            <div>
-                                <h4>What Makes Us Different</h4>
-                                <p>Tiny Triumphs is a self-care application that focuses on providing neurodivergent, mentally ill, and chronically ill individuals with customized daily routines based upon their needs and wants. The application provides each person with 3 different generated routines (low, medium, and high energy) that the user can choose from at the beginning of each day based on their energy levels for the day.</p>
-                            </div>
-                            <div>
-                                <h4>Our Mission</h4>
-                                <p>The goal of this application is to help individuals with following routines even on the hard days to help prompt better mental and physical health.</p>
-                            </div>
+                        <h2 className={styles.aboutTitle}>About Tiny Triumphs</h2>
+                        <div className={styles.aboutParagraphOne}>
+                            <h3>What Makes Us Different</h3>
+                            <p>Tiny Triumphs is a self-care application that focuses on providing neurodivergent, mentally ill, and chronically ill individuals with customized daily routines based upon their needs and wants. The application provides each person with 3 different generated routines (low, medium, and high energy) that the user can choose from at the beginning of each day based on their energy levels for the day.</p>
                         </div>
-                        <div className={styles.aboutImgContainer}>
-                            <Image 
-                                src="/images/about.jpg"
-                                alt=""
-                                width={400}
-                                height={400}
-                                className={styles.aboutImg}
-                            />
+                        <div className={styles.aboutParagraphTwo}>
+                            <h3>Our Mission</h3>
+                            <p>The goal of this application is to help individuals with following routines even on the hard days to help prompt better mental and physical health.</p>
                         </div>
+                        
+                        <Image 
+                            src="/images/about.jpg"
+                            alt=""
+                            width={400}
+                            height={400}
+                            className={styles.aboutImg}
+                        />
                     </div>
                     <div className={styles.statistic}>
-                        <div className={styles.statisticImgContainer}>
-                            <Image 
-                                src="/images/statistic.jpg"
-                                alt=""
-                                width={400}
-                                height={400}
-                                className={styles.statisticImg}
-                            />
+                        <Image 
+                            src="/images/statistic.jpg"
+                            alt=""
+                            width={400}
+                            height={400}
+                            className={styles.statisticImg}
+                        />
+                        <h2 className={styles.statisticTitle} class>Link Between Self-care and Mental Health</h2>
+                        <div className={styles.statisticQuote}>
+                            <h3>According to <a href="#">Vagaro&apos;s</a> Survey, “64% said self-care has given them a confidence boost, 67% said it increased productivity, and 71% said it increased happiness.”</h3>
+                            <h4>~ <a href="#">BlueCross BlueShield</a></h4>
                         </div>
-                        <div className={styles.statisticText}>
-                            <h3>Link Between Self-care and Mental Health</h3>
-                            <div className={styles.statisticImgMobileContainer}>
-                                <Image 
-                                    src="/images/statistic.jpg"
-                                    alt=""
-                                    width={400}
-                                    height={400}
-                                    className={styles.statisticImg}
-                                />
-                            </div>
-                            <div>
-                                <h4>According to <a href="#">Vagaro&apos;s</a> Survey, “64% said self-care has given them a confidence boost, 67% said it increased productivity, and 71% said it increased happiness.”</h4>
-                                <h4>~ <a href="#">BlueCross BlueShield</a></h4>
-                            </div>
-                            <p>These findings show that self-care is not just about pampering — it is a powerful tool for boosting mood, motivation, and mental clarity. For individuals navigating mental illness, chronic conditions, or neurodivergence, even small routines can lead to meaningful improvements in daily life.</p>
-                        </div>
+                        <p className={styles.statisticDescription}>These findings show that self-care is not just about pampering — it is a powerful tool for boosting mood, motivation, and mental clarity. For individuals navigating mental illness, chronic conditions, or neurodivergence, even small routines can lead to meaningful improvements in daily life.</p>
                     </div>
                 </section>
                 {/* Self-care application benefits */}

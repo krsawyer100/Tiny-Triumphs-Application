@@ -1,0 +1,116 @@
+.main {
+    background-image: url(~/public/images/quiz-background.jpg);
+    background-color: var(--brown-overlay);
+    background-blend-mode: multiply;
+    background-size: cover;
+    padding: 70px 0;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main > h1 {
+    color: var(--brighter-orange);
+    text-align: center;
+}
+
+.main > h2 {
+    color: var(--white);
+    text-align: center;
+    margin: 20px 150px 0;
+}
+
+.routinesContainer {
+    background-color: var(--white);
+    margin: 100px 300px;
+    border-radius: 50px;
+    padding: 50px 150px;
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    min-width: 600px;
+}
+
+.divider {
+    background-color: var(--orange);
+    width: 600px;
+    height: 2px;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
+    margin-bottom: 30px;
+    padding-bottom: 5px;
+    border-bottom: var(--orange) solid 2px;
+}
+
+.deleteBtn, .addBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.deleteBtn:hover, .addBtn:hover, .deleteBtn:focus, .addBtn:focus {
+    transform: scale(.97);
+    transition: .2s;
+}
+
+.task > input, .addTaskContainer > input {
+    background: transparent;
+    width: 100%;
+    border: none;
+    font-family: "Playpen Sans", cursive;
+    font-size: 16px;
+    text-wrap: wrap;
+}
+
+.task > input:focus, .addTaskContainer > input:focus {
+    outline: none;
+}
+
+.addTaskContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
+    margin-top: 50px;
+    margin-bottom: 60px;
+    padding-bottom: 5px;
+    border-bottom: var(--blue) solid 2px;
+}
+
+.routine > h3 {
+    color: var(--blue);
+}
+
+.routine > h4 {
+    color: var(--orange);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.saveBtn {
+    background-color: var(--blue);
+    border: none;
+    text-align: center;
+    width: 100%;
+    color: var(--white);
+    height: 50px;
+    border-radius: 50px;
+    font-family: "Playpen Sans", cursive;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.saveBtn:hover, .saveBtn:focus {
+    transform: scale(.99);
+    transition: .3s;
+}
