@@ -26,6 +26,367 @@
     border-radius: 26px 26px 0 0;
 }
 
+.userInformation {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(50px);
+    grid-template-areas: 
+        "userTitle"
+        "userDetails"
+        "divider"
+        "userPassword"
+    ;
+}
+
+.userInformation > h2 {
+    grid-area: userTitle;
+}
+
+.userDetails {
+    grid-area: userDetails;
+    padding: 40px 50px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: minmax(50px, auto);
+    grid-template-areas: 
+        "userImg updateForm updateForm"
+        "userImg updateForm updateForm"
+        "userImg updateForm updateForm"
+    ;
+}
+
+.userProfileImg {
+    grid-area: userImg;
+    border: var(--blue) solid 3px;
+    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    padding: 20px;
+}
+
+.newProfilePhoto {
+    object-fit: cover;
+    border-radius: 50%;
+    border: var(--blue) solid 2px;
+}
+
+.updateUserForm {
+    grid-area: updateForm;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(50px, auto);
+    grid-template-areas: 
+        "firstName lastName"
+        "username email"
+        "message message"
+        "saveBtn saveBtn"
+    ;
+    gap: 10px 20px;
+}
+
+.firstName {
+    grid-area: firstName;
+}
+
+.lastName {
+    grid-area: lastName;
+}
+
+.username {
+    grid-area: username;
+}
+
+.email {
+    grid-area: email;
+}
+
+.error, .confirm {
+    grid-area: message;
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.error {
+    color: var(--error);
+}
+
+.confirm {
+    color: var(--purple);
+}
+
+.saveBtn {
+    grid-area: saveBtn;
+}
+.firstName, .lastName, .username, .email {
+    display: flex;
+    flex-direction: column;
+}
+
+.firstName > label, .lastName > label, .username > label, .email > label, .oldPassword > label, .newPassword > label, .confirmPassword > label {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+.firstName > input, .lastName > input, .username > input, .email > input, .oldPassword > input, .newPassword > input, .confirmPassword > input {
+    border: var(--blue) solid 2px;
+    height: 30px;
+    font-family: "Playpen Sans", cursive;
+    font-size: 12px;
+    font-weight: 300;
+    padding: 3px 7px;
+    border-radius: 10px;
+    background-color: var(--white);
+    box-shadow: 0 0 2px 1px rgba(0,0,0,0.3);
+}
+
+.saveBtn {
+    background-color: var(--blue);
+    color: var(--white);
+    font-family: "Playpen Sans", cursive;
+    border-radius: 30px;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    box-shadow: 0 0 2px 1px rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+
+.saveBtn:hover, .saveBtn:focus {
+    transform: scale(.99);
+    transition: .3s;
+}
+
+.divider {
+    grid-area: divider;
+    margin: 15px 50px;
+    background-color: var(--blue);
+    height: 3px;
+    border-radius: 5px;
+}
+
+.passwordContainer {
+    grid-area: userPassword;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: minmax(50px, auto);
+    grid-template-areas: 
+        "passwordForm passwordForm passwordForm"
+        "passwordForm passwordForm passwordForm"
+        "formBtns formBtns formBtns"
+    ;
+}
+
+.passwordForm {
+    grid-area: passwordForm;
+    display: grid;
+    padding: 20px 50px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: minmax(50px, auto);
+    grid-template-areas: 
+        "oldPassword newPassword confirmPassword"
+    ;
+    column-gap: 20px;
+}
+
+.oldPassword {
+    grid-area: oldPassword;
+}
+
+.newPassword {
+    grid-area: newPassword;
+}
+
+.confirmPassword {
+    grid-area: confirmPassword;
+}
+
+.oldPassword, .newPassword, .confirmPassword {
+    display: flex;
+    flex-direction: column;
+}
+
+.formBtnsContainer {
+    grid-area: formBtns;
+    display: grid;
+    padding: 10px 50px 40px;
+    grid-template-columns: 1fr .75fr .5fr;
+    grid-auto-rows: minmax(30px, auto);
+    grid-template-areas: 
+        "passwordMessage passwordBtn deleteBtn"
+    ;
+    column-gap: 20px;
+}
+
+.passwordError, .passwordSuccess {
+    display: flex;
+    grid-area: passwordMessage;
+    font-size: 14px;
+}
+
+.passwordError {
+    color: var(--error);
+}
+
+.passwordSuccess {
+    color: var(--purple);
+}
+
+.passwordBtn {
+    grid-area: passwordBtn;
+    background-color: var(--blue);
+}
+
+.deleteBtn {
+    grid-area: deleteBtn;
+    background-color: var(--orange);
+}
+
+.passwordBtn, .deleteBtn {
+    border-radius: 30px;
+    border: none;
+    box-shadow: 0 0 2px 1px rgba(0,0,0,0.3);
+    font-family: "Playpen Sans", cursive;
+    color: var(--white);
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+.passwordBtn:hover, .deleteBtn:hover, .passwordBtn:focus, .deleteBtn:focus {
+    transform: scale(.99);
+    transition: .3s;
+}
+
+.routinesContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.routines {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    align-items: center;
+    max-width: 500px;
+    flex-direction: column;
+}
+
+.routine {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: start;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
+    margin-bottom: 30px;
+    padding-bottom: 5px;
+    border-bottom: var(--orange) solid 2px;
+}
+
+.routineDivider {
+    background-color: var(--purple);
+    width: 600px;
+    height: 2px;
+}
+
+.deleteTaskBtn, .addTaskBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.deleteTaskBtn:hover, .addTaskBtn:hover, .deleteTaskBtn:focus, .addTaskBtn:focus {
+    transform: scale(.97);
+    transition: .2s;
+}
+
+.task > input, .addTaskContainer > input {
+    background: transparent;
+    width: 100%;
+    border: none;
+    font-family: "Playpen Sans", cursive;
+    font-size: 16px;
+    text-wrap: wrap;
+}
+
+.task > input:focus, .addTaskContainer > input:focus {
+    outline: none;
+}
+
+.addTaskContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
+    margin-top: 50px;
+    margin-bottom: 60px;
+    padding-bottom: 5px;
+    border-bottom: var(--blue) solid 2px;
+}
+
+.routine > h3 {
+    color: var(--blue);
+}
+
+.routine > h4 {
+    color: var(--orange);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.saveRoutinesBtn {
+    background-color: var(--blue);
+    border: none;
+    text-align: center;
+    width: 100%;
+    margin: -20px 0 70px;
+    color: var(--white);
+    height: 50px;
+    border-radius: 50px;
+    font-family: "Playpen Sans", cursive;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.message {
+    color: var(--purple);
+    margin-top: -30px;
+}
+
+.uploadBtn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--blue);
+    border: none;
+    border-radius: 30px;
+    color: var(--white);
+    font-family: "Playpen Sans", cursive;
+    padding: 10px 20px;
+    margin-top: 15px;
+    cursor: pointer;
+    box-shadow: 0 0 1px 1px rgba(0,0,0,0.3);
+}
+
+.uploadBtn:hover, .uploadBtn:focus {
+    transform: scale(.99);
+    transition: .2s;
+}
+
+/* Cropping Modal */
 .cropModal {
     position: fixed;
     top: 0; 
@@ -55,8 +416,38 @@
     height: 400px;
 }
 
+.imageEditingBtns {
+    margin-top: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+}
+
+.rotationBtnRight, .rotationBtnLeft {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.rotationBtnImgLeft:hover, .rotationBtnImgLeft:focus, .rotationBtnImgRight:hover, .rotationBtnImgRight:focus {
+    transform: scale(.95);
+    transition: 2s;
+}
+
+.rotationBtnLeft:hover, .rotationBtnLeft:focus {
+    -webkit-animation: rotateLeft 1s;
+    -moz-animation: rotateLeft 1s;
+    animation: rotateLeft 1s;
+}
+
+.rotationBtnRight:hover, .rotationBtnRight:focus {
+    animation: rotateRight 1s;
+}
+
 .btnsContainer {
-    margin-top: 20px; 
+    margin-top: 40px; 
     text-align: center; 
 }
 
@@ -85,7 +476,28 @@
     transition: .3s;
 }
 
-.newProfilePhoto {
-    object-fit: cover;
-    border-radius: 50%;
+@-moz-keyframes rotateLeft { 
+    100% { -moz-transform: rotate(-360deg); } 
+}
+@-webkit-keyframes rotateLeft { 
+    100% { -webkit-transform: rotate(-360deg); } 
+}
+@keyframes rotateLeft { 
+    100% { 
+        -webkit-transform: rotate(-360deg); 
+        transform:rotate(-360deg); 
+    } 
+}
+
+@-moz-keyframes rotateRight { 
+    100% { -moz-transform: rotate(360deg); } 
+}
+@-webkit-keyframes rotateRight { 
+    100% { -webkit-transform: rotate(360deg); } 
+}
+@keyframes rotateRight { 
+    100% { 
+        -webkit-transform: rotate(360deg); 
+        transform:rotate(360deg); 
+    } 
 }

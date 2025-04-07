@@ -203,7 +203,7 @@ export default function Dashboard(props) {
                     <section className={styles.routineContainer}>
                         <div className={styles.dateContainer}>
                             {hasPastRoutine && date !== new Date().toLocaleDateString("en-CA") && (
-                                <button onClick={() => changeDate("prev")} className={styles.prevDateBtn}>⬅</button>
+                                <button onClick={() => changeDate("prev")} className={styles.prevDateBtn}>⬅️</button>
                             )}
                             <h2 className={styles.dateText}>{displayDate}</h2>
                             {!isToday && (
@@ -211,18 +211,18 @@ export default function Dashboard(props) {
                             )}
                         </div>
                         {routine ? (
-                        <div className={styles.routine}>
-                            <div>
-                                <div>
-                                    {/* <Image 
-                                        src="https://picsum.photos/25"
-                                        alt="Placeholder Icon"
-                                        width={25}
-                                        height={25}
-                                    /> */}
+                        <div className={styles.routines}>
+                            <div className={styles.routine}>
+                                <div className={styles.routineTitle}>
+                                    <Image 
+                                        src="/images/morning-icon-white.png"
+                                        alt=""
+                                        width={35}
+                                        height={35}
+                                    />
                                     <h3>Morning</h3>
                                 </div>
-                                <div>
+                                <div className={styles.tasksContainer}> 
                                 {routine.routine.morning.map((tasks, index) => (
                                     <label key={index}>
                                         <input 
@@ -237,17 +237,22 @@ export default function Dashboard(props) {
                                 ))}
                                 </div>
                             </div>
-                            <div>
-                                <div>
-                                    {/* <Image 
-                                        src="https://picsum.photos/25"
-                                        alt="Placeholder Icon"
-                                        width={25}
-                                        height={25}
-                                    /> */}
+                            <div className={styles.routineDivider}>
+                                <span className={styles.circle}></span>
+                                <span className={styles.line}></span>
+                                <span className={styles.circle}></span>
+                            </div>
+                            <div className={styles.routine}>
+                                <div className={styles.routineTitle}>
+                                    <Image 
+                                        src="/images/afternoon-icon-white.png"
+                                        alt=""
+                                        width={35}
+                                        height={35}
+                                    />
                                     <h3>Afternoon</h3>
                                 </div>
-                                <div>
+                                <div className={styles.tasksContainer}>
                                 {routine.routine.afternoon.map((tasks, index) => (
                                     <label key={index}>
                                         <input 
@@ -262,17 +267,22 @@ export default function Dashboard(props) {
                                 ))}
                                 </div>
                             </div>
-                            <div>
-                                <div>
-                                    {/* <Image 
-                                        src="https://picsum.photos/25"
-                                        alt="Placeholder Icon"
-                                        width={25}
-                                        height={25}
-                                    /> */}
+                            <div className={styles.routineDivider}>
+                                <span className={styles.circle}></span>
+                                <span className={styles.line}></span>
+                                <span className={styles.circle}></span>
+                            </div>
+                            <div className={styles.routine}>
+                                <div className={styles.routineTitle}>
+                                    <Image 
+                                        src="/images/evening-icon-white.png"
+                                        alt=""
+                                        width={35}
+                                        height={35}
+                                    />
                                     <h3>Evening</h3>
                                 </div>
-                                <div>
+                                <div className={styles.tasksContainer}>
                                 {routine.routine.evening.map((tasks, index) => (
                                     <label key={index}>
                                         <input 
@@ -287,17 +297,22 @@ export default function Dashboard(props) {
                                 ))}
                                 </div>
                             </div>
-                            <div>
-                                <div>
-                                    {/* <Image 
-                                        src="https://picsum.photos/25"
-                                        alt="Placeholder Icon"
-                                        width={25}
-                                        height={25}
-                                    /> */}
+                            <div className={styles.routineDivider}>
+                                <span className={styles.circle}></span>
+                                <span className={styles.line}></span>
+                                <span className={styles.circle}></span>
+                            </div>
+                            <div className={styles.routine}>
+                                <div className={styles.routineTitle}>
+                                    <Image 
+                                        src="/images/night-icon-white.png"
+                                        alt=""
+                                        width={35}
+                                        height={35}
+                                    />
                                     <h3>Night</h3>
                                 </div>
-                                <div>
+                                <div className={styles.tasksContainer}>
                                 {routine.routine.night.map((tasks, index) => (
                                     <label key={index}>
                                         <input 
@@ -314,8 +329,15 @@ export default function Dashboard(props) {
                             </div>
                         </div>
                         ) : (
-                            <div className={styles.routine}>
+                            <div className={styles.preRoutine}>
                                 <h3>How are you feeling today?</h3>
+                                <Image
+                                    src="/images/routine-img.jpg"
+                                    alt=""
+                                    width={500}
+                                    height={300}
+                                    className={styles.preRoutineImg}
+                                />
                                 <h4>Let us know so we can help you reach your self-care goals!</h4>
                             </div>
                         )}
@@ -338,8 +360,14 @@ export default function Dashboard(props) {
                     <section className={styles.energyContainer}>
                         {energySelected ? (
                             <div className={styles.energyInfo}>
-                                <h2>Thanks for sharing how you are feeling today.</h2>
-                                <p>Keep up the great work!</p>
+                                <h2>Thanks for Sharing How You are Feeling Today!</h2>
+                                <Image
+                                    src="/images/energy-img.jpg"
+                                    alt=""
+                                    width={500}
+                                    height={300}
+                                    className={styles.energyInfoImg}
+                                />
                             </div>
                         ) : (
                             <div className={styles.energyInfo}>

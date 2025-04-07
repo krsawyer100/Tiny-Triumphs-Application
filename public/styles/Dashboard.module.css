@@ -7,7 +7,7 @@
     margin: 50px;
     display: grid;
     grid-template-columns: 3fr 2fr;
-    grid-template-rows: 250px 1fr 400px;
+    grid-auto-rows: minmax(300px, auto);
     grid-template-areas: 
         "routine img"
         "routine quote"
@@ -54,8 +54,8 @@
     grid-area: next;
 }
 
-.routine {
-    padding: 20px 50px;
+.routines {
+    padding: 50px 100px;
 }
 
 .quoteContainer {
@@ -65,6 +65,8 @@
     color: var(--white);
     padding: 20px 50px;
     text-align: end;
+    display: flex;
+    align-items: center;
 }
 
 .imgContainer {
@@ -75,6 +77,9 @@
 }
 
 .energyContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     grid-area: energy;
     border: var(--orange) solid 3px;
     border-radius: 30px;
@@ -88,8 +93,23 @@
     height: 100%;
 }
 
+.energyInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .energyInfo > h2 {
+    color: var(--blue);
+    margin-top: 30px;
     text-align: center;
+}
+
+.energyInfoImg {
+    object-fit: cover;
+    border-radius: 30px;
+    margin: 20px 0 30px;
 }
 
 .btnsContainer {
@@ -98,7 +118,8 @@
     align-items: center;
     flex-direction: column;
     gap: 20px;
-    padding-top: 15px;
+    padding-top: 30px;
+    padding-bottom: 20px;
 }
 
 .btnsContainer > button {
@@ -123,4 +144,89 @@
 
 .btnsContainer > button:nth-child(3) {
     background-color: var(--purple);
+}
+
+.preRoutine {
+    text-align: center; 
+}
+
+.preRoutine > h3 {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.preRoutine > h4 {
+    margin-top: 50px;
+}
+
+.preRoutineImg {
+    object-fit: cover;
+    object-position: 50% 0;
+    border: var(--white) solid 5px;
+    border-radius: 30px;
+}
+
+.routineTitle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.tasksContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-left: 50px;
+}
+
+.tasksContainer > label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tasksContainer > label > input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    margin: 0;
+    border: var(--white) solid 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.tasksContainer > label > input[type="checkbox"]:checked {
+    background-color: var(--white);
+    opacity: 1;
+    transition: .2s opacity ease-in-out;
+}
+
+.tasksContainer > label > input[type="checkbox"]:checked::before {
+    opacity: 0;
+}
+
+.routineDivider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 50px auto 30px;
+}
+
+.circle {
+    width: 15px;
+    height: 15px;
+    background-color: var(--white);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.line {
+    flex-grow: 1;
+    height: 3px;
+    background-color: var(--white);
+    margin: 0;
 }

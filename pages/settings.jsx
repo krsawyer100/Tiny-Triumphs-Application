@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
 import useLogout from "../hooks/useLogout"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import DashboardHeader from "../components/dashboardHeader"
 import Cropper from 'react-easy-crop'
 import getCroppedImg from '../utils/cropImage.js'
@@ -49,6 +49,7 @@ export default function Settings(props) {
     const [generatedRoutine, setGeneratedRoutine] = useState(null)
     const [newTaskInput, setNewTaskInput] = useState({})
     const [editingTask, setEditingTask] = useState(null)
+    const [message, setMessage] = useState("")
 
     const [selectedImage, setSelectedImage] = useState(null)
     const [crop, setCrop] = useState({x:0, y:0})
@@ -56,6 +57,7 @@ export default function Settings(props) {
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
     const [croppedImage, setCroppedImage] = useState(null)
     const [rotation, setRotation] = useState(0)
+    const fileInputRef = useRef(null)
 
     useEffect(() => {
         fetchRoutines()
@@ -79,6 +81,14 @@ export default function Settings(props) {
         } catch (err) {
             console.error("Error fetching routine: ", err)
         }
+    }
+
+    function handleMessage(e) {
+        e.preventDefault()
+        setMessage("Routines Saved Successfully")
+        setTimeout(() => {
+            setMessage("")
+        }, 5000)
     }
 
     function handleNewTaskChange(e, energyLevel, timeOfDay) {
@@ -110,11 +120,16 @@ export default function Settings(props) {
 
             if (res.status === 200) {
                 setConfirm('User updated successfully')
-                return confirm
+                setTimeout(() => {
+                    setConfirm("")
+                }, 5000)
             }
 
             const { error: message } = await res.json()
             setError(message)
+            setTimeout(() => {
+                setError("")
+            }, 5000)
         } catch (error) {
             console.log(error.message)
         }
@@ -140,9 +155,15 @@ export default function Settings(props) {
                 setOldPassword('')
                 setNewPassword('')
                 setConfirmPassword('')
+                setTimeout(() => {
+                    setPasswordSuccess("")
+                }, 5000)
             } else {
                 setPasswordError(data.error)
                 setPasswordSuccess('')
+                setTimeout(() => {
+                    setPasswordError("")
+                }, 5000)
             }
 
         } catch (err) {
@@ -254,13 +275,14 @@ export default function Settings(props) {
 
     function renderTasks(tasks, energyLevel, timeOfDay) {
         if (!tasks || tasks.length === 0) return <p>No tasks available</p>
+
         return ( 
-            <ul>
+            <div>
                 {tasks.map((task, index) => {
                     const taskKey = `${energyLevel}-${timeOfDay}-${index}`
 
                     return (
-                        <li key={index}>
+                        <p key={index} className={styles.task}>
                             {editingTask === taskKey ? (
                                 <input
                                     type="text"
@@ -273,29 +295,44 @@ export default function Settings(props) {
                                     {task.task}
                                 </span>
                             )}
-                            <button onClick={() => deleteTask(energyLevel, timeOfDay, index)}>Delete</button>
-                        </li>
+                            <button className={styles.deleteTaskBtn} onClick={() => deleteTask(energyLevel, timeOfDay, index)}>
+                                <Image
+                                    src="/images/delete-icon.png"
+                                    alt=""
+                                    width={25}
+                                    height={25}
+                                    className={styles.deleteBtnIcon}
+                                />
+                            </button>
+                        </p>
                     )
                 }
                 )}
-            </ul>
+            </div>
         )
     }
     function renderAddTask(energyLevel, timeOfDay) {
 
         return (
-            <div>
-                <label>Add Tasks here:</label>
+            <div className={styles.addTaskContainer}>
                 <input
                     type="text"
                     placeholder="Add new task"
                     value={newTaskInput[`${energyLevel}-${timeOfDay}`] || ""}
                     onChange={(e) => handleNewTaskChange(e, energyLevel, timeOfDay)}
                 />
-                <button onClick={() => {
+                <button className={styles.addTaskBtn} onClick={() => {
                     const newTask = newTaskInput[`${energyLevel}-${timeOfDay}`]
                     addTask(energyLevel, timeOfDay, newTask)
-                }}>Add Task</button>
+                }}>
+                    <Image
+                        src="/images/add-icon.png"
+                        alt=""
+                        width={25}
+                        height={25}
+                        className={styles.addBtnIcon}
+                    />
+                </button>
             </div>
         )
     }
@@ -372,8 +409,8 @@ export default function Settings(props) {
                 <h1>{props.user.username}&apos;s Settings</h1>
                 <section className={styles.userInformation}>
                     <h2>User Information</h2>
-                    <div>
-                        <div>
+                    <div className={styles.userDetails}>
+                        <div className={styles.userProfileImg}>
                             <Image
                                 src={profilePhoto.startsWith('/uploads') ? profilePhoto : `/images/account-icon-blue.png`}
                                 alt=""
@@ -381,76 +418,24 @@ export default function Settings(props) {
                                 height={150}
                                 className={styles.newProfilePhoto}
                             />
-                            <input type="file" accept="image/*" onChange={onFileChange} className={styles.uploadBtn}/>
-                            <div>
-                {selectedImage && (
-                    <div className={styles.cropModal}>
-                        <div className={styles.cropModalBorder}>
-                            <div className={styles.imgContainer}>
-                                <Cropper
-                                    image={selectedImage}
-                                    crop={crop}
-                                    zoom={zoom}
-                                    rotation={rotation}
-                                    aspect={1}
-                                    cropShape="round"
-                                    showGrid={false}
-                                    onCropChange={setCrop}
-                                    onZoomChange={setZoom}
-                                    onRotationChange={setRotation}
-                                    onCropComplete={(_, croppedAreaPixels) => {
-                                        console.log('Crop complete:', croppedAreaPixels);
-                                        setCroppedAreaPixels(croppedAreaPixels)}
-                                    }
+                            <input type="file" accept="image/*" onChange={onFileChange} ref={fileInputRef} style={{display: 'none'}}/>
+                            <button
+                                type="button"
+                                onClick={() => fileInputRef.current.click()}
+                                className={styles.uploadBtn}
+                            >
+                                <Image
+                                    src="/images/upload-icon.png"
+                                    alt=""
+                                    width={25}
+                                    height={25}
+                                    className={styles.uploadBtnIcon}
                                 />
-                            </div>
-                            <div style={{ marginTop: '10px', textAlign: 'center' }}>
-                                    <button 
-                                        onClick={() => setRotation((prev) => prev - 90)} 
-                                        style={{ marginRight: '5px' }}
-                                    >
-                                        Rotate Left
-                                    </button>
-                                    <div style={{ marginTop: '15px', textAlign: 'center' }}>
-  {/* Zoom Slider */}
-  <label htmlFor="zoomSlider" style={{ marginRight: '10px' }}>Zoom:</label>
-  <input
-    id="zoomSlider"
-    type="range"
-    min={1}
-    max={3}
-    step={0.1}
-    value={zoom}
-    onChange={(e) => setZoom(e.target.value)}
-    style={{ width: '60%' }}
-  />
-</div>
-                                    <button onClick={() => setRotation((prev) => prev + 90)}>
-                                        Rotate Right
-                                    </button>
-                                </div>
-                            <div className={styles.btnsContainer}>
-                                <button 
-                                    onClick={() => setSelectedImage(null)}
-                                    className={styles.modalBtn}
-                                 >
-                                    Cancel
-                                </button>
-                                <button 
-                                    onClick={() => showCroppedImage()} 
-                                    className={styles.modalBtn}
-                               >
-                                    Save Crop
-                                </button>
-                            </div>
+                                Upload Photo
+                            </button>
                         </div>
-                    </div>
-                )} 
-                </div>
-                        </div>
-                        <div>
-                        <form onSubmit={handleUpdate}>
-                            <div>
+                        <form onSubmit={handleUpdate} className={styles.updateUserForm}>
+                            <div className={styles.firstName}>
                                 <label htmlFor="firstName">First Name: </label>
                                 <input 
                                     type="text"
@@ -459,6 +444,8 @@ export default function Settings(props) {
                                     onChange={handleChange}
                                     value={firstName}
                                 />
+                            </div>
+                            <div className={styles.lastName}>
                                 <label htmlFor="lastName">Last Name: </label>
                                 <input 
                                     type="text"
@@ -468,7 +455,7 @@ export default function Settings(props) {
                                     value={lastName}
                                 />
                             </div>
-                            <div>
+                            <div className={styles.username}>
                                 <label htmlFor="username">Username: </label>
                                 <input 
                                     type="text"
@@ -477,6 +464,8 @@ export default function Settings(props) {
                                     onChange={handleChange}
                                     value={username}
                                 />
+                            </div>
+                            <div className={styles.email}>
                                 <label htmlFor="email">Email: </label>
                                 <input 
                                     type="email"
@@ -487,100 +476,271 @@ export default function Settings(props) {
                                 />
 
                             </div>         
-                            {error && <p>{error}</p>}
-                            {confirm && <p>{confirm}</p>}
-                            <button>Update Information</button>
+                            {error && <p className={styles.error}>{error}</p>}
+                            {confirm && <p className={styles.confirm}>{confirm}</p>}
+                            <button className={styles.saveBtn}>Update Information</button>
                         </form>
+                    </div>
+                    <div>
+                        {selectedImage && (
+                            <div className={styles.cropModal}>
+                                <div className={styles.cropModalBorder}>
+                                    <div className={styles.imgContainer}>
+                                        <Cropper
+                                            image={selectedImage}
+                                            crop={crop}
+                                            zoom={zoom}
+                                            rotation={rotation}
+                                            aspect={1}
+                                            cropShape="round"
+                                            showGrid={false}
+                                            onCropChange={setCrop}
+                                            onZoomChange={setZoom}
+                                            onRotationChange={setRotation}
+                                            onCropComplete={(_, croppedAreaPixels) => {
+                                                console.log('Crop complete:', croppedAreaPixels);
+                                                setCroppedAreaPixels(croppedAreaPixels)}
+                                            }
+                                        />
+                                    </div>
+                                    <div className={styles.imageEditingBtns}>
+                                        <button onClick={() => setRotation((prev) => prev - 90)} className={styles.rotationBtnLeft}>
+                                            <Image
+                                                src="/images/rotate-left-icon.png"
+                                                alt="Rotate image left button"
+                                                width={50}
+                                                height={50}
+                                                className={styles.rotationBtnImgLeft}
+                                            />
+                                        </button>
+                                        <div className={styles.sliderContainer}>
+                                            <label htmlFor="zoomSlider">Zoom:</label>
+                                            <input
+                                                id="zoomSlider"
+                                                type="range"
+                                                min={1}
+                                                max={3}
+                                                step={0.1}
+                                                value={zoom}
+                                                onChange={(e) => setZoom(e.target.value)}
+                                                style={{ width: '60%' }}
+                                            />
+                                        </div>
+                                        <button onClick={() => setRotation((prev) => prev + 90)} className={styles.rotationBtnRight}>
+                                            <Image
+                                                src="/images/rotate-right-icon.png"
+                                                alt="Rotate image right button"
+                                                width={50}
+                                                height={50}
+                                                className={styles.rotationBtnImgRight}
+                                            />
+                                        </button>
+                                    </div>
+                                    <div className={styles.btnsContainer}>
+                                        <button onClick={() => setSelectedImage(null)} className={styles.modalBtn}>
+                                            Cancel
+                                        </button>
+                                        <button onClick={() => showCroppedImage()} className={styles.modalBtn}>
+                                            Save Crop
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                    <span className={styles.divider}></span>
+                    <div className={styles.passwordContainer}>
+                        <form onSubmit={handlePasswordUpdate} className={styles.passwordForm} id="passwordForm">
+                            <div className={styles.oldPassword}>
+                                <label htmlFor="oldPassword">Old Password:</label>
+                                <input
+                                    type="password"
+                                    id="oldPassword" 
+                                    value={oldPassword}
+                                    onChange={(e) => setOldPassword(e.target.value)}
+                                />
+                            </div>
+                            <div className={styles.newPassword}>
+                                <label htmlFor="newPassword">New Password:</label>
+                                <input
+                                    type="password"
+                                    id="newPassword" 
+                                    value={newPassword}
+                                    onChange={(e) => setNewPassword(e.target.value)}
+                                />
+                            </div>
+                            <div className={styles.confirmPassword}>
+                                <label htmlFor="confirmPassword">Confirm Password:</label>
+                                <input
+                                    type="password"
+                                    id="confirmPassword" 
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                />
+                            </div>
+                        </form>
+                        <div className={styles.formBtnsContainer}>
+                            {passwordError && <p className={styles.passwordError}>{passwordError}</p>}
+                            {passwordSuccess && <p className={styles.passwordSuccess}>{passwordSuccess}</p>}
+                            <button className={styles.passwordBtn} type="submit" form="passwordForm">Update Password</button>
+                            <button onClick={handleDelete} className={styles.deleteBtn}>Delete Account</button>
                         </div>
                     </div>
-                    <span></span>
-                    <form onSubmit={handlePasswordUpdate}>
-                        <div>
-                            <label htmlFor="oldPassword">Old Password:</label>
-                            <input
-                                type="password"
-                                id="oldPassword" 
-                                value={oldPassword}
-                                onChange={(e) => setOldPassword(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="newPassword">New Password:</label>
-                            <input
-                                type="password"
-                                id="newPassword" 
-                                value={newPassword}
-                                onChange={(e) => setNewPassword(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="confirmPassword">Old Password:</label>
-                            <input
-                                type="password"
-                                id="confirmPassword" 
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                            />
-                        </div>
-                        {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
-                        {passwordSuccess && <p style={{ color: 'green' }}>{passwordSuccess}</p>}
-                        <button>Update Password</button>
-                    </form>
-                    <span></span>
-                    <button onClick={handleDelete}>Delete Account</button>
+
                 </section>
                 <section className={styles.routineInformation}>
                     <h2>Edit Routines</h2>
-
-                    <div>
+                    <div className={styles.routinesContainer}>
                     {generatedRoutine ? (
-                        <div>
-                            <div>
+                        <div className={styles.routines}>
+                            <div className={styles.routine}>
                                 <h3>Low Energy Routine</h3>
-                                <h4>Morning</h4>
+                                <h4>
+                                    <Image
+                                        src="/images/morning-icon.png"
+                                        alt=""
+                                        width={30}
+                                        height={30}
+                                    />
+                                    Morning
+                                </h4>
                                 {renderTasks(generatedRoutine.routine.lowEnergy.morning, "lowEnergy", "morning")}
                                 {renderAddTask("lowEnergy", "morning")}
-                                <h4>Afternoon</h4>
+                            <h4>
+                                <Image
+                                    src="/images/afternoon-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Afternoon
+                            </h4>
                                 {renderTasks(generatedRoutine.routine.lowEnergy.afternoon, "lowEnergy", "afternoon")}
                                 {renderAddTask("lowEnergy", "afternoon")}
-                                <h4>Evening</h4>
+                            <h4>
+                                <Image
+                                    src="/images/evening-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Evening
+                            </h4>
                                 {renderTasks(generatedRoutine.routine.lowEnergy.evening, "lowEnergy", "evening")}
                                 {renderAddTask("lowEnergy", "evening")}
-                                <h4>Night</h4>
+                            <h4>
+                                <Image
+                                    src="/images/night-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Night
+                            </h4>
                                 {renderTasks(generatedRoutine.routine.lowEnergy.night, "lowEnergy", "night")}
                                 {renderAddTask("lowEnergy", "night")}
                             </div>
-                            <div>
-                            <h3>Medium Energy Routine</h3>
-                                <h4>Morning</h4>
+                            <span className={styles.routineDivider}></span>
+                            <div className={styles.routine}>
+                                <h3>Medium Energy Routine</h3>
+                                <h4>
+                                    <Image
+                                        src="/images/morning-icon.png"
+                                        alt=""
+                                        width={30}
+                                        height={30}
+                                    />
+                                    Morning
+                                </h4>
                                 {renderTasks(generatedRoutine.routine.mediumEnergy.morning, "mediumEnergy", "morning")}
                                 {renderAddTask("mediumEnergy", "morning")}
-                                <h4>Afternoon</h4>
+                            <h4>
+                                <Image
+                                    src="/images/afternoon-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Afternoon
+                            </h4>
                                 {renderTasks(generatedRoutine.routine.mediumEnergy.afternoon, "mediumEnergy", "afternoon")}
                                 {renderAddTask("mediumEnergy", "afternoon")}
-                                <h4>Evening</h4>
+                            <h4>
+                                <Image
+                                    src="/images/evening-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Evening
+                            </h4>
                                 {renderTasks(generatedRoutine.routine.mediumEnergy.evening, "mediumEnergy", "evening")}
                                 {renderAddTask("mediumEnergy", "evening")}
-                                <h4>Night</h4>
+                            <h4>
+                                <Image
+                                    src="/images/night-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Night
+                            </h4>
                                 {renderTasks(generatedRoutine.routine.mediumEnergy.night, "mediumEnergy", "night")}
                                 {renderAddTask("mediumEnergy", "night")}
                             </div>
-                            <div>
-                            <h3>High Energy Routine</h3>
-                                <h4>Morning</h4>
-                                {renderTasks(generatedRoutine.routine.highEnergy.morning, "highEnergy", "morning")}
-                                {renderAddTask("highEnergy", "morning")}
-                                <h4>Afternoon</h4>
-                                {renderTasks(generatedRoutine.routine.highEnergy.afternoon, "highEnergy", "afternoon")}
-                                {renderAddTask("highEnergy", "afternoon")}
-                                <h4>Evening</h4>
-                                {renderTasks(generatedRoutine.routine.highEnergy.evening, "highEnergy", "evening")}
-                                {renderAddTask("highEnergy", "evening")}
-                                <h4>Night</h4>
-                                {renderTasks(generatedRoutine.routine.highEnergy.night, "highEnergy", "night")}
-                                {renderAddTask("highEnergy", "night")}
+                            <span className={styles.routineDivider}></span>
+                            <div className={styles.routine}>
+                                <h3>High Energy Routine</h3>
+                                <h4>
+                                    <Image
+                                        src="/images/morning-icon.png"
+                                        alt=""
+                                        width={30}
+                                        height={30}
+                                    />
+                                    Morning
+                                </h4>
+                                    {renderTasks(generatedRoutine.routine.highEnergy.morning, "highEnergy", "morning")}
+                                    {renderAddTask("highEnergy", "morning")}
+                            <h4>
+                                <Image
+                                    src="/images/afternoon-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Afternoon
+                            </h4>
+                                    {renderTasks(generatedRoutine.routine.highEnergy.afternoon, "highEnergy", "afternoon")}
+                                    {renderAddTask("highEnergy", "afternoon")}
+                            <h4>
+                                <Image
+                                    src="/images/evening-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Evening
+                            </h4>
+                                    {renderTasks(generatedRoutine.routine.highEnergy.evening, "highEnergy", "evening")}
+                                    {renderAddTask("highEnergy", "evening")}
+                            <h4>
+                                <Image
+                                    src="/images/night-icon.png"
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                Night
+                            </h4>
+                                    {renderTasks(generatedRoutine.routine.highEnergy.night, "highEnergy", "night")}
+                                    {renderAddTask("highEnergy", "night")}
+                                </div>
+                                {message && (
+                                    <p className={styles.message}>{message}</p>
+                                )}
+                                <button onClick={handleMessage} className={styles.saveRoutinesBtn}>Save Routines</button>
                             </div>
-                        </div>
                         ) : (
                             <p>Loading routine...</p>
                         )}
