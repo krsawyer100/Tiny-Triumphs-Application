@@ -353,7 +353,7 @@ export default function Dashboard(props) {
                     </section>
                     <section className={styles.quoteContainer}>
                         <div>
-                            <p>&quot;{quote}&quot;</p>
+                            <h3>&quot;{quote}&quot;</h3>
                             <h4>~ {author}</h4>
                         </div>
                     </section>

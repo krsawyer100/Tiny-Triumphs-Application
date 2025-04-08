@@ -4,6 +4,7 @@ import db from "../../../db";
 import multer from 'multer';
 import path from 'path'
 import fs from 'fs'
+import sharp from 'sharp'
 
 export default withIronSessionApiRoute(uploadPhoto, sessionOptions);
 
@@ -14,10 +15,10 @@ const upload = multer({
         filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
     }),
     fileFilter: (req, file, cb) => {
-        const allowedTypes = ['image/jpeg', 'image/png'];
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/heic', 'image/heif', 'image/heif-sequence'];
         if (!allowedTypes.includes(file.mimetype)) {
             console.error('Rejected file type:', file.mimetype);
-            return cb(new Error('Only .jpg, .jpeg, and .png files are allowed'));
+            return cb(new Error('Only .jpg, .jpeg, .png, .heic, and .heif files are allowed'));
         }
         cb(null, true);
     },

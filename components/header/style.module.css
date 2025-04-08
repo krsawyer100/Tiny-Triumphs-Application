@@ -1,9 +1,12 @@
 .headerContainer {
     background-color: var(--white);
     border-bottom: var(--orange) 2px solid;
+    width: 100%;
+    position: relative;
+    z-index: 10;
   }
   
-  .headerInfo {
+  .headerInfo, .desktopMenu {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -85,3 +88,195 @@
     transform: scale(.98);
     transition: .3s;
   }
+
+  .backgroundOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--brown-overlay);
+    opacity: 0;
+    z-index: 7;
+    pointer-events: none;
+    display: none;
+  }
+  
+  .backgroundOverlay.open {
+    pointer-events: auto;
+    animation: fadeInOverlay 0.6s forwards;
+  }
+  
+  .backgroundOverlay.close {
+    animation: fadeOutOverlay 0.6s forwards;
+  }
+
+.navMenuBtn {
+  display: none;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.navMenuBtn > .lineOne, .navMenuBtn > .lineTwo, .navMenuBtn > .lineThree {
+  width: 30px;
+  height: 3px;
+  background-color: var(--orange);
+  border-radius: 15px;
+}
+
+.menu {
+  position: absolute;
+  top: -400px;
+  width: 100%;
+  opacity: 0;
+  z-index: 9;
+  border-bottom: var(--orange) solid 2px;
+  text-align: center;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  background-color: var(--white);
+}
+
+.menu.open {
+  opacity: 1;
+  top: 110px;
+  animation: slideDownMenu 0.6s forwards;
+}
+
+.menu.close {
+  animation: slideUpMenu 0.6s forwards;
+}
+
+.menu > nav {
+  padding: 50px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.menuLink {
+  color: var(--orange);
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.menuDropdown {
+  text-align: center;
+  margin: -20px 0;
+}
+
+.menuDropdownMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  border-top: var(--orange) solid 2px;
+  border-bottom: var(--orange) solid 2px;
+  width: 40vw;
+  padding: 30px 50px;
+  margin: 20px 0;
+}
+
+.dropdownMenuLink {
+  text-decoration: none;
+  color: var(--orange);
+  font-size: 14px;
+}
+
+.quizBtnContainer {
+  display: flex;
+  justify-content: center;    
+  align-items: center;
+  gap: 20px;
+  border-top: var(--blue) 2px solid;
+  padding: 30px 0;
+  width: 100vw;
+  margin-top: 20px;
+}
+
+.quizBtnContainer > p {
+  color: var(--blue);
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutOverlay {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideDownMenu {
+  from {
+    transform: translateY(-110%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUpMenu {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-110%);
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .desktopMenu {
+    display: none;
+  }
+
+  .navMenuBtn, .menu, .backgroundOverlay {
+    display: flex;
+  }
+
+  .quizBtn {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .quizBtn {
+    font-size: 12px;
+    width: 100px;
+    padding: 5px 10px;
+  }
+  .quizBtnContainer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .menuLink {
+    font-size: 14px;
+  }
+  .dropdownMenuLink {
+    font-size: 12px;
+  }
+  .logo {
+    width: 150px;
+  }
+
+}

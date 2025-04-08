@@ -3,6 +3,7 @@ import Footer from '../components/footer'
 import ContactForm from '../components/contactForm'
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from '../config/session'
+import styles from '../public/styles/Contact.module.css'
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -25,10 +26,10 @@ export default function Contact(props) {
             <Header 
                 isLoggedIn={props.isLoggedIn}
             />
-            <main>
-                <div>
+            <main className={styles.main}>
+                <div className={styles.contactInfoContainer}>
                     <h1>Contact Us</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, maxime dolorum qui odit perferendis itaque, in cumque doloribus aspernatur enim tempora nostrum sint. Porro praesentium adipisci neque ducimus. Sint, error!</p>
+                    <p>Whether you have a question, feedback, or just want to share your Tiny Triumphs journey, we&apos;re here for you. Reach out anytime — your voice matters, and we're always happy to connect.</p>
                 </div>
                 <ContactForm />
             </main>

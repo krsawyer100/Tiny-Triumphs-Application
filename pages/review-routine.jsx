@@ -250,7 +250,7 @@ export default function ReviewRoutine(props) {
                             </h4>
                             {renderTasks(routine.lowEnergy.night, "lowEnergy", "night")}
                             {renderAddTask("lowEnergy", "night")}
-                            <span className={styles.divider}></span>
+                            <div className={styles.divider}></div>
                             <h3>Medium Energy Routine:</h3>
                             <h4>
                                 <Image
@@ -296,7 +296,7 @@ export default function ReviewRoutine(props) {
                             </h4>
                             {renderTasks(routine.mediumEnergy.night, "mediumEnergy", "night")}
                             {renderAddTask("mediumEnergy", "night")}
-                            <span className={styles.divider}></span>
+                            <div className={styles.divider}></div>
                             <h3>High Energy Routine:</h3>
                             <h4>
                                 <Image

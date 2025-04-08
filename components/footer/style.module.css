@@ -33,3 +33,25 @@
     font-size: 12px;
     text-align: center;
 }
+
+@media screen and (max-width: 950px) {
+    .navLink {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .navLink {
+         font-size: 12px;
+    }
+    .copyrightText {
+        font-size: 10px;
+    }
+    .sitemapContainer {
+        padding-bottom: 20px;
+        flex-wrap: wrap;
+    }
+    .footerContainer {
+        padding: 30px 10px;
+    }
+}

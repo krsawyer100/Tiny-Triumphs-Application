@@ -4,14 +4,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 50px;
+}
+
+.main > h1 {
+    color: var(--orange);
 }
 
 .userInformation, .routineInformation {
     background-color: var(--white);
     border: var(--blue) 3px solid;
     border-radius: 30px;
-    width: 800px;
+    width: 100%;
 }
 
 .userInformation > h2, .routineInformation > h2 {
@@ -65,6 +69,11 @@
     justify-content: center;
     border-radius: 30px;
     padding: 20px;
+}
+
+.userProfileImg > label {
+    align-self: start;
+    margin-bottom: 20px !important;
 }
 
 .newProfilePhoto {
@@ -125,10 +134,11 @@
     flex-direction: column;
 }
 
-.firstName > label, .lastName > label, .username > label, .email > label, .oldPassword > label, .newPassword > label, .confirmPassword > label {
+.firstName > label, .lastName > label, .username > label, .email > label, .oldPassword > label, .newPassword > label, .confirmPassword > label, .userProfileImg > label {
     font-weight: 500;
     font-size: 14px;
     margin-bottom: 3px;
+    color: var(--orange);
 }
 
 .firstName > input, .lastName > input, .username > input, .email > input, .oldPassword > input, .newPassword > input, .confirmPassword > input {
@@ -272,8 +282,8 @@
     gap: 50px;
     justify-content: center;
     align-items: center;
-    max-width: 500px;
     flex-direction: column;
+    padding: 30px;
 }
 
 .routine {
@@ -281,13 +291,14 @@
     justify-content: center;
     flex-direction: column;
     text-align: start;
+    width: 80%;
+    min-width: 700px;
 }
 
 .task {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 500px;
     margin-bottom: 30px;
     padding-bottom: 5px;
     border-bottom: var(--orange) solid 2px;
@@ -295,7 +306,7 @@
 
 .routineDivider {
     background-color: var(--purple);
-    width: 600px;
+    width: 90%;
     height: 2px;
 }
 
@@ -327,7 +338,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 500px;
+    width: 100%;
     margin-top: 50px;
     margin-bottom: 60px;
     padding-bottom: 5px;
@@ -443,6 +454,8 @@
 }
 
 .rotationBtnRight:hover, .rotationBtnRight:focus {
+    -webkit-animation: rotateRight 1s;
+    -moz-animation: rotateRight 1s;
     animation: rotateRight 1s;
 }
 
@@ -500,4 +513,232 @@
         -webkit-transform: rotate(360deg); 
         transform:rotate(360deg); 
     } 
+}
+
+@media screen and (max-width: 875px) {
+    .main {
+        margin: 30px 20px;
+        gap: 30px;
+    }
+    
+    .userInformation, .routineInformation {
+        width: 100%;
+    }
+    
+    .userInformation > h2, .routineInformation > h2 {
+        height: 30px;
+    }
+    
+    .userInformation {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(50px, auto);
+        grid-template-areas: 
+            "userTitle"
+            "userDetails"
+            "divider"
+            "userPassword"
+        ;
+    }
+    .userDetails {
+        grid-area: userDetails;
+        padding: 20px 50px 30px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(50px, auto);
+        grid-template-areas: 
+            "userImg"
+            "updateForm"
+            "updateForm"
+        ;
+        gap: 30px;
+    }
+    
+    .userProfileImg {
+        margin-right: 0;
+        padding: 30px;
+    }
+    
+    .userProfileImg > label {
+        align-self: start;
+        margin-bottom: 20px !important;
+    }
+    
+    .updateUserForm {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(50px, auto);
+        grid-template-areas: 
+            "firstName"
+            "lastName"
+            "username" 
+            "email"
+            "message"
+            "saveBtn"
+        ;
+        gap: 20px;
+    }
+    
+    .firstName > label, .lastName > label, .username > label, .email > label, .oldPassword > label, .newPassword > label, .confirmPassword > label, .userProfileImg > label {
+        margin-bottom: 5px;
+    }
+    
+    .passwordContainer {
+        grid-area: userPassword;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-auto-rows: minmax(50px, auto);
+        grid-template-areas: 
+            "passwordForm passwordForm passwordForm"
+            "passwordForm passwordForm passwordForm"
+            "formBtns formBtns formBtns"
+        ;
+    }
+    
+    .passwordForm {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "oldPassword" 
+            "newPassword" 
+            "confirmPassword"
+        ;
+        gap: 20px;
+    }
+    
+    .formBtnsContainer {
+        grid-area: formBtns;
+        display: grid;
+        padding: 0 15px 30px;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-auto-rows: minmax(30px, auto);
+        grid-template-areas: 
+            "passwordMessage passwordMessage passwordMessage" 
+            "passwordBtn passwordBtn deleteBtn"
+        ;
+        column-gap: 20px;
+    }
+    
+    .passwordError, .passwordSuccess {
+        padding-bottom: 20px;
+    }
+    
+    .routines {
+        gap: 30px;
+        padding: 30px 10px;
+    }
+
+    .routine {
+        width: 80%;
+        min-width: 500px;
+    }
+    
+    .routineDivider {
+        width: 110%;
+    }
+    
+    .task > input, .addTaskContainer > input {
+        width: 100%;
+        font-size: 14px;
+    }
+    
+    .task > input:focus, .addTaskContainer > input:focus {
+        outline: none;
+    }
+    
+    .addTaskContainer {
+        width: 100%;
+        margin-top: 30px;
+        margin-bottom: 40px;
+    }
+    
+    .message {
+        margin-top: -10px;
+    }
+    
+    .cropModalBorder {
+        width: 95%;
+        padding: 10px;
+    }
+    
+    .imgContainer {
+        height: 250px;
+    }
+    
+    .imageEditingBtns {
+        margin-top: 30px;
+        gap: 5px;
+    }
+
+    .rotationBtnImgLeft, .rotationBtnImgRight {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .rotationBtnLeft:hover, .rotationBtnLeft:focus {
+        -webkit-animation: rotateLeft .6s;
+        -moz-animation: rotateLeft .6s;
+        animation: rotateLeft .6s;
+    }
+    
+    .rotationBtnRight:hover, .rotationBtnRight:focus {
+        -webkit-animation: rotateRight .6s;
+        -moz-animation: rotateRight .6s;
+        animation: rotateRight .6s;
+    }
+    
+    .btnsContainer {
+        margin-top: 30px; 
+        margin-bottom: 10px;
+    }
+    
+    .modalBtn {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 675px) {
+    .userDetails {
+        padding: 15px;
+    }
+
+    .formBtnsContainer {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "passwordMessage"
+            "passwordBtn"
+            "deleteBtn"
+        ;
+        justify-items: center;
+        gap: 20px;
+    }
+
+    .passwordBtn, .deleteBtn {
+        width: 100%;
+    }
+
+    .passwordError, .passwordSuccess {
+        padding-bottom: 0;
+        text-align: center;
+    }
+
+    .passwordForm {
+        padding: 20px 15px;
+    }
+
+    .routine {
+        min-width: 300px;
+    }
+    
+    .routineDivider {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .routine {
+        min-width: 240px;
+    }
+    
+    .routineDivider {
+        width: 100%;
+    }
 }

@@ -78,6 +78,7 @@
 
 .navLink {
   text-decoration: none;
+  color: var(--orange);
 }
 
 .navBtnImg {
@@ -145,4 +146,51 @@
     transform: translateY(-100%);
     opacity: 0;
   }
+}
+
+@media screen and (max-width: 700px) {
+  .navLogo {
+    font-size: 16px;
+  }
+
+  .navLogoIcon {
+    width: auto;
+    height: 60px;
+  }
+
+  .navMenuContainer {
+    top: 90px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .navLogo {
+    font-size: 14px;
+  }
+
+  .navLogoIcon {
+    width: auto;
+    height: 50px;
+  }
+
+  .userGreeting {
+    display: none;
+  }
+
+  .navBtnImg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navContainer {
+    padding: 5px 0px;
+  }
+
+  .navMenuContainer {
+    top: 80px;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
 }

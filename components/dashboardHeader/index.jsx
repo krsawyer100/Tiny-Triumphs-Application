@@ -56,7 +56,7 @@ export default function DashboardHeader({ username, profilePhoto}) {
         Tiny Triumphs Dashboard
         </Link>
         <div>
-          <p>Welcome, {username}</p>
+          <p className={styles.userGreeting}>Welcome, {username}</p>
           <button className={styles.navBtn} onClick={toggleMenu}>
             <Image
               src={finalProfilePhoto}
@@ -76,7 +76,7 @@ export default function DashboardHeader({ username, profilePhoto}) {
       <nav> 
         <p><Link href="/settings" className={styles.navLink}>Account Settings</Link></p>
         <p><Link href="/dashboard" className={styles.navLink}>Dashboard</Link></p>
-        <p onClick={logout} style={{cursor: "pointer"}}>Logout</p>
+        <p onClick={logout} style={{cursor: "pointer"}} className={styles.navLink}>Logout</p>
       </nav>
     </div>
     </>

@@ -1,5 +1,5 @@
 .main {
-    background-image: url(~/public/images/quiz-background.jpg);
+    background-image: url("/images/quiz-background.jpg");
     background-color: var(--brown-overlay);
     background-blend-mode: multiply;
     background-size: cover;
@@ -30,13 +30,12 @@
     display: flex;
     gap: 50px;
     justify-content: center;
-    min-width: 600px;
 }
 
 .divider {
-    background-color: var(--purple);
-    width: 600px;
-    height: 2px;
+    border: var(--purple) dashed 3px;
+    border-radius: 10px;
+    margin: 50px 0;
 }
 
 .task {
@@ -101,7 +100,7 @@
     text-align: center;
     width: 100%;
     color: var(--white);
-    height: 50px;
+    padding: 15px;
     border-radius: 50px;
     font-family: "Playpen Sans", cursive;
     font-size: 14px;
@@ -113,4 +112,70 @@
 .saveBtn:hover, .saveBtn:focus {
     transform: scale(.99);
     transition: .3s;
+}
+
+@media screen and (max-width: 950px) {
+    .main > h2 {
+        margin: 20px 50px;
+    }
+    
+    .routinesContainer {
+        margin: 50px;
+        padding: 50px 70px;
+    }
+    
+    
+    .task {
+        width: 100%;
+    }
+    
+    .deleteBtn, .addBtn {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .task > input, .addTaskContainer > input {
+        font-size: 14px;
+    }
+
+    .addTaskContainer {
+        width: 100%;
+        margin-top: 40px;
+        margin-bottom: 50px;
+    }
+    
+    .saveBtn {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .main > h2 {
+        margin: 20px 30px;
+    }
+    
+    .routinesContainer {
+        margin: 20px;
+        padding: 30px 40px;
+    }
+    
+    
+    .task {
+        width: 100%;
+    }
+    
+    .task > input, .addTaskContainer > input {
+        font-size: 12px;
+    }
+
+    .addTaskContainer {
+        margin-top: 30px;
+        margin-bottom: 40px;
+    }
+    
+    .saveBtn {
+        padding: 10px;
+        font-size: 12px;
+    }
 }

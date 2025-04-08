@@ -1,5 +1,5 @@
 .hero {
-    background-image: url(~/public/images/hero-background.jpg);
+    background-image: url(/images/hero-background.jpg);
     height: 700px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -51,7 +51,6 @@
     transform: scale(.98);
     transition: .3s;
     border: var(--white) 2px solid;
-    /* box-shadow: 0px 1px 10px 1px rgba(255, 252, 240, 1); */
 }
 
 .applicationInfo {
@@ -80,14 +79,14 @@
     ;
     justify-items: center;
     align-content: center;
-    grid-column-gap: 70px;
-    grid-row-gap: 20px;
+    gap: 20px 70px;
 }
 
 .aboutTitle {
     grid-area: aboutTitle;
     justify-self: start;
     color: var(--orange);
+    text-align: start;
 }
 
 .aboutParagraphOne {
@@ -104,8 +103,8 @@
 
 .aboutImg {
     grid-area: aboutImg;
-    width: 600px;
-    height: 400px;
+    width: 500px;
+    height: 350px;
     align-self: center;
 }
 
@@ -128,13 +127,13 @@
     ;
     justify-content: center;
     align-content: center;
-    grid-column-gap: 50px;
+    gap: 0 50px;
 }
 
 .statisticImg {
     grid-area: statisticImg;
-    width: 600px;
-    height: 400px;
+    width: 500px;
+    height: 350px;
     align-self: center;
 }
 
@@ -142,6 +141,7 @@
     grid-area: statisticTitle;
     color: var(--orange);
     justify-self: end;
+    text-align: end;
 }
 
 .statisticQuote {
@@ -163,7 +163,7 @@
 }
 
 .benefits {
-    background-image: url(~/public/images/stripped-background.jpg);
+    background-image: url(/images/stripped-background.jpg);
     background-color: var(--orange);
     background-blend-mode: multiply;
     color: var(--white);
@@ -187,10 +187,19 @@
     color: var(--white);
     height: 575px;
     border: var(--white) 2px solid;
+    border-radius: 10px;
 }
 
 .benefitsContainer > div {
     text-align: center;
+}
+
+.benefitsContainer > div > h4 {
+    margin-bottom: 30px;
+}
+
+.benefitsContainer > div > p {
+    margin-top: 30px;
 }
 
 .resources {
@@ -237,4 +246,111 @@
     object-fit: cover;
     border-radius: 26px 26px 0 0;
     width: 100%;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1470px) {
+    .applicationInfo {
+        padding: 70px 30px;
+        gap: 30px;
+    }
+
+    .about {
+        gap: 0 50px;
+    }
+
+    .aboutImg, .statisticImg {
+        width: 450px;
+        height: 350px;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .applicationInfo {
+        gap: 50px;
+        justify-items: center;
+        align-content: center;
+        padding: 50px 20px 80px;
+    }
+    
+    .about {
+        width: 70%;
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "aboutTitle"
+            "aboutImg"
+            "aboutParagraphOne"
+            "aboutParagraphTwo"
+        ;
+        gap: 0;
+        padding: 0 auto;
+    }
+    
+    .aboutTitle, .statisticTitle {
+        justify-self: center;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+    
+    .aboutParagraphOne {
+        margin-top: 30px;
+    }
+    
+    .aboutImg, .statisticImg {
+        width: 100%;
+        height: auto;
+        justify-self: center;
+    }
+    
+    .statistic {
+        padding: 0 auto;
+        width: 70%;
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "statisticTitle"
+            "statisticImg"
+            "statisticQuote"
+            "statisticDescription"
+        ;
+    }
+
+    .statisticQuote {
+        margin-top: 30px;
+        margin-bottom: 10px;
+    }
+    
+    .statisticQuote > h3 {
+        text-align: center;
+    }
+    
+    .statisticDescription {
+        text-align: start;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .benefitsContainer {
+        flex-direction: column;
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    .benefitsDivider {
+        width: 100%;
+        height: 2px;
+        margin: 10px 0;
+    }
+
+    .heroContainer {
+        padding: 30px 20px;
+    }
+
+    .heroBtn > h5 {
+        padding: 15px 20px;
+    }
+    
+    .heroInfo > h2 {
+        width: 90%;
+        padding-bottom: 30px;
+    }
 }

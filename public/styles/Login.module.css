@@ -1,5 +1,5 @@
 .main {
-    background-image: url("~/public/images/form-background.jpg");
+    background-image: url("/images/form-background.jpg");
     background-color: #79657c;
     background-blend-mode: overlay;
     background-size: cover;
@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 60vh;
 }
 
 .loginContainer {
@@ -88,4 +89,69 @@
 
 .link {
     color: var(--blue);
+}
+
+@media screen and (max-width: 670px) {
+    .main {
+        padding: 50px;
+    }
+    
+    .loginContainer {
+        padding: 50px 30px;
+        width: 90%;
+    }
+    
+    .loginContainer > h2 {
+        color: var(--orange);
+        margin-bottom: 30px;
+    }
+    
+    .form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        width: 95%;
+    }
+    
+    .form > div > label {
+        font-size: 14px;
+    }
+    
+    .form > div > input {
+        height: 25px;
+        font-size: 12px;
+    }
+    
+    .form > button {
+        padding: 12px;
+    }
+    
+    .loginContainer > p {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .main {
+        padding: 30px 20px;
+    }
+    .loginContainer {
+        padding: 20px;
+    }
+    .form > div > label {
+        font-size: 12px;
+    }
+    .form > button {
+        padding: 12px;
+        font-size: 12px;
+    }
+    .error {
+        font-size: 11px;
+    }
+
+    .loginContainer > p {
+        font-size: 11px;
+    }
 }

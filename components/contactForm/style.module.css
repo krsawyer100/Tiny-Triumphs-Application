@@ -1,5 +1,5 @@
 .contactContainer {
-    background-image: url("~/public/images/form-background.jpg");
+    background-image: url("/images/form-background.jpg");
     background-color: #79657c;
     background-blend-mode: overlay;
     background-size: cover;
@@ -82,4 +82,59 @@
 .formContainer > button:hover, .formContainer > button:focus {
     transform: scale(.99);
     transition: .2s;
+}
+
+@media screen and (max-width: 800px) {
+    .contactContainer {
+        padding: 50px
+    }
+
+    .formContainer > div > label {
+        font-size: 14px;
+    }
+    
+    .formContainer > div > input, .formContainer > div > textarea, .formContainer > div > select {
+        font-size: 12px;
+    }
+    
+    .formContainer > div > input {
+        height: 25px;
+    }
+    
+    .formContainer > div > textarea {
+        height: 125px;
+    }
+
+    .formContainer {
+        padding: 30px 40px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .contactContainer {
+        padding: 50px 30px;
+    }
+
+    .formContainer > div > label {
+        font-size: 12px;
+    }
+    
+    .formContainer > div > input, .formContainer > div > textarea, .formContainer > div > select {
+        font-size: 10px;
+    }
+    
+    .formContainer > div > input {
+        height: 25px;
+    }
+    
+    .formContainer > div > textarea {
+        height: 125px;
+    }
+    .formContainer {
+        padding: 20px 20px;
+    }
+    .formContainer > button {
+        font-size: 12px;
+        padding: 15px;
+    }
 }

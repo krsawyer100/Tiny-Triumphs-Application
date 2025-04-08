@@ -150,7 +150,7 @@ export default function Quiz(props) {
                             <div className={styles.questionNav}>
                                 {currentQuestion > 0 ? (
                                     <button onClick={() => setCurrentQuestion(currentQuestion - 1)}>
-                                        &larr; Previous
+                                        &larr;
                                     </button>
                                 ): (
                                     <div style={{ visibility: "hidden" }}>Button Placeholder</div>
@@ -164,9 +164,9 @@ export default function Quiz(props) {
                                     ))}
                                 </div>
                                 {currentQuestion < questions.length - 1 ? (
-                                    <button onClick={handleNextQuestion}>Next &rarr;</button>
+                                    <button onClick={handleNextQuestion}>&rarr;</button>
                                 ) : (
-                                    <button onClick={handleFinishQuiz}>Review your Routines</button>
+                                    <button onClick={handleFinishQuiz} className={styles.reviewBtn}>Review</button>
                                 )}
                             </div>
                         </div>

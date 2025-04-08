@@ -1,13 +1,14 @@
 .main > h1 {
     color: var(--orange);
     text-align: center;
+    margin-top: 50px;
 }
 
 .dashboardContainer {
-    margin: 50px;
+    padding: 0 50px 0 30px;
     display: grid;
-    grid-template-columns: 3fr 2fr;
-    grid-auto-rows: minmax(300px, auto);
+    grid-template-columns: 60% 40%;
+    grid-auto-rows: minmax(200px, auto);
     grid-template-areas: 
         "routine img"
         "routine quote"
@@ -55,7 +56,7 @@
 }
 
 .routines {
-    padding: 50px 100px;
+    padding: 50px;
 }
 
 .quoteContainer {
@@ -67,6 +68,8 @@
     text-align: end;
     display: flex;
     align-items: center;
+    justify-content: end;
+    flex-wrap: wrap;
 }
 
 .imgContainer {
@@ -98,6 +101,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .energyInfo > h2 {
@@ -110,6 +114,7 @@
     object-fit: cover;
     border-radius: 30px;
     margin: 20px 0 30px;
+    width: 100%;
 }
 
 .btnsContainer {
@@ -123,7 +128,6 @@
 }
 
 .btnsContainer > button {
-    height: 60px;
     width: 100%;
     border-radius: 50px;
     font-family: "Playpen Sans", cursive;
@@ -132,6 +136,7 @@
     color: var(--white);
     border: none;
     cursor: pointer;
+    padding: 30px 100px;
 }
 
 .btnsContainer > button:nth-child(1) {
@@ -148,11 +153,11 @@
 
 .preRoutine {
     text-align: center; 
+    padding: 20px 70px;
 }
 
 .preRoutine > h3 {
-    margin-top: 100px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .preRoutine > h4 {
@@ -161,9 +166,10 @@
 
 .preRoutineImg {
     object-fit: cover;
-    object-position: 50% 0;
+    object-position: 50% 10%;
     border: var(--white) solid 5px;
     border-radius: 30px;
+    width: 100%;
 }
 
 .routineTitle {
@@ -176,7 +182,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-left: 50px;
+    margin-left: 20px;
 }
 
 .tasksContainer > label {
@@ -191,10 +197,11 @@
     background-color: transparent;
     margin: 0;
     border: var(--white) solid 2px;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .tasksContainer > label > input[type="checkbox"]:checked {
@@ -212,7 +219,6 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 500px;
     margin: 50px auto 30px;
 }
 
@@ -229,4 +235,119 @@
     height: 3px;
     background-color: var(--white);
     margin: 0;
+}
+
+@media screen and (max-width: 1100px) {
+    .main > h1 {
+        padding-bottom: 30px;
+    }
+    .dashboardContainer {
+        padding: 0 50px 0 30px;
+        grid-template-columns: 80%;
+        grid-template-areas: 
+            "img"
+            "routine"
+            "quote"
+            "energy"
+        ;
+        justify-content: center;
+    }
+    
+    .quoteContainer {
+        padding: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .energyContainer {
+        padding: 10px 30px;
+    }
+    
+    .tasksContainer > label {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .main > h1 {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .dashboardContainer {
+        padding: 0 20px 0 10px;
+        grid-template-columns: 90%;
+    }
+    
+    .quoteContainer {
+        padding: 10px 30px;
+    }
+
+    .imgContainer {
+        padding: 5px;
+    }
+
+    .energyInfoImg {
+        height: 50%;
+    }
+    
+    .routines {
+        padding: 20px;
+    }
+    
+    .tasksContainer {
+        margin-left: 8px;
+    }
+    
+    .tasksContainer > label {
+        font-size: 12px;
+    }
+    
+    .tasksContainer > label > input[type="checkbox"] {
+        width: 12px;
+        height: 12px;
+    }
+
+    .routineDivider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: 30px auto 20px;
+    }
+    
+    .circle {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .line {
+        height: 2px;
+    }
+
+    .btnsContainer {
+        padding-top: 20px;
+    }
+    
+    .btnsContainer > button {
+        font-size: 14px;
+        padding: 20px 40px;
+    }
+
+    .preRoutine {
+        text-align: center; 
+        padding: 20px;
+    }
+    
+    .preRoutine > h3 {
+        margin-bottom: 20px;
+    }
+    
+    .preRoutine > h4 {
+        margin-top: 30px;
+    }
+    
+    .preRoutineImg {
+        height: 200px;
+    }
 }

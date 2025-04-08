@@ -86,7 +86,7 @@ export default function Home(props) {
                             height={400}
                             className={styles.statisticImg}
                         />
-                        <h2 className={styles.statisticTitle} class>Link Between Self-care and Mental Health</h2>
+                        <h2 className={styles.statisticTitle}>Link Between Self-care and Mental Health</h2>
                         <div className={styles.statisticQuote}>
                             <h3>According to <a href="#">Vagaro&apos;s</a> Survey, “64% said self-care has given them a confidence boost, 67% said it increased productivity, and 71% said it increased happiness.”</h3>
                             <h4>~ <a href="#">BlueCross BlueShield</a></h4>
@@ -105,6 +105,7 @@ export default function Home(props) {
                                 alt=""
                                 width={150}
                                 height={150}
+                                className={styles.benefitsImg}
                             />
                             <p>Tiny Triumphs provides users with three routine options—low, medium, and high energy—so they can choose the one that best matches how they feel each day. This flexibility reduces pressure and helps users feel successful no matter their energy level.</p>
                         </div>
@@ -116,6 +117,7 @@ export default function Home(props) {
                                 alt=""
                                 width={150}
                                 height={150}
+                                className={styles.benefitsImg}
                             />
                             <p>The app is tailored specifically for neurodivergent, mentally ill, and chronically ill individuals, ensuring that routines are gentle, supportive, and manageable. This makes self-care more inclusive and attainable for those who often feel overlooked by mainstream wellness tools.</p>
                         </div>
@@ -127,6 +129,7 @@ export default function Home(props) {
                                 alt=""
                                 width={150}
                                 height={150}
+                                className={styles.benefitsImg}
                             />
                             <p>By generating routines through a simple quiz, Tiny Triumphs takes the guesswork out of planning a day. This helps users conserve mental energy, making it easier to take care of themselves without feeling overwhelmed.</p>
                         </div>

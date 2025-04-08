@@ -46,7 +46,7 @@
 
 
 .creator {
-    background-image: url("~/public/images/stripped-background.jpg");
+    background-image: url("/images/stripped-background.jpg");
     background-color: var(--orange);
     background-blend-mode: multiply;
     color: var(--white);
@@ -79,4 +79,86 @@
     width: auto;
     object-fit: cover;
     height: 600px;
+}
+
+@media screen and (max-width: 1030px) {
+    .about > div {
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    .about > h1 {
+        padding-bottom: 20px;
+    }
+
+    .aboutImg {
+        width: 100%;
+    }
+
+    .about {
+        margin: 70px 0px;
+    }
+
+    .aboutTextContainer {
+        max-width: 80%;
+        gap: 0px;
+    }
+    
+    .aboutImgContainer {
+        max-width: 100%;
+        width: 70vw;
+    }
+
+    .creatorContainer {
+        display: flex;
+        padding: 0 20px;
+        flex-direction: column-reverse;
+    }
+    
+    .creatorTextContainer {
+        width: 80%;
+        padding-bottom: 100px;
+        padding-top: 40px;
+    }
+    
+    .creatorImgContainer {
+        align-self: center;
+        width: 80%;
+        border-bottom: var(--white) solid 3px;
+    }
+    
+    .creatorImg {
+        width: 60%;
+        object-fit: cover;
+        height: auto;
+        margin: 0 20px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .creatorImgContainer {
+        width: 100%;
+    }
+    
+    .creatorImg {
+        width: 70%;
+        margin: 0;
+    }
+
+    .creatorTextContainer {
+        width: 100%;
+        padding-bottom: 50px;
+    }
+
+    .creatorContainer {
+        padding: 0 30px;
+    }
+
+    .aboutImg {
+        max-height: 250px;
+    }
+
+    .aboutTextContainer {
+        margin-top: -30px;
+    }
 }

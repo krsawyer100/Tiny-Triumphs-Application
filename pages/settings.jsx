@@ -411,6 +411,7 @@ export default function Settings(props) {
                     <h2>User Information</h2>
                     <div className={styles.userDetails}>
                         <div className={styles.userProfileImg}>
+                            <label className={styles.profilePhotoLabel}>Profile Photo:</label>
                             <Image
                                 src={profilePhoto.startsWith('/uploads') ? profilePhoto : `/images/account-icon-blue.png`}
                                 alt=""
