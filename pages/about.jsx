@@ -51,7 +51,7 @@ export default function About(props) {
                         <div className={styles.aboutTextContainer}>
                             <div>
                                 <h4>Tiny Triumphs was created with one goal in mind: to make self-care feel manageable and meaningful — especially for those who often feel overwhelmed by it.</h4>
-                                <p>This app is designed for neurodivergent, mentally ill, and chronically ill individuals who want support with building daily routines that match their real energy levels. Whether you're having a low, medium, or high energy day, Tiny Triumphs offers flexible routines to help you care for yourself without pressure or guilt.</p>
+                                <p>This app is designed for neurodivergent, mentally ill, and chronically ill individuals who want support with building daily routines that match their real energy levels. Whether you&apos;re having a low, medium, or high energy day, Tiny Triumphs offers flexible routines to help you care for yourself without pressure or guilt.</p>
                             </div>
                             <div>
                                 <h4>We know that traditional self-care advice can feel unrealistic or even inaccessible.</h4>
@@ -68,7 +68,7 @@ export default function About(props) {
                             <h3>Kylee Sawyer (Developer, Designer, and Creator)</h3>
                             <div>
                                 <h4>Who is Kylee?</h4>
-                                <p>Hi, I'm Kylee Sawyer — a developer & designer passionate about building tools that make life more manageable and meaningful, especially for those who live with neurodivergence, chronic illness, and mental health challenges.</p>
+                                <p>Hi, I&apos;m Kylee Sawyer — a developer & designer passionate about building tools that make life more manageable and meaningful, especially for those who live with neurodivergence, chronic illness, and mental health challenges.</p>
                                 <p>I studied Design Research at NC State and Web Design at the University of Florida. I&apos;ve always been drawn to projects that prioritize empathy, accessibility, and intentional design. Outside of coding, you can find me hanging out with my loved ones and pets, crocheting, or reading, always searching for balance between productivity and self-compassion.</p>
                             </div>
                             <div>

@@ -29,7 +29,7 @@ export default function Contact(props) {
             <main className={styles.main}>
                 <div className={styles.contactInfoContainer}>
                     <h1>Contact Us</h1>
-                    <p>Whether you have a question, feedback, or just want to share your Tiny Triumphs journey, we&apos;re here for you. Reach out anytime — your voice matters, and we're always happy to connect.</p>
+                    <p>Whether you have a question, feedback, or just want to share your Tiny Triumphs journey, we&apos;re here for you. Reach out anytime — your voice matters, and we&apos;re always happy to connect.</p>
                 </div>
                 <ContactForm />
             </main>

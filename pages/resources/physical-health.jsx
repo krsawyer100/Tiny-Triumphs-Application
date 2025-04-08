@@ -51,8 +51,8 @@ export default function Physical(props) {
                         </div>
                         <span className={styles.emergencyDivider}></span>
                         <div className={styles.emergencyResourceLink}>
-                            <h4>Atrium Health's Emergency Services</h4>
-                            <p>Use Atrium Health's <a href="https://atriumhealth.org/locations/emergency-departments?isMobileWidget=false&cityName=&community=All_Communities&locationName=&pageNumber=&pageSize=10&latitude=35.2270869&longitude=-80.8431267&sortBy=Distance&datasource=9660a689-88e1-4db6-8e2f-88bd656a66c5&childrensLocationOnly=false&locationType=Emergency_Department" target="_BLANK" className={styles.web}>Online Emergency Care Video services or the Er Locator</a> receive care or find a hospital or emergency walk-in clinic in your area.</p>
+                            <h4>Atrium Health&apos;s Emergency Services</h4>
+                            <p>Use Atrium Health&apos;s <a href="https://atriumhealth.org/locations/emergency-departments?isMobileWidget=false&cityName=&community=All_Communities&locationName=&pageNumber=&pageSize=10&latitude=35.2270869&longitude=-80.8431267&sortBy=Distance&datasource=9660a689-88e1-4db6-8e2f-88bd656a66c5&childrensLocationOnly=false&locationType=Emergency_Department" target="_BLANK" className={styles.web}>Online Emergency Care Video services or the Er Locator</a> receive care or find a hospital or emergency walk-in clinic in your area.</p>
                         </div>
                     </div>
                     <h3>These services are available 24/7 and can connect you with a trained medical professional.</h3>
