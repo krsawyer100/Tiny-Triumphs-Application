@@ -62,57 +62,57 @@ export default function Physical(props) {
                     <h2>Resources</h2>
                     <div className={styles.resourceLinksContainer}>
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://www.accessibleyogaschool.com/yoga-for-spoonies"
+                            resourceImgURL="/images/yoga-spoonies.jpg"
                             resourceTitle="Yoga for Spoonies"
                             resourceDescription="A gentle yoga workshop series tailored for people with chronic pain, fatigue, and limited mobility. Learn movement that meets you where you are."
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
-                            resourceTitle="Chronic Babe"
-                            resourceDescription="Created by and for young women with chronic illness, this site offers coaching, blog posts, videos, and encouragement for living your best life while managing chronic conditions."
+                            resourceURL="https://www.thecenterforchronicillness.org/"
+                            resourceImgURL="/images/cfci.jpg"
+                            resourceTitle="Center for Chronic Illness"
+                            resourceDescription="This site offers support groups, events, and education to provide support to individuals dealing with chronic conditions."
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://www.disabilitydame.com/"
+                            resourceImgURL="/images/disability-dame.jpg"
                             resourceTitle="Disability Dame"
                             resourceDescription="A disability advocate&apos;s hub with accessible health tips, lifestyle advice, and a blog focused on thriving with chronic illness."
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://multiplechronicconditions.org/"
+                            resourceImgURL="/images/mccrc.jpg"
                             resourceTitle="Multiple Chronic Conditions Resource Center"
-                            resourceDescription="Description: Provides patients and families with free resources on health policy and clinical practices related to managing multiple chronic conditions.​"
+                            resourceDescription="Provides patients and families with free resources on health policy and clinical practices related to managing multiple chronic conditions.​"
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://www.patientslikeme.com/?device=c&network=g&keyword=patientslikeme&matchtype=b&creative=678545353591&placement=&gad_source=1&gclid=EAIaIQobChMI0PjHxuDHjAMVZZtaBR1GohyyEAAYASAAEgKeAPD_BwE"
+                            resourceImgURL="/images/patientslikeme.jpg"
                             resourceTitle="PatientsLikeMe"
                             resourceDescription="An online platform where individuals with various health conditions can share experiences, track their health, and find support from others with similar conditions."
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://chronicillnessbloggers.com/"
+                            resourceImgURL="/images/chronic-blogger.jpg"
                             resourceTitle="Chronic Illness Bloggers"
                             resourceDescription="A hub of blog posts and lived experiences from people with chronic physical health conditions like fibromyalgia, lupus, EDS, and more."
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
-                            resourceTitle="Pain Resource"
+                            resourceURL="https://uspainfoundation.org/resources/"
+                            resourceImgURL="/images/pain-foundation.jpg"
+                            resourceTitle="U.S. Pain Foundation"
                             resourceDescription="Provides education, articles, and tools for people managing chronic physical pain, covering topics like treatments, nutrition, and mobility."
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://www.nia.nih.gov/health/exercise-and-physical-activity/exercising-chronic-conditions"
+                            resourceImgURL="/images/nia.jpg"
                             resourceTitle="NIA: Exercising with Chronic Conditions"
                             resourceDescription="Offers guidance on safe physical activities tailored for individuals with chronic illnesses, emphasizing symptom management."
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
+                            resourceURL="https://acl.gov/programs/health-wellness/chronic-disease-self-management-education-programs"
                             resourceImgURL="/images/about.jpg"
-                            resourceTitle="CDSME Programs"
+                            resourceTitle="ACL: CDSME Programs"
                             resourceDescription="Evidence-based programs designed to help individuals with chronic conditions learn skills to manage their health, improve quality of life, and reduce healthcare costs."
                         />
                     </div>

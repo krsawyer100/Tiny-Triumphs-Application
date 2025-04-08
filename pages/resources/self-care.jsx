@@ -62,56 +62,56 @@ export default function Self(props) {
                     <h2>Resources</h2>
                     <div className={styles.resourceLinksContainer}>
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
-                            resourceTitle="Accessible Coloring Pages – Just Color"
-                            resourceDescription="Free printable adult coloring pages to reduce anxiety and foster mindfulness. Includes calming patterns and themes."
+                            resourceURL="https://sites.google.com/hvrsd.org/virtualcalmingroom/fidgets-diy-fidgets"
+                            resourceImgURL="/images/fidgets.jpg"
+                            resourceTitle="HVCHS Virtual Calming Room"
+                            resourceDescription="Provides a variety of fun stimuli from fidgets, coloring, and puzzles while also providing resources for relaxation and mindfulness."
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://mynoise.net/"
+                            resourceImgURL="/images/soundscapes.jpg"
                             resourceTitle="Sensory-Friendly Music & Soundscapes – MyNoise"
                             resourceDescription="Customizable ambient sound tools and calming audio experiences for relaxation, focus, or sensory relief."
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://www.activeminds.org/"
+                            resourceImgURL="/images/active-minds.jpg"
                             resourceTitle="Active Minds – Self-Care Activities"
                             resourceDescription="Provides a comprehensive list of self-care activities, including creative outlets and relaxation techniques, to support mental health."
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://mission-cure.org/30-self-care-journal-prompts-for-those-with-chronic-illness/"
+                            resourceImgURL="/images/journaling.jpg"
                             resourceTitle="Mission: Cure – Self-Care Journal Prompts"
                             resourceDescription="Features 30 journal prompts designed to help individuals with chronic illnesses navigate their experiences and emotions."
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://www.essyknopf.com/"
+                            resourceImgURL="/images/essy-knopf.jpg"
                             resourceTitle="Essy Knopf – Self-Care Techniques for Neurodivergents"
                             resourceDescription="Offers innovative self-care strategies tailored for neurodivergent individuals, focusing on mindfulness and relaxation."
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
-                            resourceTitle="Neurodivergent Counselling – Self-Care Strategies"
-                            resourceDescription="Explores various self-care approaches for neurodivergent individuals, including sensory self-care and boundary setting."
+                            resourceURL="https://nhsdorset.nhs.uk/neurodiversity/"
+                            resourceImgURL="/images/nhs.jpg"
+                            resourceTitle="NHS Dorset Neurodiversity Hub"
+                            resourceDescription="Provides support, resources, and information that is catered to neurodivergent individuals"
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://mendedhearts.org/"
+                            resourceImgURL="/images/mended-heart.jpg"
                             resourceTitle="Mended Hearts – Chronic Illness and Mental Health"
                             resourceDescription="Provides practical self-care tips for individuals managing chronic illnesses, emphasizing the connection between physical health and mental well-being."
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://www.breathworks-mindfulness.org.uk/"
+                            resourceImgURL="/images/breathworks.jpg"
                             resourceTitle="Breathworks – Mindfulness for Health"
                             resourceDescription="Breathworks offers mindfulness-based pain management programs designed to help individuals living with chronic pain and illness."
                         />
                         <ResourceLink
-                            resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/about.jpg"
+                            resourceURL="https://dghscp.co.uk/wp-content/uploads/2024/08/A-resource-pack-for-people-with-chronic-health-conditions.pdf"
+                            resourceImgURL="/images/self-care-pack.jpg"
                             resourceTitle="Self-Care Resource Pack for Chronic Health Conditions"
                             resourceDescription="This comprehensive resource pack, offers self-management tools to assist individuals in coping with the challenges of living with long-term conditions."
                         />
