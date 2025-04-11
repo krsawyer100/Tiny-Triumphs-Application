@@ -5,6 +5,7 @@ export default function Document() {
         <Html lang="en">
           <Head>
             <meta charSet="UTF-8" />
+            <meta name="robots" content="index, follow" />
             {/* FavIcons */}
             <link rel="icon" type='image/x-icon' href="/images/favicon-orange.png"/>
             <link rel="icon" type='image/x-icon' media="(prefers-color-scheme: light)" href="/images/favicon-orange.png"/>

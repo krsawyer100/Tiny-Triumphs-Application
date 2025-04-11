@@ -190,6 +190,7 @@ export default function Dashboard(props) {
         <>
             <Head>
                 <title>{props.user.username}&apos;s Dashboard</title>
+                <meta name="robots" content="noindex" />
             </Head>
 
             <DashboardHeader username={props?.user?.username} profilePhoto={profilePhoto}/>

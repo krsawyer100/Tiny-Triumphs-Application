@@ -192,6 +192,7 @@ export default function ReviewRoutine(props) {
         <>
             <Head>
                 <title>Routine Review</title>
+                <meta name="robots" content="noindex" />
             </Head>
 
             <Header 

@@ -401,6 +401,7 @@ export default function Settings(props) {
         <div>
             <Head>
                 <title>{props.user.username}&apos;s Settings</title>
+                <meta name="robots" content="noindex" />
             </Head>
 
             <DashboardHeader username={props?.user?.username} profilePhoto={profilePhoto}/>
