@@ -48,13 +48,14 @@ export default function Header(props) {
     <>
     <header className={styles.headerContainer}>
       <div className={styles.headerInfo}>
-        <Link href="/" className={styles.logoContainer}>
+        <Link href="/" className={styles.logoContainer} aria-label="Go to Homepage">
           <Image 
             src="/images/Logo-horizontal.png"
-            alt=""
+            alt="Tiny Triumphs Logo"
             width={200}
             height={100}
             className={styles.logo}
+            priority
           />
         
         </Link>

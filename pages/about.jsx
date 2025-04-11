@@ -41,7 +41,7 @@ export default function About(props) {
                     <div>
                         <div className={styles.aboutImgContainer}>
                             <Image 
-                                src="/images/about-company.jpg"
+                                src="/images/about-company.webp"
                                 alt=""
                                 width={300}
                                 height={300}

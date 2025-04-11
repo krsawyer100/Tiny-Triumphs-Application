@@ -344,7 +344,7 @@ export default function Dashboard(props) {
                     </section>
                     <section className={styles.imgContainer}>
                         <Image
-                            src="/images/dashboard-decorative.jpg"
+                            src="/images/dashboard-decorative.webp"
                             alt=""
                             width={200}
                             height={150}
@@ -362,7 +362,7 @@ export default function Dashboard(props) {
                             <div className={styles.energyInfo}>
                                 <h2>Thanks for Sharing How You are Feeling Today!</h2>
                                 <Image
-                                    src="/images/energy-img.jpg"
+                                    src="/images/energy-img.webp"
                                     alt=""
                                     width={500}
                                     height={300}

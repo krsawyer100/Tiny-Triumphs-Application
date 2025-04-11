@@ -84,55 +84,55 @@ export default function Mental(props) {
                     <div className={styles.resourceLinksContainer}>
                         <ResourceLink
                             resourceURL="https://www.nami.org/"
-                            resourceImgURL="/images/nami.jpg"
+                            resourceImgURL="/images/nami.webp"
                             resourceTitle="NAMI (National Alliance on Mental Illness)"
                             resourceDescription="Learn more about symptoms, treatment options, and support groups for all types of mental health conditions."
                         />
                         <ResourceLink
                             resourceURL="https://themighty.com/"
-                            resourceImgURL="/images/mighty.jpg"
+                            resourceImgURL="/images/mighty.webp"
                             resourceTitle="The Mighty"
                             resourceDescription="A peer-driven platform with stories from people navigating mental illness, chronic pain, and neurodivergence. Real voices, shared experiences."
                         />
                         <ResourceLink
                             resourceURL="https://mhanational.org/"
-                            resourceImgURL="/images/mha.jpg"
+                            resourceImgURL="/images/mha.webp"
                             resourceTitle="Mental Health America (MHA)"
                             resourceDescription="Mental health screenings, tool kits, and advocacy resources for a wide range of emotional and behavioral health needs."
                         />
                         <ResourceLink
                             resourceURL="https://adaa.org/"
-                            resourceImgURL="/images/adaa.jpg"
+                            resourceImgURL="/images/adaa.webp"
                             resourceTitle="ADAA (Anxiety & Depression Association of America)"
                             resourceDescription="Practical guides and tips for managing anxiety, depression, and related conditions."
                         />
                         <ResourceLink
                             resourceURL="https://therapyforblackgirls.com/"
-                            resourceImgURL="/images/therapy-for-black-girls.jpg"
+                            resourceImgURL="/images/therapy-for-black-girls.webp"
                             resourceTitle="Therapy for Black Girls"
                             resourceDescription="A safe space to find mental health resources and therapists who support the Black community."
                         />
                         <ResourceLink
                             resourceURL="https://www.verywellmind.com/"
-                            resourceImgURL="/images/verywell-mind.jpg"
+                            resourceImgURL="/images/verywell-mind.webp"
                             resourceTitle="Verywell Mind"
                             resourceDescription="Evidence-based, approachable articles on everything from burnout and grief to self-care and therapy options."
                         />
                         <ResourceLink
                             resourceURL="https://www.inclusivetherapists.com/"
-                            resourceImgURL="/images/inclusive-therapists.jpg"
+                            resourceImgURL="/images/inclusive-therapists.webp"
                             resourceTitle="Inclusive Therapists"
                             resourceDescription="A directory to help you find culturally affirming, neurodiversity-affirming, and trauma-informed care."
                         />
                         <ResourceLink
                             resourceURL="https://therapistndc.org/"
-                            resourceImgURL="/images/therapist-neurodiversity-collective.jpg"
+                            resourceImgURL="/images/therapist-neurodiversity-collective.webp"
                             resourceTitle="Therapist Neurodiversity Collective"
                             resourceDescription="Offers free neurodiversity-affirming educational resources and information for families, therapists, and educators."
                         />
                         <ResourceLink
                             resourceURL="https://hhd.psu.edu/"
-                            resourceImgURL="/images/project-spoonies.jpg"
+                            resourceImgURL="/images/project-spoonies.webp"
                             resourceTitle="Project Spoonies"
                             resourceDescription="Provides a supportive community for individuals with chronic illnesses, fostering connections and shared experiences among &quot;spoonies.&quot;"
                         />

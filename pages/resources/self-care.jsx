@@ -63,55 +63,55 @@ export default function Self(props) {
                     <div className={styles.resourceLinksContainer}>
                         <ResourceLink
                             resourceURL="https://sites.google.com/hvrsd.org/virtualcalmingroom/fidgets-diy-fidgets"
-                            resourceImgURL="/images/fidgets.jpg"
+                            resourceImgURL="/images/fidgets.webp"
                             resourceTitle="HVCHS Virtual Calming Room"
                             resourceDescription="Provides a variety of fun stimuli from fidgets, coloring, and puzzles while also providing resources for relaxation and mindfulness."
                         />
                         <ResourceLink
                             resourceURL="https://mynoise.net/"
-                            resourceImgURL="/images/soundscapes.jpg"
+                            resourceImgURL="/images/soundscapes.webp"
                             resourceTitle="Sensory-Friendly Music & Soundscapes – MyNoise"
                             resourceDescription="Customizable ambient sound tools and calming audio experiences for relaxation, focus, or sensory relief."
                         />
                         <ResourceLink
                             resourceURL="https://www.activeminds.org/"
-                            resourceImgURL="/images/active-minds.jpg"
+                            resourceImgURL="/images/active-minds.webp"
                             resourceTitle="Active Minds – Self-Care Activities"
                             resourceDescription="Provides a comprehensive list of self-care activities, including creative outlets and relaxation techniques, to support mental health."
                         />
                         <ResourceLink
                             resourceURL="https://mission-cure.org/30-self-care-journal-prompts-for-those-with-chronic-illness/"
-                            resourceImgURL="/images/journaling.jpg"
+                            resourceImgURL="/images/journaling.webp"
                             resourceTitle="Mission: Cure – Self-Care Journal Prompts"
                             resourceDescription="Features 30 journal prompts designed to help individuals with chronic illnesses navigate their experiences and emotions."
                         />
                         <ResourceLink
                             resourceURL="https://www.essyknopf.com/"
-                            resourceImgURL="/images/essy-knopf.jpg"
+                            resourceImgURL="/images/essy-knopf.webp"
                             resourceTitle="Essy Knopf – Self-Care Techniques for Neurodivergents"
                             resourceDescription="Offers innovative self-care strategies tailored for neurodivergent individuals, focusing on mindfulness and relaxation."
                         />
                         <ResourceLink
                             resourceURL="https://nhsdorset.nhs.uk/neurodiversity/"
-                            resourceImgURL="/images/nhs.jpg"
+                            resourceImgURL="/images/nhs.webp"
                             resourceTitle="NHS Dorset Neurodiversity Hub"
                             resourceDescription="Provides support, resources, and information that is catered to neurodivergent individuals"
                         />
                         <ResourceLink
                             resourceURL="https://mendedhearts.org/"
-                            resourceImgURL="/images/mended-heart.jpg"
+                            resourceImgURL="/images/mended-heart.webp"
                             resourceTitle="Mended Hearts – Chronic Illness and Mental Health"
                             resourceDescription="Provides practical self-care tips for individuals managing chronic illnesses, emphasizing the connection between physical health and mental well-being."
                         />
                         <ResourceLink
                             resourceURL="https://www.breathworks-mindfulness.org.uk/"
-                            resourceImgURL="/images/breathworks.jpg"
+                            resourceImgURL="/images/breathworks.webp"
                             resourceTitle="Breathworks – Mindfulness for Health"
                             resourceDescription="Breathworks offers mindfulness-based pain management programs designed to help individuals living with chronic pain and illness."
                         />
                         <ResourceLink
                             resourceURL="https://dghscp.co.uk/wp-content/uploads/2024/08/A-resource-pack-for-people-with-chronic-health-conditions.pdf"
-                            resourceImgURL="/images/self-care-pack.jpg"
+                            resourceImgURL="/images/self-care-pack.webp"
                             resourceTitle="Self-Care Resource Pack for Chronic Health Conditions"
                             resourceDescription="This comprehensive resource pack, offers self-management tools to assist individuals in coping with the challenges of living with long-term conditions."
                         />

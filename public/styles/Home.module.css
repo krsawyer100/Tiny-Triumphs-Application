@@ -1,11 +1,20 @@
 .hero {
-    background-image: url(/images/hero-background.jpg);
+    background-image: url(/images/hero-background-lower.webp);
     height: 700px;
     background-size: cover;
     background-repeat: no-repeat;
     background-color: var(--brown-overlay);
     background-blend-mode: multiply;
     display: flex;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    background: url('/images/hero-background-lower.webp') no-repeat;
 }
 
 .heroContainer {
@@ -35,11 +44,13 @@
     text-align: center;
 }
 
-.heroBtn > h5 {
+.heroBtn > p {
     background-color: var(--blue);
     padding: 20px 40px;
     border-radius: 50px;
     cursor: pointer;
+    font-weight: 500;
+    font-size: 20px;
 }
 
 .btnText {
@@ -47,7 +58,7 @@
     text-decoration: none;
 }
 
-.heroBtn > h5:hover, .heroBtn > h5:focus {
+.heroBtn > p:hover, .heroBtn > p:focus {
     transform: scale(.98);
     transition: .3s;
     border: var(--white) 2px solid;
@@ -163,10 +174,11 @@
 }
 
 .benefits {
-    background-image: url(/images/stripped-background.jpg);
     background-color: var(--orange);
     background-blend-mode: multiply;
     color: var(--white);
+    transition: background-image 0.3s ease-in-out;
+    background-image: url(/images/stripped-background.webp);
 }
 
 .benefits > h3 {

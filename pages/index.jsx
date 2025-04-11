@@ -7,6 +7,7 @@ import Image from "next/image"
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from '../config/session'
 import styles from '../public/styles/Home.module.css'
+import { useEffect } from "react";
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -25,12 +26,19 @@ export const getServerSideProps = withIronSessionSsr(
 
 export default function Home(props) {
     const router = useRouter()
-    console.log()
+    useEffect(() => {
+        if (props.isLoggedIn) {
+            setTimeout(() => {
+                router.push('/dashboard')
+            }, 500)
+        }
+    },[])
 
     return (
         <div>
             <Head>
                 <title>Tiny Triumphs</title>
+                <link rel="preload" as="image" href="/images/hero-background-lower.webp" />
             </Head>
 
             <Header 
@@ -46,13 +54,13 @@ export default function Home(props) {
                         </div>
                         <div className={styles.heroBtn}>
                             {props.isLoggedIn ? (
-                                <h5>
+                                <p>
                                     <Link href="/dashboard" className={styles.btnText}>Go to Dashboard</Link>
-                                </h5>
+                                </p>
                             ):(
-                                <h5>
+                                <p>
                                     <Link href="/quiz" className={styles.btnText}>Start your Journey Today</Link>
-                                </h5>
+                                </p>
                             )}
                         </div>
                     </div>
@@ -71,20 +79,22 @@ export default function Home(props) {
                         </div>
                         
                         <Image 
-                            src="/images/about.jpg"
+                            src="/images/about.webp"
                             alt=""
                             width={400}
                             height={400}
                             className={styles.aboutImg}
+                            loading="lazy"
                         />
                     </div>
                     <div className={styles.statistic}>
                         <Image 
-                            src="/images/statistic.jpg"
+                            src="/images/statistic.webp"
                             alt=""
                             width={400}
                             height={400}
                             className={styles.statisticImg}
+                            loading="lazy"
                         />
                         <h2 className={styles.statisticTitle}>Link Between Self-care and Mental Health</h2>
                         <div className={styles.statisticQuote}>
@@ -106,6 +116,7 @@ export default function Home(props) {
                                 width={150}
                                 height={150}
                                 className={styles.benefitsImg}
+                                loading="lazy"
                             />
                             <p>Tiny Triumphs provides users with three routine options—low, medium, and high energy—so they can choose the one that best matches how they feel each day. This flexibility reduces pressure and helps users feel successful no matter their energy level.</p>
                         </div>
@@ -118,6 +129,7 @@ export default function Home(props) {
                                 width={150}
                                 height={150}
                                 className={styles.benefitsImg}
+                                loading="lazy"
                             />
                             <p>The app is tailored specifically for neurodivergent, mentally ill, and chronically ill individuals, ensuring that routines are gentle, supportive, and manageable. This makes self-care more inclusive and attainable for those who often feel overlooked by mainstream wellness tools.</p>
                         </div>
@@ -130,6 +142,7 @@ export default function Home(props) {
                                 width={150}
                                 height={150}
                                 className={styles.benefitsImg}
+                                loading="lazy"
                             />
                             <p>By generating routines through a simple quiz, Tiny Triumphs takes the guesswork out of planning a day. This helps users conserve mental energy, making it easier to take care of themselves without feeling overwhelmed.</p>
                         </div>
@@ -141,11 +154,12 @@ export default function Home(props) {
                     <div className={styles.resourceLinksContainer}>
                         <Link href="/resources/mental-health" className={styles.resourceLink}>
                             <Image 
-                                src="/images/mental-health.jpg"
+                                src="/images/mental-health.webp"
                                 alt=""
                                 width={250}
                                 height={250}
                                 className={styles.resourceLinkImg}
+                                loading="lazy"
                             />
                             <div>
                                 <h4>Mental Health Resources</h4>
@@ -154,11 +168,12 @@ export default function Home(props) {
                         </Link>
                         <Link href="/resources/physical-health" className={styles.resourceLink}>
                             <Image 
-                                src="/images/physical-health.jpg"
+                                src="/images/physical-health.webp"
                                 alt=""
                                 width={250}
                                 height={250}
                                 className={styles.resourceLinkImg}
+                                loading="lazy"
                             />
                             <div>
                                 <h4>Physical Health Resources</h4>
@@ -167,11 +182,12 @@ export default function Home(props) {
                         </Link>
                         <Link href="/resources/self-care" className={styles.resourceLink}>
                             <Image 
-                                src="/images/self-care.jpg"
+                                src="/images/self-care.webp"
                                 alt="Placeholder"
                                 width={250}
                                 height={250}
                                 className={styles.resourceLinkImg}
+                                loading="lazy"
                             />
                             <div>
                                 <h4>Self-care Resources</h4>

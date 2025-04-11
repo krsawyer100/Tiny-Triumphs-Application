@@ -63,55 +63,55 @@ export default function Physical(props) {
                     <div className={styles.resourceLinksContainer}>
                         <ResourceLink
                             resourceURL="https://www.accessibleyogaschool.com/yoga-for-spoonies"
-                            resourceImgURL="/images/yoga-spoonies.jpg"
+                            resourceImgURL="/images/yoga-spoonies.webp"
                             resourceTitle="Yoga for Spoonies"
                             resourceDescription="A gentle yoga workshop series tailored for people with chronic pain, fatigue, and limited mobility. Learn movement that meets you where you are."
                         />
                         <ResourceLink
                             resourceURL="https://www.thecenterforchronicillness.org/"
-                            resourceImgURL="/images/cfci.jpg"
+                            resourceImgURL="/images/cfci.webp"
                             resourceTitle="Center for Chronic Illness"
                             resourceDescription="This site offers support groups, events, and education to provide support to individuals dealing with chronic conditions."
                         />
                         <ResourceLink
                             resourceURL="https://www.disabilitydame.com/"
-                            resourceImgURL="/images/disability-dame.jpg"
+                            resourceImgURL="/images/disability-dame.webp"
                             resourceTitle="Disability Dame"
                             resourceDescription="A disability advocate&apos;s hub with accessible health tips, lifestyle advice, and a blog focused on thriving with chronic illness."
                         />
                         <ResourceLink
                             resourceURL="https://multiplechronicconditions.org/"
-                            resourceImgURL="/images/mccrc.jpg"
+                            resourceImgURL="/images/mccrc.webp"
                             resourceTitle="Multiple Chronic Conditions Resource Center"
                             resourceDescription="Provides patients and families with free resources on health policy and clinical practices related to managing multiple chronic conditions.​"
                         />
                         <ResourceLink
                             resourceURL="https://www.patientslikeme.com/?device=c&network=g&keyword=patientslikeme&matchtype=b&creative=678545353591&placement=&gad_source=1&gclid=EAIaIQobChMI0PjHxuDHjAMVZZtaBR1GohyyEAAYASAAEgKeAPD_BwE"
-                            resourceImgURL="/images/patientslikeme.jpg"
+                            resourceImgURL="/images/patientslikeme.webp"
                             resourceTitle="PatientsLikeMe"
                             resourceDescription="An online platform where individuals with various health conditions can share experiences, track their health, and find support from others with similar conditions."
                         />
                         <ResourceLink
                             resourceURL="https://chronicillnessbloggers.com/"
-                            resourceImgURL="/images/chronic-blogger.jpg"
+                            resourceImgURL="/images/chronic-blogger.webp"
                             resourceTitle="Chronic Illness Bloggers"
                             resourceDescription="A hub of blog posts and lived experiences from people with chronic physical health conditions like fibromyalgia, lupus, EDS, and more."
                         />
                         <ResourceLink
                             resourceURL="https://uspainfoundation.org/resources/"
-                            resourceImgURL="/images/pain-foundation.jpg"
+                            resourceImgURL="/images/pain-foundation.webp"
                             resourceTitle="U.S. Pain Foundation"
                             resourceDescription="Provides education, articles, and tools for people managing chronic physical pain, covering topics like treatments, nutrition, and mobility."
                         />
                         <ResourceLink
                             resourceURL="https://www.nia.nih.gov/health/exercise-and-physical-activity/exercising-chronic-conditions"
-                            resourceImgURL="/images/nia.jpg"
+                            resourceImgURL="/images/nia.webp"
                             resourceTitle="NIA: Exercising with Chronic Conditions"
                             resourceDescription="Offers guidance on safe physical activities tailored for individuals with chronic illnesses, emphasizing symptom management."
                         />
                         <ResourceLink
                             resourceURL="https://acl.gov/programs/health-wellness/chronic-disease-self-management-education-programs"
-                            resourceImgURL="/images/about.jpg"
+                            resourceImgURL="/images/cdsme.webp"
                             resourceTitle="ACL: CDSME Programs"
                             resourceDescription="Evidence-based programs designed to help individuals with chronic conditions learn skills to manage their health, improve quality of life, and reduce healthcare costs."
                         />
