@@ -46,7 +46,7 @@
 
 
 .creator {
-    background-image: url("/images/stripped-background.jpg");
+    background-image: url("/images/stripped-background.webp");
     background-color: var(--orange);
     background-blend-mode: multiply;
     color: var(--white);

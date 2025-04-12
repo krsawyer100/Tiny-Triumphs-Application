@@ -8,6 +8,21 @@
     --brown-overlay: rgba(30,18,12,0.78);
     --error: #bd0c0c;
   }
+
+.high-contrast {
+  --white: #ffffff;
+  --black: #000000;
+  --blue: #547d70;
+  --orange: #98593a;
+  --brighter-orange: #ef9162;
+  --purple: #8b6a90;
+  --error: #a80b0b;
+}
+
+.reduce-motion *, .reduce-motion *::before, .reduce-motion *::after {
+  animation: none !important;
+  transition: none !important;
+}
   
   html,
   body {

@@ -4,6 +4,7 @@ import ContactForm from '../components/contactForm'
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from '../config/session'
 import styles from '../public/styles/Contact.module.css'
+import AccessibilityToggle from '../components/accessibility/accessibilityToggle';
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -26,6 +27,7 @@ export default function Contact(props) {
             <Header 
                 isLoggedIn={props.isLoggedIn}
             />
+            <AccessibilityToggle />
             <main className={styles.main}>
                 <div className={styles.contactInfoContainer}>
                     <h1>Contact Us</h1>

@@ -1,0 +1,85 @@
+.accessibilityBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 20px; 
+    z-index: 9999;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    background-color: var(--purple);
+    border: var(--white) 2px solid;
+    cursor: pointer;
+}
+
+.accessibilityContainer {
+    position: fixed;
+    bottom: 110px;
+    right: 20px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    z-index: 9999;
+    width: 220px;
+    display: none;
+}
+
+.accessibilityContainer.open {
+    display: block;
+}
+
+.accessibilityContainer > h4 {
+    text-align: center;
+}
+
+.toggleRow {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #6AA08F;
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}

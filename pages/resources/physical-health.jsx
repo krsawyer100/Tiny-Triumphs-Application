@@ -7,6 +7,7 @@ import Image from "next/image"
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from '../../config/session'
 import styles from '../../public/styles/Resources.module.css'
+import AccessibilityToggle from "../../components/accessibility/accessibilityToggle"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -35,6 +36,7 @@ export default function Physical(props) {
             <Header 
                 isLoggedIn={props.isLoggedIn}
             />
+            <AccessibilityToggle />
             <main className={styles.main}>
                 <h1>Physical Health Resources</h1>
                 <section className={styles.emergencyResources}>

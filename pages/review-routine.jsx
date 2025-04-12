@@ -8,6 +8,7 @@ import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
 import styles from "../public/styles/ReviewRoutines.module.css"
 import Image from "next/image"
+import AccessibilityToggle from "../components/accessibility/accessibilityToggle"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -198,7 +199,7 @@ export default function ReviewRoutine(props) {
             <Header 
                 isLoggedIn={props.isLoggedIn}
             />
-
+            <AccessibilityToggle />
             <main className={styles.main}>
                 <h1>Personalized Routines</h1>
                 <h2>Please review your personalized routines and edit them as you need to meet your needs and desires! Don&apos;t worry, you can always edit them later if needed.</h2>

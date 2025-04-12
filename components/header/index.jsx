@@ -62,16 +62,14 @@ export default function Header(props) {
         <div className={styles.desktopMenu}>
           {props.isLoggedIn ? (
             <>
-              <p>
-                <Link href="/about" className={styles.headerInfoLink}>
+              <Link href="/about" className={styles.headerInfoLink}>
                   About
-                </Link>
-              </p>
+              </Link>
 
               <div className={styles.dropdownContainer}>
-                <p onClick={toggleResourcesMenu} className={styles.headerInfoLink}>
+                <button onClick={toggleResourcesMenu} className={styles.headerInfoLink}>
                   Resources ▼
-                </p>
+                </button>
                 {resourcesMenu && (
                   <div className={styles.dropdownMenu}>
                     <Link href="/resources/mental-health" className={styles.dropdownItem}>
@@ -87,32 +85,26 @@ export default function Header(props) {
                 )}
               </div>
 
-              <p>
                 <Link href="/contact" className={styles.headerInfoLink}>
                   Contact
                 </Link>
-              </p>
-              <p onClick={logout} style={{ cursor: "pointer" }} className={styles.headerInfoLink}>
-                Logout
-              </p>
-              <p>
+                <button onClick={logout}  className={styles.headerInfoLink}>
+                  Logout
+                </button>
                 <Link href="/quiz" className={styles.quizBtn}>
                   Try Our Quiz
                 </Link>
-              </p>
             </>
           ) : (
             <>
-              <p>
-                <Link href="/about" className={styles.headerInfoLink}>
+              <Link href="/about" className={styles.headerInfoLink}>
                   About
-                </Link>
-              </p>
+              </Link>
 
               <div className={styles.dropdownContainer}>
-                <p onClick={toggleResourcesMenu} className={styles.headerInfoLink}>
+                <button onClick={toggleResourcesMenu} className={styles.headerInfoLink}>
                   Resources ▼
-                </p>
+                </button>
                 {resourcesMenu && (
                   <div className={styles.dropdownMenu}>
                     <Link href="/resources/mental-health" className={styles.dropdownItem}>
@@ -128,21 +120,15 @@ export default function Header(props) {
                 )}
               </div>
 
-              <p>
-                <Link href="/contact" className={styles.headerInfoLink}>
+              <Link href="/contact" className={styles.headerInfoLink}>
                   Contact
                 </Link>
-              </p>
-              <p>
                 <Link href="/login" className={styles.headerInfoLink}>
                   Login
                 </Link>
-              </p>
-              <p>
                 <Link href="/quiz" className={styles.quizBtn}>
                   Try Our Quiz
                 </Link>
-              </p>
             </>
           )}
         </div>
@@ -167,9 +153,9 @@ export default function Header(props) {
         <nav>
           <Link href="/about" className={styles.menuLink} onClick={toggleMenu}>About</Link>
           <div className={styles.menuDropdown}>
-            <p onClick={toggleResourcesMenu} className={styles.menuLink}>
+            <button onClick={toggleResourcesMenu} className={styles.menuLink}>
                 Resources {resourcesMenu ? "▲" : "▼"}
-            </p>
+            </button>
             {resourcesMenu && (
               <div className={styles.menuDropdownMenu}>
                   <Link href="/resources/mental-health" className={styles.dropdownMenuLink} onClick={toggleMenu}>Mental Health</Link>
@@ -181,7 +167,7 @@ export default function Header(props) {
           <Link href="/contact" className={styles.menuLink} onClick={toggleMenu}>Contact Us</Link>
 
           {props.isLoggedIn ? (
-            <p onClick={() => { logout(); toggleMenu();}}>Logout</p>
+            <button onClick={() => { logout(); toggleMenu();}}>Logout</button>
           ):(
             <Link href="/login" className={styles.menuLink} onClick={toggleMenu}>Login/Signup</Link>
           )}

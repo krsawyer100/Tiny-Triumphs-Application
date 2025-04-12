@@ -8,6 +8,7 @@ import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from '../config/session'
 import styles from '../public/styles/Home.module.css'
 import { useEffect } from "react";
+import AccessibilityToggle from "../components/accessibility/accessibilityToggle";
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -44,6 +45,7 @@ export default function Home(props) {
             <Header 
                 isLoggedIn={props.isLoggedIn}
             />
+            <AccessibilityToggle />
             <main>
                 {/* Hero Section */}
                 <section className={styles.hero}> 

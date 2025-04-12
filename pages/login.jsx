@@ -8,6 +8,7 @@ import Header from "../components/header"
 import Footer from '../components/footer'
 import useLogout from "../hooks/useLogout"
 import styles from "../public/styles/Login.module.css"
+import AccessibilityToggle from '../components/accessibility/accessibilityToggle'
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({ req }) {
@@ -68,7 +69,7 @@ export default function Login(props) {
             <Header 
                 isLoggedIn={props.isLoggedIn}
             />
-
+            <AccessibilityToggle />
             <main className={styles.main}>
                 <div className={styles.loginContainer}>
                     <h2>Login Page</h2>
