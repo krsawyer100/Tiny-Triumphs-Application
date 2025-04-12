@@ -1,5 +1,5 @@
 .main {
-    background-image: url("/images/quiz-background.jpg");
+    background-image: url("/images/quiz-background.webp");
     background-color: var(--brown-overlay);
     background-blend-mode: multiply;
     background-size: cover;

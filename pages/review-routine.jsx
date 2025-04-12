@@ -149,7 +149,7 @@ export default function ReviewRoutine(props) {
                                 {taskObj.task}
                             </span>
                         )}
-                        <button className={styles.deleteBtn} onClick={() => deleteTask(energyLevel, timeOfDay, index)}>
+                        <button aria-label="delete task" className={styles.deleteBtn} onClick={() => deleteTask(energyLevel, timeOfDay, index)}>
                             <Image
                                 src="/images/delete-icon.png"
                                 alt=""
@@ -173,7 +173,7 @@ export default function ReviewRoutine(props) {
                     value={newTaskInput[`${energyLevel}-${timeOfDay}`] || ""}
                     onChange={(e) => handleNewTaskChange(e, energyLevel, timeOfDay)}
                 />
-                <button className={styles.addBtn} onClick={() => {
+                <button aria-label="add task" className={styles.addBtn} onClick={() => {
                     const newTask = newTaskInput[`${energyLevel}-${timeOfDay}`]
                     addTask(energyLevel, timeOfDay, newTask)
                 }}>
@@ -194,6 +194,7 @@ export default function ReviewRoutine(props) {
             <Head>
                 <title>Routine Review</title>
                 <meta name="robots" content="noindex" />
+                <link rel="preload" as="image" href="/images/quiz-background.webp" />
             </Head>
 
             <Header 

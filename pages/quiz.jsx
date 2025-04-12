@@ -113,6 +113,7 @@ export default function Quiz(props) {
         <>
             <Head>
                 <title>Tiny Triumphs</title>
+                <link rel="preload" as="image" href="/images/quiz-background.webp" />
             </Head>
 
             <Header 

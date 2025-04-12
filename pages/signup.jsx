@@ -97,6 +97,7 @@ export default function Signup(props) {
         <div>
             <Head>
                 <title>Sign Up</title>
+                <link rel="preload" as="image" href="/images/form-background.webp" />
             </Head>
 
             <Header 

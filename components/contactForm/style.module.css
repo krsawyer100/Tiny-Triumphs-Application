@@ -1,5 +1,5 @@
 .contactContainer {
-    background-image: url("/images/form-background.jpg");
+    background-image: url("/images/form-background.webp");
     background-color: #79657c;
     background-blend-mode: overlay;
     background-size: cover;
@@ -8,6 +8,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.contactContainer::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    background: url('/images/form-background.webp') no-repeat;
 }
 
 .formContainer {

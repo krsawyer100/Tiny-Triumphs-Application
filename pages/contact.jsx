@@ -5,6 +5,7 @@ import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from '../config/session'
 import styles from '../public/styles/Contact.module.css'
 import AccessibilityToggle from '../components/accessibility/accessibilityToggle';
+import Head from 'next/head';
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -24,6 +25,10 @@ export const getServerSideProps = withIronSessionSsr(
 export default function Contact(props) {
     return (
         <>
+            <Head>
+                <title>Contact Us</title>
+                <link rel="preload" as="image" href="/images/form-background.webp" />
+            </Head>
             <Header 
                 isLoggedIn={props.isLoggedIn}
             />

@@ -47,7 +47,7 @@ export default function DashboardHeader({ username, profilePhoto}) {
       <div className={styles.navContainer}>
         <Link href="/dashboard" className={styles.navLogo}>
           <Image
-            src="/images/Logo-icon.png"
+            src="/images/Logo-Icon.png"
             alt="Navigation link to dashboard"
             width={80}
             height={80}

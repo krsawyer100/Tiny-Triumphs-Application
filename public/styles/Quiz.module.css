@@ -2,7 +2,7 @@
     justify-content: center;
     align-items: center;
     display: flex;
-    background-image: url("~/public/images/quiz-background.jpg");
+    background-image: url("/images/quiz-background.webp");
     background-color: var(--brown-overlay);
     background-blend-mode: multiply;
     min-height: 100vh;

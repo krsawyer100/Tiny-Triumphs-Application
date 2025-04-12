@@ -333,7 +333,7 @@ export default function Dashboard(props) {
                             <div className={styles.preRoutine}>
                                 <h3>How are you feeling today?</h3>
                                 <Image
-                                    src="/images/routine-img.jpg"
+                                    src="/images/routine-img.webp"
                                     alt=""
                                     width={500}
                                     height={300}

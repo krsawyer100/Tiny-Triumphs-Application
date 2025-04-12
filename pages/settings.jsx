@@ -295,7 +295,7 @@ export default function Settings(props) {
                                     {task.task}
                                 </span>
                             )}
-                            <button className={styles.deleteTaskBtn} onClick={() => deleteTask(energyLevel, timeOfDay, index)}>
+                            <button aria-label="delete task" className={styles.deleteTaskBtn} onClick={() => deleteTask(energyLevel, timeOfDay, index)}>
                                 <Image
                                     src="/images/delete-icon.png"
                                     alt=""
@@ -321,7 +321,7 @@ export default function Settings(props) {
                     value={newTaskInput[`${energyLevel}-${timeOfDay}`] || ""}
                     onChange={(e) => handleNewTaskChange(e, energyLevel, timeOfDay)}
                 />
-                <button className={styles.addTaskBtn} onClick={() => {
+                <button aria-label="add task" className={styles.addTaskBtn} onClick={() => {
                     const newTask = newTaskInput[`${energyLevel}-${timeOfDay}`]
                     addTask(energyLevel, timeOfDay, newTask)
                 }}>
@@ -401,18 +401,19 @@ export default function Settings(props) {
         <div>
             <Head>
                 <title>{props.user.username}&apos;s Settings</title>
+                <meta name="description" content="Manage your account settings, update your generated routines, and upload a profile photo." />
                 <meta name="robots" content="noindex" />
             </Head>
 
             <DashboardHeader username={props?.user?.username} profilePhoto={profilePhoto}/>
 
-            <main className={styles.main}>
+            <main className={styles.main} role="main">
                 <h1>{props.user.username}&apos;s Settings</h1>
                 <section className={styles.userInformation}>
                     <h2>User Information</h2>
                     <div className={styles.userDetails}>
                         <div className={styles.userProfileImg}>
-                            <label className={styles.profilePhotoLabel}>Profile Photo:</label>
+                            <label htmlFor="profilePhoto" className={styles.profilePhotoLabel}>Profile Photo:</label>
                             <Image
                                 src={profilePhoto.startsWith('/uploads') ? profilePhoto : `/images/account-icon-blue.png`}
                                 alt=""

@@ -64,6 +64,7 @@ export default function Login(props) {
         <div>
             <Head>
                 <title>Login</title>
+                <link rel="preload" as="image" href="/images/form-background.webp" />
             </Head>
 
             <Header 
