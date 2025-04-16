@@ -194,6 +194,20 @@
     margin-left: 20px;
 }
 
+.task > p, .addTaskContainer {
+    border-bottom: var(--white) solid 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+.addTaskContainer {
+    padding: 5px;
+    padding-top: 20px;
+}
+
 .task, .addTaskContainer {
     display: flex;
     align-items: center;
@@ -230,34 +244,21 @@
     transition: box-shadow 0.2s ease-in-out;
 }
 
-.taskBox {
-    border-bottom: var(--white) solid 2px;
+.task > p > input, .addTaskContainer > input {
+    background: transparent;
     width: 100%;
-    max-width: 450px;
-    text-wrap: wrap;
-}
-
-.addTaskContainer {
-    margin-left: 23px;
-    padding-top: 25px;
-}
-
-.addTaskContainer > input {
     border: none;
-    border-bottom: var(--white) solid 2px !important;
-    text-wrap: wrap;
-    background-color: transparent;
-    color: var(--white);
+    font-family: "Playpen Sans", cursive;
     font-size: 16px;
-    width: 100%;
-    max-width: 450px;
+    text-wrap: wrap;
+    color: var(--white);
 }
 
 .addTaskContainer > input::placeholder {
     color: var(--white);
 }
 
-.taskBox:focus, .taskBox:focus-visible, .addTaskContainer > input:focus, .addTaskContainer > input:focus-visible {
+.task > p > input, .task > p > input:focus-visible, .addTaskContainer > input:focus, .addTaskContainer > input:focus-visible {
     background-color: transparent;
     color: var(--white);
     border: none;
@@ -266,6 +267,7 @@
     outline: none;
     box-shadow: 0 0 0 2px var(--white);
     transition: outline 0.2s ease, box-shadow 0.2s ease;
+    padding: 5px;
 }
 
 .deleteBtn, .addBtn {
@@ -331,8 +333,12 @@
     .energyContainer {
         padding: 10px 30px;
     }
-    
-    .tasksContainer > label {
+
+    .task > p > input, .addTaskContainer > input {
+        font-size: 14px;
+    }
+
+    .task > p > input, .task > p > input:focus-visible, .addTaskContainer > input:focus, .addTaskContainer > input:focus-visible {
         font-size: 14px;
     }
 }
@@ -418,5 +424,13 @@
     
     .preRoutineImg {
         height: 200px;
+    }
+
+    .task > p > input, .addTaskContainer > input {
+        font-size: 12px;
+    }
+
+    .task > p > input, .task > p > input:focus-visible, .addTaskContainer > input:focus, .addTaskContainer > input:focus-visible {
+        font-size: 12px;
     }
 }

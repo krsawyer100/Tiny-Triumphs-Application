@@ -2,7 +2,7 @@ import DashboardHeader from "../components/dashboardHeader/index.jsx"
 import Head from "next/head"
 import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image.js"
 import styles from "../public/styles/Dashboard.module.css"
 
@@ -204,6 +204,7 @@ export default function Dashboard(props) {
             const data = await res.json()
             setRoutine(data.routine)
             setIsEditing(null)
+
         } catch (err) {
             console.error("Error saving edited task: ", err)
         }
@@ -252,7 +253,9 @@ export default function Dashboard(props) {
     }
 
     function handleEdit(taskText) {
-        setIsEditing(taskText)
+        setTimeout(() => {
+            setIsEditing(taskText)
+          }, 0)
     }
 
     function handleKeyDown(e, timeOfDay, index) {
@@ -266,7 +269,12 @@ export default function Dashboard(props) {
                     type="checkbox"
                     checked={taskObj.completed}
                     onChange={() => toggleTaskCompletion(timeOfDay, index)}
+                    onKeyDown={(e) => {if(e.key === "Enter") {
+                        e.preventDefault()
+                        toggleTaskCompletion(timeOfDay, index)
+                    }}}
                 />
+                <p>
                 {isEditing === taskObj.task ? (
                     <input
                         type="text"
@@ -274,14 +282,14 @@ export default function Dashboard(props) {
                         onBlur={(e) => saveEditedTask(timeOfDay, index, e.target.value)}
                         onKeyDown={(e) => handleKeyDown(e, timeOfDay, index)}
                         autoFocus
-                        className={styles.taskBox}
                     />
                 ):(
                     <span tabIndex={0} onClick={() => handleEdit(taskObj.task)} onFocus={(e) => {
                         e.preventDefault()
                         handleEdit(taskObj.task)
-                    }} className={styles.taskBox}>{taskObj.task}</span>
+                    }}>{taskObj.task}</span>
                 )}
+                
                 <button aria-label="delete task" className={styles.deleteBtn} onClick={() => deleteTaskFromDay(timeOfDay, index)}>
                     <Image
                         src="/images/delete-icon-white.png"
@@ -290,12 +298,13 @@ export default function Dashboard(props) {
                         height={30}
                     />
                 </button>
+                </p>
             </div>
         ))
     }
     function renderAddTask(timeOfDay) {
         return (
-            <div className={styles.addTaskContainer}>
+            <p className={styles.addTaskContainer}>
                 <input 
                     type="text"
                     placeholder="Add new Task"
@@ -311,7 +320,7 @@ export default function Dashboard(props) {
                         height={25}
                     />
                 </button>
-            </div>
+            </p>
         )
     }
 
