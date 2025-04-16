@@ -214,6 +214,13 @@
     opacity: 0;
 }
 
+.tasksContainer > label > input[type="checkbox"]:focus {
+    outline: 2px solid var(--white);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 2px var(--purple);
+    transition: box-shadow 0.2s ease-in-out;
+}
+
 .routineDivider {
     display: flex;
     align-items: center;

@@ -146,7 +146,7 @@
     height: 30px;
     font-family: "Playpen Sans", cursive;
     font-size: 12px;
-    font-weight: 300;
+    font-weight: 400;
     padding: 3px 7px;
     border-radius: 10px;
     background-color: var(--white);
@@ -168,6 +168,7 @@
 .saveBtn:hover, .saveBtn:focus {
     transform: scale(.99);
     transition: .3s;
+    background-color: var(--orange);
 }
 
 .divider {
@@ -268,6 +269,11 @@
 .passwordBtn:hover, .deleteBtn:hover, .passwordBtn:focus, .deleteBtn:focus {
     transform: scale(.99);
     transition: .3s;
+    background-color: var(--orange);
+}
+
+.deleteBtn:hover, .deleteBtn:focus {
+    background-color: var(--blue);
 }
 
 .routinesContainer {
@@ -372,6 +378,12 @@
     cursor: pointer;
 }
 
+.saveRoutinesBtn:focus {
+    background-color: var(--orange);
+    transform: scale(.98);
+    transition: .2s;
+}
+
 .message {
     color: var(--purple);
     margin-top: -30px;
@@ -395,6 +407,7 @@
 .uploadBtn:hover, .uploadBtn:focus {
     transform: scale(.99);
     transition: .2s;
+    background-color: var(--orange);
 }
 
 /* Cropping Modal */
@@ -471,23 +484,64 @@
     border: none;
     cursor: pointer;
     font-size: 14px;
+    font-weight: 500;
     font-family: "Playpen Sans", cursive;
-    color: var(--white);
     box-shadow: 0 0 5px 1px rgba(0,0,0,0.3);
 }
 
+.modalBtn {
+    color: var(--white);
+}
+
 .modalBtn:nth-child(1) {
-    background-color: var(--orange);
+    border: var(--orange) solid 2px;
+    color: var(--orange);
 }
 
 .modalBtn:nth-child(2) {
+    border: var(--blue) solid 2px;
+    color: var(--blue);
+}
+
+.modalBtn:nth-child(1):hover, .modalBtn:nth-child(1):focus {
+    background-color: var(--orange);
+    color: var(--white);
+}
+
+.modalBtn:nth-child(2):hover, .modalBtn:nth-child(2):focus {
     background-color: var(--blue);
+    color: var(--white);
 }
 
 .modalBtn:hover, .modalBtn:focus {
-    transform: scale(.99);
+    transform: scale(.98);
     transition: .3s;
 }
+
+.keyboardCropControl {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+  }
+  
+  .srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+  }
+  
+  .imgContainer:focus {
+    padding: 0;
+  }
 
 @-moz-keyframes rotateLeft { 
     100% { -moz-transform: rotate(-360deg); } 

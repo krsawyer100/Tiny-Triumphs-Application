@@ -230,6 +230,11 @@ export default function Dashboard(props) {
                                             type="checkbox"
                                             checked={tasks.completed}
                                             onChange={() => toggleTaskCompletion("morning", index)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") {
+                                                    toggleTaskCompletion("morning", index)
+                                                }
+                                            }}
                                         />
                                         <span style={{ textDecoration: tasks.completed ? "line-through" : "none" }}>
                                             {tasks.task}
@@ -260,6 +265,11 @@ export default function Dashboard(props) {
                                             type="checkbox"
                                             checked={tasks.completed}
                                             onChange={() => toggleTaskCompletion("afternoon", index)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") {
+                                                    toggleTaskCompletion("afternoon", index)
+                                                }
+                                            }}
                                         />
                                         <span style={{ textDecoration: tasks.completed ? "line-through" : "none" }}>
                                             {tasks.task}
@@ -290,6 +300,11 @@ export default function Dashboard(props) {
                                             type="checkbox"
                                             checked={tasks.completed}
                                             onChange={() => toggleTaskCompletion("evening", index)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") {
+                                                    toggleTaskCompletion("evening", index)
+                                                }
+                                            }}
                                         />
                                         <span style={{ textDecoration: tasks.completed ? "line-through" : "none" }}>
                                             {tasks.task}
@@ -319,6 +334,11 @@ export default function Dashboard(props) {
                                         <input 
                                             type="checkbox"
                                             checked={tasks.completed}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") {
+                                                    toggleTaskCompletion("night", index)
+                                                }
+                                            }}
                                             onChange={() => toggleTaskCompletion("night", index)}
                                         />
                                         <span style={{ textDecoration: tasks.completed ? "line-through" : "none" }}>

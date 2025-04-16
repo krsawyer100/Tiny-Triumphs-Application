@@ -14,7 +14,7 @@
     padding: 5px 15px;
   }
   
-  .headerInfo > p, .headerInfoLink {
+  .headerInfoLink {
     font-size: 16px;
     font-weight: 500;
     text-decoration: none;
@@ -24,7 +24,7 @@
     border: none;
   }
 
-  .headerInfo > p:hover, .headerInfoLink:hover,   .headerInfo > p:focus, .headerInfoLink:focus {
+.headerInfoLink:hover, .headerInfoLink:focus {
     transform: scale(.99);
     transition: .3s;
     color: var(--blue);
@@ -35,18 +35,19 @@
     display: inline-block;
     cursor: pointer;
   }
-  
+
   .dropdownMenu {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: white;
+    background-color: var(--white);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     width: 150px;
     z-index: 100;
+    border: var(--blue) 2px solid;
   }
   
   .dropdownItem {
@@ -57,9 +58,13 @@
     font-weight: 400;
     font-size: 14px;
   }
+
+  .dropdownItem:nth-of-type(1), .dropdownItem:nth-of-type(2) {
+    border-bottom: var(--orange) solid 1px;
+  }
   
   .dropdownItem:hover {
-    background-color: #f0f0f0;
+    background-color: #fff6ec;
   }
 
   .logoContainer {
@@ -120,13 +125,51 @@
   align-items: center;
   flex-direction: column;
   gap: 8px;
+  background-color: transparent;
+  border: none;
 }
 
-.navMenuBtn > .lineOne, .navMenuBtn > .lineTwo, .navMenuBtn > .lineThree {
+.navMenuBtn > div {
   width: 30px;
   height: 3px;
   background-color: var(--orange);
   border-radius: 15px;
+}
+
+.navMenuBtn.open > .lineOne, .navMenuBtn.open > .lineThree {
+  background-color: var(--purple);
+  transition: .3s;
+}
+
+.navMenuBtn.open .lineOne {
+  transform: rotate(-45deg) translate(-8px, 7px);
+}
+
+.navMenuBtn.open .lineThree {
+  transform: rotate(45deg) translate(-8px, -7px);
+}
+
+.navMenuBtn.open > .lineTwo {
+  opacity: 0;
+  transition: .3s;
+}
+
+.navMenuBtn.close > .lineTwo {
+  opacity: 1;
+  transition: .3s;
+}
+
+.navMenuBtn.close > .lineOne, .navMenuBtn.close > .lineThree {
+  background-color: var(--orange);
+  transition: .3s;
+}
+
+.navMenuBtn.close .lineOne {
+  transform: rotate(0deg) translate(0, 0);
+}
+
+.navMenuBtn.close .lineThree {
+  transform: rotate(0deg) translate(0, 0);
 }
 
 .menu {
@@ -169,7 +212,6 @@
   font-size: 16px;
   background: none;
   border: none;
-  font-family: "Playpen Sans", cursive;
   cursor: pointer;
 }
 
@@ -198,6 +240,11 @@ button.menuLink {
   text-decoration: none;
   color: var(--orange);
   font-size: 14px;
+}
+
+.dropdownMenuLink:hover, .dropdownMenuLink:focus, .menuLink:hover, .menuLink:focus {
+  color: var(--blue);
+  transition: .2s;
 }
 
 .quizBtnContainer {
@@ -258,6 +305,7 @@ button.menuLink {
 @media screen and (max-width: 880px) {
   .desktopMenu {
     display: none;
+    visibility: none;
   }
 
   .navMenuBtn, .menu, .backgroundOverlay {

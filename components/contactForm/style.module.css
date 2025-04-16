@@ -58,6 +58,12 @@
     font-size: 14px;
 }
 
+.formContainer > div > input:focus, .formContainer > div > textarea:focus, .formContainer > div > select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--blue);
+    transition: box-shadow 0.2s ease-in-out;
+}
+
 .formContainer > div > input {
     height: 30px;
 }
@@ -65,13 +71,23 @@
 .formContainer > div > textarea {
     resize: vertical;
     height: 150px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .formContainer > div > select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("/images/down-arrow-icon.svg");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding: 10px;
     cursor: pointer;
     height: 50px;
-    padding: 5px;
-}
+    background-size: 25px;
+  }
+  
 
 .formContainer > button {
     width: 100%;
@@ -91,6 +107,7 @@
 .formContainer > button:hover, .formContainer > button:focus {
     transform: scale(.99);
     transition: .2s;
+    background-color: var(--orange);
 }
 
 @media screen and (max-width: 800px) {

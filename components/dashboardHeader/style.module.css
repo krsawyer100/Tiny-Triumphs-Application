@@ -41,12 +41,12 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-  padding: 0;
 }
 
 .navContainer > div > button:hover, .navContainer > div > button:focus {
   transform: scale(.98);
   transition: .2s;
+  padding: 3px;
 }
 
 .navMenuContainer {
@@ -79,6 +79,14 @@
 .navLink {
   text-decoration: none;
   color: var(--orange);
+  background-color: transparent;
+  border: none;
+}
+
+.navLink:hover, .navLink:focus {
+  color: var(--blue);
+  transform: scale(.98);
+  transition: .2s;
 }
 
 .navBtnImg {

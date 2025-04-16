@@ -16,7 +16,7 @@ export default function Footer() {
             <Link href="/quiz" className={styles.navLink}>Try Our Quiz</Link>
           </div>
           <div className={styles.copyright}>
-            <p className={styles.copyrightText}>&copy; 2025 Tiny Triumphs - All Rights Reserved.</p>
+            <p className={styles.copyrightText}>&copy; 2025 Tiny Triumphs - All Rights Reserved. Icons by <a href="https://icons8.com/" target="_BLANK">Icons8</a></p>
           </div>
         </>
       </div>

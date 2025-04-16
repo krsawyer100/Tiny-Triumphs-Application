@@ -36,7 +36,7 @@ export default function About(props) {
                 isLoggedIn={props.isLoggedIn}
             />
              <AccessibilityToggle />
-            <main>
+            <main className={styles.main}>
                 {/* About Tiny Triumphs */}
                 <section className={styles.about}> 
                     <h1>About Tiny Triumphs</h1>

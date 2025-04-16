@@ -6,6 +6,8 @@
     background-color: var(--brown-overlay);
     background-blend-mode: multiply;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hero::before {
@@ -51,6 +53,7 @@
     cursor: pointer;
     font-weight: 500;
     font-size: 20px;
+    border: var(--white) 2px solid;
 }
 
 .btnText {
@@ -61,7 +64,14 @@
 .heroBtn > p:hover, .heroBtn > p:focus {
     transform: scale(.98);
     transition: .3s;
-    border: var(--white) 2px solid;
+}
+
+.btnText:focus, .btnText:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--white);
+    border-radius: 4px;
+    padding: 5px;
+    transition: box-shadow 0.2s ease-in-out;
 }
 
 .applicationInfo {
@@ -174,11 +184,12 @@
 }
 
 .benefits {
-    background-color: var(--orange);
+    background-color: #965839;
     background-blend-mode: multiply;
     color: var(--white);
-    transition: background-image 0.3s ease-in-out;
     background-image: url(/images/stripped-background.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .benefits > h3 {

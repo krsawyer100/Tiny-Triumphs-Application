@@ -3,7 +3,7 @@ import Footer from "../components/footer"
 import Head from "next/head"
 import { useRouter } from 'next/router'
 import useLogout from "../hooks/useLogout"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
 import styles from "../public/styles/ReviewRoutines.module.css"
@@ -33,7 +33,8 @@ export default function ReviewRoutine(props) {
     const [routine, setRoutine] = useState({ lowEnergy: {}, mediumEnergy: {}, highEnergy: {} })
     const [editingTask, setEditingTask] = useState(null)
     const [newTaskInput, setNewTaskInput] = useState({})
-    
+    const [message, setMessage] = useState("")
+    const [error, setError] = useState("")
 
     useEffect(() => {
         const generatedRoutine = JSON.parse(localStorage.getItem("temporaryRoutine"))
@@ -58,14 +59,27 @@ export default function ReviewRoutine(props) {
                 const data = await res.json()
 
                 if (data.redirect) {
-                    return router.push(data.redirect)
+                    setMessage("Routines saved successfully, you are now being redirected to your dashboard")
+                    setTimeout(() => {
+                        setMessage("")
+                        return router.push(data.redirect)
+                    }, 3000)
                 }
             } catch (error) {
+                setMessage("Error saving your routines, try again in a little bit.")
+                setTimeout(() => {
+                    setMessage("")
+                    return
+                }, 3000)
                 console.error('error saving routine: ', error)
             }
         } else {
             localStorage.setItem("temporaryRoutine", JSON.stringify(routine))
-            router.push("/signup")
+            setMessage("Routines saved successfully, you are now being redirected to the sign up page!")
+            setTimeout(() => {
+                setMessage("")
+                router.push("/signup")
+            }, 3000)
         }
     }
 
@@ -85,7 +99,13 @@ export default function ReviewRoutine(props) {
     }
     
     function addTask(energyLevel, timeOfDay, newTask) {
-        if (!newTask.trim()) return
+        if (!newTask.trim()) {
+            setError("Please add task information")
+            setTimeout(() => {
+                setError("")
+            }, 10000)
+            return
+        }
 
         const updatedRoutine = {...routine}
 
@@ -145,7 +165,10 @@ export default function ReviewRoutine(props) {
                                 autoFocus
                             />
                         ) : (
-                            <span onClick={() => handleEdit(taskObj.task)}>
+                            <span tabIndex={0} onClick={() => handleEdit(taskObj.task)} onFocus={(e) => {
+                                e.preventDefault()
+                                handleEdit(taskObj.task)
+                            }}>
                                 {taskObj.task}
                             </span>
                         )}
@@ -166,12 +189,20 @@ export default function ReviewRoutine(props) {
 
     function renderAddTask(energyLevel, timeOfDay) {
         return (
+            <>
             <div className={styles.addTaskContainer}>
                 <input
                     type="text"
                     placeholder="Add new task"
                     value={newTaskInput[`${energyLevel}-${timeOfDay}`] || ""}
                     onChange={(e) => handleNewTaskChange(e, energyLevel, timeOfDay)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            e.preventDefault()
+                            const newTask = newTaskInput[`${energyLevel}-${timeOfDay}`]
+                    addTask(energyLevel, timeOfDay, newTask)
+                        }
+                    }}
                 />
                 <button aria-label="add task" className={styles.addBtn} onClick={() => {
                     const newTask = newTaskInput[`${energyLevel}-${timeOfDay}`]
@@ -186,6 +217,10 @@ export default function ReviewRoutine(props) {
                     />
                 </button>
             </div>
+            {error && (
+                <p role="alert" className={styles.error}>{error}</p>
+            )}
+        </>
         )
     }
 
@@ -193,7 +228,6 @@ export default function ReviewRoutine(props) {
         <>
             <Head>
                 <title>Routine Review</title>
-                <meta name="robots" content="noindex" />
                 <link rel="preload" as="image" href="/images/quiz-background.webp" />
             </Head>
 
@@ -345,6 +379,9 @@ export default function ReviewRoutine(props) {
                             </h4>
                             {renderTasks(routine.highEnergy.night, "highEnergy", "night")}
                             {renderAddTask("highEnergy", "night")}
+                            {message && (
+                                <p role="alert" className={styles.message}>{message}</p>
+                            )}
                             <button className={styles.saveBtn} onClick={saveRoutine}>Save Routines</button>
                         </div>
                     ) : (

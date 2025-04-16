@@ -59,6 +59,9 @@ export default function Settings(props) {
     const [rotation, setRotation] = useState(0)
     const fileInputRef = useRef(null)
 
+    const cropperRef = useRef(null)
+    const cropAreaRef = useRef(null)
+
     useEffect(() => {
         fetchRoutines()
     }, [userId])
@@ -289,9 +292,13 @@ export default function Settings(props) {
                                     defaultValue={task.task}
                                     onBlur={(e) => editTask(energyLevel, timeOfDay, index, e.target.value)}
                                     onKeyDown={(e) => handleKeyDown(e, energyLevel, timeOfDay, index)}
+                                    autoFocus
                                 />
                             ) : (
-                                <span onClick={() => handleEdit(taskKey)} style={{ curser: "pointer" }}>
+                                <span onClick={() => handleEdit(taskKey)} onFocus={(e) => {
+                                    e.preventDefault()
+                                    handleEdit(taskKey)
+                                }} style={{ curser: "pointer" }} tabIndex={0}>
                                     {task.task}
                                 </span>
                             )}
@@ -320,6 +327,13 @@ export default function Settings(props) {
                     placeholder="Add new task"
                     value={newTaskInput[`${energyLevel}-${timeOfDay}`] || ""}
                     onChange={(e) => handleNewTaskChange(e, energyLevel, timeOfDay)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            e.preventDefault()
+                            const newTask = newTaskInput[`${energyLevel}-${timeOfDay}`]
+                    addTask(energyLevel, timeOfDay, newTask)
+                        }
+                    }}
                 />
                 <button aria-label="add task" className={styles.addTaskBtn} onClick={() => {
                     const newTask = newTaskInput[`${energyLevel}-${timeOfDay}`]
@@ -348,9 +362,6 @@ export default function Settings(props) {
 
     async function showCroppedImage() {
         try {
-            console.log('Selected Image:', selectedImage);
-            console.log('Cropped Area Pixels:', croppedAreaPixels);
-            console.log('Rotation:', rotation);
 
             if (!selectedImage || !croppedAreaPixels) {
                 console.error('Missing required data for cropping');
@@ -397,6 +408,78 @@ export default function Settings(props) {
         }
     }
 
+    function handleCropKeyDown(e) {
+        const moveAmount = e.shiftKey ? 10 : 1;
+      
+        switch (e.key) {
+          case "ArrowUp":
+            e.preventDefault();
+            setCrop((prev) => ({ ...prev, y: prev.y - moveAmount }));
+            break;
+          case "ArrowDown":
+            e.preventDefault();
+            setCrop((prev) => ({ ...prev, y: prev.y + moveAmount }));
+            break;
+          case "ArrowLeft":
+            e.preventDefault();
+            setCrop((prev) => ({ ...prev, x: prev.x - moveAmount }));
+            break;
+          case "ArrowRight":
+            e.preventDefault();
+            setCrop((prev) => ({ ...prev, x: prev.x + moveAmount }));
+            break;
+          default:
+            break;
+        }
+      }
+
+      useEffect(() => {
+        if (selectedImage && cropAreaRef.current) {
+          cropAreaRef.current.focus()
+        }
+      }, [selectedImage])
+
+      useEffect(() => {
+        if (!selectedImage) return;
+      
+        const focusableSelector = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+      
+        const cropper = cropperRef.current;
+        const cropArea = cropAreaRef.current;
+        if (!cropper || !cropArea) return;
+      
+    
+        const cropperItems = Array.from(cropper.querySelectorAll(focusableSelector));
+      
+        const focusables = [cropArea, ...cropperItems];
+      
+        const firstEl = focusables[0];
+        const lastEl = focusables[focusables.length - 1];
+      
+        function handleTab(e) {
+          if (e.key !== 'Tab') return;
+      
+          if (e.shiftKey) {
+            if (document.activeElement === firstEl) {
+              e.preventDefault();
+              lastEl.focus();
+            }
+          } else {
+            if (document.activeElement === lastEl) {
+              e.preventDefault();
+              firstEl.focus();
+            }
+          }
+        }
+      
+        firstEl?.focus();
+        document.addEventListener('keydown', handleTab);
+      
+        return () => {
+          document.removeEventListener('keydown', handleTab);
+        };
+      }, [selectedImage]);
+      
     return (
         <div>
             <Head>
@@ -487,8 +570,8 @@ export default function Settings(props) {
                     <div>
                         {selectedImage && (
                             <div className={styles.cropModal}>
-                                <div className={styles.cropModalBorder}>
-                                    <div className={styles.imgContainer}>
+                                <div className={styles.cropModalBorder} ref={cropperRef}>
+                                    <div className={styles.imgContainer} tabIndex={0} role="region" aria-label="Image crop area. Use arrow keys to move the image." onKeyDown={handleCropKeyDown} ref={cropAreaRef}>
                                         <Cropper
                                             image={selectedImage}
                                             crop={crop}
@@ -505,6 +588,34 @@ export default function Settings(props) {
                                                 setCroppedAreaPixels(croppedAreaPixels)}
                                             }
                                         />
+                                        <div
+                                            role="slider"
+                                            aria-valuetext={`Image position X: ${crop.x}, Y: ${crop.y}`}
+                                            tabIndex="0"
+                                            aria-label="Adjust image position"
+                                            className={styles.keyboardCropControl}
+                                            onKeyDown={(e) => {
+                                                const step = 5
+                                                    switch (e.key) {
+                                                        case "ArrowUp":
+                                                            setCrop((prev) => ({ ...prev, y: prev.y - step }))
+                                                            break
+                                                        case "ArrowDown":
+                                                            setCrop((prev) => ({ ...prev, y: prev.y + step }))
+                                                            break
+                                                        case "ArrowLeft":
+                                                            setCrop((prev) => ({ ...prev, x: prev.x - step }))
+                                                            break
+                                                        case "ArrowRight":
+                                                            setCrop((prev) => ({ ...prev, x: prev.x + step }))
+                                                            break
+                                                        default:
+                                                            break
+                                                    }
+                                            }}>
+                                            {/* Screen reader only instructions */}
+                                            <span className={styles.srOnly}>Use arrow keys to move the image left, right, up, or down.</span>
+                                        </div>
                                     </div>
                                     <div className={styles.imageEditingBtns}>
                                         <button onClick={() => setRotation((prev) => prev - 90)} className={styles.rotationBtnLeft}>

@@ -114,6 +114,20 @@
     transition: .3s;
 }
 
+.message {
+    color: var(--purple);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.error {
+    color: var(--error);
+    font-weight: 500;
+    font-size: 14px;
+    padding-bottom: 20px;
+    margin-top: -30px;
+}
+
 @media screen and (max-width: 950px) {
     .main > h2 {
         margin: 20px 50px;

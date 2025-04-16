@@ -3,7 +3,7 @@ import Footer from "../components/footer"
 import Head from "next/head"
 import { useRouter } from 'next/router'
 import useLogout from "../hooks/useLogout"
-import { useState, useEffect } from "react"
+import { useState, useRef, useEffect } from "react"
 import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
 import styles from "../public/styles/Quiz.module.css"
@@ -33,6 +33,50 @@ export default function Quiz(props) {
     const [currentQuestion, setCurrentQuestion] = useState(0)
     const [selectedAnswers, setSelectedAnswers] = useState([])
     const [hasStarted, setHasStarted] = useState(false)
+    const [trapActive, setTrapActive] = useState(false);
+    const [error, setError] = useState("")
+
+    const questionsContainerRef = useRef(null)
+
+    useEffect(() => {
+        function questionsFocus(e) {
+            if (!trapActive || !questionsContainerRef.current) return;
+    
+            const focusableElements = questionsContainerRef.current.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+    
+            if (e.key === 'Tab') {
+                if (e.shiftKey) {
+                    if (document.activeElement === firstElement) {
+                        e.preventDefault();
+                        lastElement.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastElement) {
+                        e.preventDefault();
+                        firstElement.focus();
+                    }
+                }
+            }
+    
+            if (e.key === 'Escape') {
+                setTrapActive(false);
+            }
+        }
+    
+        if (trapActive) {
+            document.addEventListener('keydown', questionsFocus);
+            questionsContainerRef.current?.focus();
+        }
+    
+        return () => {
+            document.removeEventListener('keydown', questionsFocus);
+        };
+    }, [trapActive, questions]);
+    
 
     async function getQuestions() {
         try {
@@ -61,6 +105,7 @@ export default function Quiz(props) {
     async function handleStartQuiz() {
         await getQuestions()
         setHasStarted(true)
+        setTrapActive(true)
     }
 
     function handleAnswerSelection(answer) {
@@ -98,14 +143,23 @@ export default function Quiz(props) {
     }
 
     function handleNextQuestion() {
+        if (selectedAnswers.length === 0) {
+            setError("Please select at least one option to continue")
+            return
+        }
+
+        setError("")
         saveRoutineToLocalStorage()
         setSelectedAnswers([])
         setCurrentQuestion((prevIndex) => prevIndex + 1)
+        setTrapActive(true)
+        setTimeout(() => questionsContainerRef.current?.focus(), 0)
     }
 
     function handleFinishQuiz() {
         saveRoutineToLocalStorage()
         setHasStarted(false)
+        setTrapActive(false)
         router.push("review-routine")
     }
 
@@ -129,26 +183,30 @@ export default function Quiz(props) {
                     </div>
                 ):(
                     questions.length > 0 && questions[currentQuestion] ? (
-                        <div className={styles.questionsContainer}>
+                        <div className={styles.questionsContainer} ref={questionsContainerRef} tabIndex="-1">
                             <h2>{questions[currentQuestion].category}</h2>
                             <h4>{questions[currentQuestion].question}</h4>
                             <div className={styles.answerChoices}>
                                 {questions[currentQuestion].answers.map((answer, index) => (
                                     <label
-                                        key={index}
-                                        className={`${styles.answerChoice} ${selectedAnswers.includes(answer) ? styles.selected : ''}`}
-                                    >
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedAnswers.includes(answer)}
-                                        onChange={() => handleAnswerSelection(answer)}
-                                        readOnly
-                                        style={{ display: 'none' }}
-                                    />
-                                        {answer.text}
-                                    </label>
+                                    key={index}
+                                    className={`${styles.answerChoice} ${selectedAnswers.includes(answer) ? styles.selected : ''}`}
+                                    role="checkbox"
+                                    aria-checked={selectedAnswers.includes(answer)}
+                                    tabIndex={0}
+                                    onKeyDown={(e) => {
+                                      if (e.key === " " || e.key === "Enter") {
+                                        e.preventDefault()
+                                        handleAnswerSelection(answer)
+                                      }
+                                    }}
+                                    onClick={() => handleAnswerSelection(answer)}
+                                  >
+                                    {answer.text}
+                                  </label>
                                 ))}
                             </div>
+                            {error && <p role="alert" className={styles.error}>{error}</p>}
                             <div className={styles.questionNav}>
                                 {currentQuestion > 0 ? (
                                     <button onClick={() => setCurrentQuestion(currentQuestion - 1)}>

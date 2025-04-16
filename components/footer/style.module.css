@@ -23,11 +23,19 @@
 
 .navLink:hover, .navLink:focus {
     transform: scale(.98);
-    transition: 2s;
+    transition: .2s;
     text-decoration: underline;
 }
 
-.copyrightText {
+.navLink:focus, .navLink:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--white);
+    border-radius: 4px;
+    padding: 5px;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.copyrightText, .copyrightText > a {
     color: var(--white);
     font-weight: 300;
     font-size: 12px;

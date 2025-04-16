@@ -46,7 +46,7 @@ export default function Home(props) {
                 isLoggedIn={props.isLoggedIn}
             />
             <AccessibilityToggle />
-            <main>
+            <main role="main">
                 {/* Hero Section */}
                 <section className={styles.hero}> 
                     <div className={styles.heroContainer}>
@@ -100,8 +100,8 @@ export default function Home(props) {
                         />
                         <h2 className={styles.statisticTitle}>Link Between Self-care and Mental Health</h2>
                         <div className={styles.statisticQuote}>
-                            <h3>According to <a href="#">Vagaro&apos;s</a> Survey, “64% said self-care has given them a confidence boost, 67% said it increased productivity, and 71% said it increased happiness.”</h3>
-                            <h4>~ <a href="#">BlueCross BlueShield</a></h4>
+                            <h3>According to <a href="https://www.vagaro.com/news/press-release/survey-finds-three-quarters-of-americans-believe-self-care-activities-provide-stress-relief" target="_BLANK">Vagaro&apos;s</a> Survey, “64% said self-care has given them a confidence boost, 67% said it increased productivity, and 71% said it increased happiness.”</h3>
+                            <h4>~ <a href="https://www.azblue.com/inspire-health/blog/blueprint-for-happiness-connection-between-self-care-and-mental-health" target="_BLANK">BlueCross BlueShield</a></h4>
                         </div>
                         <p className={styles.statisticDescription}>These findings show that self-care is not just about pampering — it is a powerful tool for boosting mood, motivation, and mental clarity. For individuals navigating mental illness, chronic conditions, or neurodivergence, even small routines can lead to meaningful improvements in daily life.</p>
                     </div>
@@ -154,7 +154,7 @@ export default function Home(props) {
                 <section className={styles.resources}>
                     <h3>Check out our recommended resources</h3>
                     <div className={styles.resourceLinksContainer}>
-                        <Link href="/resources/mental-health" className={styles.resourceLink}>
+                        <Link href="/resources/mental-health" className={styles.resourceLink} role="link">
                             <Image 
                                 src="/images/mental-health.webp"
                                 alt=""
@@ -165,10 +165,10 @@ export default function Home(props) {
                             />
                             <div>
                                 <h4>Mental Health Resources</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo expedita adipisci dolor minus numquam quos tempore alias error, facilis veniam veritatis ea vero laudantium soluta obcaecati nobis sed commodi neque.</p>
+                                <p>Explore a range of articles, hotlines, and online tools to support your mental health journey. Whether you're managing anxiety, depression, or simply need someone to talk to, these resources are here to help you feel less alone.</p>
                             </div>
                         </Link>
-                        <Link href="/resources/physical-health" className={styles.resourceLink}>
+                        <Link href="/resources/physical-health" className={styles.resourceLink} role="link">
                             <Image 
                                 src="/images/physical-health.webp"
                                 alt=""
@@ -179,10 +179,10 @@ export default function Home(props) {
                             />
                             <div>
                                 <h4>Physical Health Resources</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo expedita adipisci dolor minus numquam quos tempore alias error, facilis veniam veritatis ea vero laudantium soluta obcaecati nobis sed commodi neque.</p>
+                                <p>Take care of your body with gentle movement ideas, nutrition tips, and chronic illness support. These resources focus on realistic, accessible ways to feel better in your body—no pressure, just progress at your pace.</p>
                             </div>
                         </Link>
-                        <Link href="/resources/self-care" className={styles.resourceLink}>
+                        <Link href="/resources/self-care" className={styles.resourceLink} role="link">
                             <Image 
                                 src="/images/self-care.webp"
                                 alt="Placeholder"
@@ -193,7 +193,7 @@ export default function Home(props) {
                             />
                             <div>
                                 <h4>Self-care Resources</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo expedita adipisci dolor minus numquam quos tempore alias error, facilis veniam veritatis ea vero laudantium soluta obcaecati nobis sed commodi neque.</p>
+                                <p>Find inspiration for emotional and spiritual self-care with journaling prompts, affirmations, sensory tips, and more. Discover ways to recharge and reconnect with yourself in ways that feel doable and kind.</p>
                             </div>
                         </Link>
                     </div>

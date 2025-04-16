@@ -7,6 +7,8 @@
     background-blend-mode: multiply;
     min-height: 100vh;
     background-position: cover;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .startMenu {
@@ -38,12 +40,13 @@
     padding: 20px 50px;
     border-radius: 50px;
     cursor: pointer;
+    border: var(--white) solid 2px;
 }
 
 .startMenu > button:hover, .startMenu > button:focus {
     transform: scale(.98);
     transition: .2s;
-    cursor: pointer;
+    background-color: var(--orange);
 }
 
 .questionsContainer {
@@ -88,10 +91,18 @@
     align-items: center;
 }
   
-.answerChoice:hover, .answerChoice:focus {
+.answerChoice:hover, .answerChoice:active, .answerChoice:active {
     background-color: var(--orange);
     color: var(--white);
     cursor: pointer;
+    transition: .3s;
+}
+
+.answerChoice:focus, .answerChoice:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--blue);
+    transition: box-shadow 0.2s ease-in-out;
+    border: var(--blue) 1px solid;
 }
   
 .selected {
@@ -140,8 +151,10 @@
 }
 
 .questionNav > button:hover, .questionNav > button:focus {
-    transform: scale(.98);
+    transform: scale(.95);
     transition: .2s;
+    background-color: var(--orange);
+    box-shadow: none;
 }
 
 .dot {
@@ -159,6 +172,13 @@
 
 .reviewBtn {
     font-size: 14px !important;
+}
+
+.error {
+    color: var(--error);
+    font-weight: 500;
+    font-size: 14px;
+    padding-top: 10px;
 }
 
 @media screen and (max-width: 710px) {

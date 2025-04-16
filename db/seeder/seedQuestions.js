@@ -524,6 +524,71 @@ const questions = [
         category: "Personal Care Priorities"
     },
     {
+        question: "Do you take medication daily? (Select all that apply)",
+        answers: [
+            {   
+                text: "Yes, in the morning",
+                tasks: {
+                    lowEnergy: {
+                        morning: [{task: "Take morning meds", completed: false}],
+                    },
+                    mediumEnergy: {
+                        morning: [{task: "Take morning meds", completed: false}],
+                    },
+                    highEnergy: {
+                        morning: [{task: "Take morning meds", completed: false}],
+                    },
+                } 
+            },
+            {
+                text: "Yes, at night", 
+                tasks: {
+                    lowEnergy: {
+                        night: [{ task: "Take night meds", completed: false}]
+                    },
+                    mediumEnergy: {
+                        night: [{ task: "Take night meds", completed: false}]
+                    },
+                    highEnergy: {
+                        night: [{ task: "Take night meds", completed: false}]
+                    },
+                } 
+            },
+            {
+                text: "Yes, in the afternoon",
+                tasks: {
+                    lowEnergy: {
+                        afternoon: [{ task: "Take afternoon meds", completed: false}],
+                    },
+                    mediumEnergy: {
+                        afternoon: [{ task: "Take afternoon meds", completed: false}],
+                    },
+                    highEnergy: {
+                        afternoon: [{ task: "Take afternoon meds", completed: false}],
+                    }
+                } 
+            },
+            {
+                text: "Yes, in the evening",
+                tasks: {
+                    lowEnergy: {
+                        evening: [{ task: "Take evening meds", completed: false}],
+                    },
+                    mediumEnergy: {
+                        evening: [{ task: "Take evening meds", completed: false}],
+                    },
+                    highEnergy: {
+                        evening: [{ task: "Take evening meds", completed: false}],
+                    }
+                } 
+            },
+            {
+                text: "No",
+            },
+        ],
+        category: "Personal Care Priorities"
+    },
+    {
         question: "What sensory sensitivities impact personal care? (Select all that apply)",
         answers: [
             {   
