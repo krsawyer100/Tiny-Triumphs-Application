@@ -141,10 +141,10 @@ export default function DashboardHeader({ username, profilePhoto}) {
     {(menuOpen || menuClosing) && ( <div className={`${styles.overlay} ${menuOpen ? styles.open : ''} ${menuClosing ? styles.close : ''}`} onClick={toggleMenu}></div>)}
 
     <div className={`${styles.navMenuContainer} ${menuOpen ? styles.open : ''} ${menuClosing ? styles.close : ''}`} ref={navMenuRef}>
-      <nav> 
-        <p><Link href="/settings" className={styles.navLink} tabIndex={menuOpen ? 0 : -1}>Account Settings</Link></p>
-        <p><Link href="/dashboard" className={styles.navLink} tabIndex={menuOpen ? 0 : -1}>Dashboard</Link></p>
-        <button onClick={logout} style={{cursor: "pointer"}} className={styles.navLink}tabIndex={menuOpen ? 0 : -1}>Logout</button>
+      <nav className={styles.navMenu}> 
+        <Link href="/settings" className={styles.navLink} tabIndex={menuOpen ? 0 : -1}>Account Settings</Link>
+        <Link href="/dashboard" className={styles.navLink} tabIndex={menuOpen ? 0 : -1}>Dashboard</Link>
+        <button onClick={logout} style={{cursor: "pointer"}} className={styles.navLink} tabIndex={menuOpen ? 0 : -1}>Logout</button>
       </nav>
     </div>
     </>

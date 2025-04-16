@@ -47,6 +47,15 @@
     grid-area: prev;
 }
 
+.prevDateBtn, .nextDateBtn {
+    background-color: var(--blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 50%;
+}
+
 .dateText {
     grid-area: date;
 }
@@ -185,13 +194,13 @@
     margin-left: 20px;
 }
 
-.tasksContainer > label {
+.task, .addTaskContainer {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.tasksContainer > label > input[type="checkbox"] {
+.task > input[type="checkbox"] {
     -webkit-appearance: none;
     appearance: none;
     background-color: transparent;
@@ -204,21 +213,74 @@
     flex-shrink: 0;
 }
 
-.tasksContainer > label > input[type="checkbox"]:checked {
+.task > input[type="checkbox"]:checked {
     background-color: var(--white);
     opacity: 1;
     transition: .2s opacity ease-in-out;
 }
 
-.tasksContainer > label > input[type="checkbox"]:checked::before {
+.task > input[type="checkbox"]:checked::before {
     opacity: 0;
 }
 
-.tasksContainer > label > input[type="checkbox"]:focus {
+.task > input[type="checkbox"]:focus {
     outline: 2px solid var(--white);
     outline-offset: 3px;
     box-shadow: 0 0 0 2px var(--purple);
     transition: box-shadow 0.2s ease-in-out;
+}
+
+.taskBox {
+    border-bottom: var(--white) solid 2px;
+    width: 100%;
+    max-width: 450px;
+    text-wrap: wrap;
+}
+
+.addTaskContainer {
+    margin-left: 23px;
+    padding-top: 25px;
+}
+
+.addTaskContainer > input {
+    border: none;
+    border-bottom: var(--white) solid 2px !important;
+    text-wrap: wrap;
+    background-color: transparent;
+    color: var(--white);
+    font-size: 16px;
+    width: 100%;
+    max-width: 450px;
+}
+
+.addTaskContainer > input::placeholder {
+    color: var(--white);
+}
+
+.taskBox:focus, .taskBox:focus-visible, .addTaskContainer > input:focus, .addTaskContainer > input:focus-visible {
+    background-color: transparent;
+    color: var(--white);
+    border: none;
+    border-bottom: var(--white) solid 2px;
+    font-size: 16px;
+    outline: none;
+    box-shadow: 0 0 0 2px var(--white);
+    transition: outline 0.2s ease, box-shadow 0.2s ease;
+}
+
+.deleteBtn, .addBtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+}
+.deleteBtn:hover, .deleteBtn:focus, .addBtn:hover, .addBtn:focus  {
+    transform: scale(.97);
+    transition: .2s;
+}
+
+.addBtn:focus, .deleteBtn:focus {
+    outline: var(--white) solid 2px;
 }
 
 .routineDivider {

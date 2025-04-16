@@ -113,3 +113,25 @@ export async function getDailyRoutine(userId, date) {
     }
 }
 
+export async function editDailyRoutine(userId, date, timeOfDay, taskIndex, updatedTask) {
+    await dbConnect()
+
+    try {
+        const validUserId = new mongoose.Types.ObjectId(userId);
+        const targetDate = new Date(`${date}T00:00:00.000Z`);
+
+        const routine = await DailyRoutine.findOne({ userId: validUserId, date: targetDate });
+        if (!routine) throw new Error("Daily routine not found");
+
+        routine.routine[timeOfDay][taskIndex] = {
+            ...routine.routine[timeOfDay][taskIndex]._doc,
+            ...updatedTask
+        };
+
+        await routine.save();
+        return routine;
+    } catch (err) {
+        console.error("Error editing daily routine task:", err);
+        throw err;
+    }
+}

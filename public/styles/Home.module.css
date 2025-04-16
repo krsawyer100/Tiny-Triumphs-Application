@@ -178,6 +178,12 @@
     color: var(--blue);
 }
 
+.statisticQuote > h3 > a:hover, .statisticQuote > h4 > a:hover, .statisticQuote > h3 > a:focus, .statisticQuote > h4 > a:focus {
+    transform: scale(.95);
+    transition: .2s;
+    color: var(--orange);
+}
+
 .statisticDescription {
     grid-area: statisticDescription;
     text-align: end;

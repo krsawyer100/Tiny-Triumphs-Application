@@ -55,7 +55,7 @@
 }
 
 .web:hover, .web:focus, .phone:hover, .phone:focus {
-    font-size: 15.7px;
+    transform: scale(.95);
     transition: .3s;
 }
 
@@ -116,20 +116,23 @@
     color: var(--white);
     top: 8px;
     right: 10px;
-    font-size: 14px;
     cursor: pointer;
 }
 
 .closeBtn:hover, .closeBtn:focus {
-    transform: scale(.98);
+    transform: scale(.97);
     transition: .2s;
+    background-color: var(--orange);
+    box-shadow: none;
 }
 
 .popup > div {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .links {
@@ -143,13 +146,13 @@
 }
 
 .links > a:hover, .links > a:focus {
-    font-size: 15.7px;
+    transform: scale(.95);
     transition: .2s;
 }
 
 .nodule {
     position: absolute;
-    bottom: -10px;
+    bottom: -30px;
     left: 50%;
     transform: translateX(-50%);
     width: 0;
@@ -194,12 +197,7 @@
     .emergencyResourcesContainer > div > h4 {
         color: var(--purple);
     }
-    
-    .web:hover, .web:focus, .phone:hover, .phone:focus {
-        font-size: 15.7px;
-        transition: .3s;
-    }
-    
+
     .emergencyDivider {
         border: var(--blue) 1px solid;
         height: 2px;
@@ -227,11 +225,6 @@
     
     .emergencyResourcesContainer > div {
         width: 70%;
-    }
-    
-    .web:hover, .web:focus, .phone:hover, .phone:focus {
-        font-size: 15.7px;
-        transition: .3s;
     }
     
     .emergencyDivider {

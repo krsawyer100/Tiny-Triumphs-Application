@@ -1,11 +1,9 @@
 import DashboardHeader from "../components/dashboardHeader/index.jsx"
 import Head from "next/head"
-import { useRouter } from 'next/router'
 import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
 import { useState, useEffect } from "react"
 import Image from "next/image.js"
-import Link from "next/link.js"
 import styles from "../public/styles/Dashboard.module.css"
 
 export const getServerSideProps = withIronSessionSsr(
@@ -24,7 +22,6 @@ export const getServerSideProps = withIronSessionSsr(
 )
 
 export default function Dashboard(props) {
-    const router = useRouter()
     const [profilePhoto, setProfilePhoto] = useState(props.user?.profilePhoto || "/images/account-icon-blue.png");
 
     const localDate = new Date().toLocaleDateString("en-CA");
@@ -39,6 +36,14 @@ export default function Dashboard(props) {
     const [energySelected, setEnergySelected] = useState(false)
     const [hasPastRoutine, setHasPastRoutine] = useState(true)
     const [isToday, setIsToday] = useState(false)
+
+    const [isEditing, setIsEditing] = useState(null);
+    const [newTasks, setNewTasks] = useState({
+        morning: '',
+        afternoon: '',
+        evening: '',
+        night: ''
+    });
 
     useEffect(() => {
         fetchRoutine()
@@ -186,6 +191,130 @@ export default function Dashboard(props) {
         }
     }
 
+    async function saveEditedTask(timeOfDay, taskIndex, updatedText) {
+        try {
+            const res = await fetch("/api/routine/edit-daily-task", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({ date, timeOfDay, taskIndex, updatedTask: {task: updatedText} })
+            })
+
+            const data = await res.json()
+            setRoutine(data.routine)
+            setIsEditing(null)
+        } catch (err) {
+            console.error("Error saving edited task: ", err)
+        }
+    }
+
+    async function deleteTaskFromDay(timeOfDay, taskIndex) {
+        try {
+            const res = await fetch("/api/routine/delete-daily-task", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ date, timeOfDay, taskIndex })
+            })
+
+            const data = await res.json()
+            setRoutine(data.routine)
+        } catch (err) {
+            console.error("Error deleting task: ", err)
+        }
+    }
+
+    async function addTaskToDay(timeOfDay) {
+        const task = newTasks[timeOfDay]?.trim()
+        if (!task) return
+
+        try {
+            const res = await fetch("/api/routine/add-daily-task", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({ date, timeOfDay, newTask: { task, completed: false } })
+            })
+            
+            const data = await res.json()
+            setRoutine(data.routine)
+            setNewTasks(prev => ({...prev, [timeOfDay]: ''}))
+        } catch (err) {
+            console.error("Error adding task: ", err)
+        }
+    }
+
+    function handleNewTaskChange(e, timeOfDay) {
+        setNewTasks((prev) => ({...prev, [timeOfDay]: e.target.value}))
+    }
+
+    function handleEdit(taskText) {
+        setIsEditing(taskText)
+    }
+
+    function handleKeyDown(e, timeOfDay, index) {
+        if (e.key === "Enter") saveEditedTask(timeOfDay, index, e.target.value)
+    }
+
+    function renderTasks(tasks, timeOfDay) {
+        return tasks?.map((taskObj, index) => (
+            <div key={index} className={styles.task}>
+                <input
+                    type="checkbox"
+                    checked={taskObj.completed}
+                    onChange={() => toggleTaskCompletion(timeOfDay, index)}
+                />
+                {isEditing === taskObj.task ? (
+                    <input
+                        type="text"
+                        defaultValue={taskObj.task}
+                        onBlur={(e) => saveEditedTask(timeOfDay, index, e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e, timeOfDay, index)}
+                        autoFocus
+                        className={styles.taskBox}
+                    />
+                ):(
+                    <span tabIndex={0} onClick={() => handleEdit(taskObj.task)} onFocus={(e) => {
+                        e.preventDefault()
+                        handleEdit(taskObj.task)
+                    }} className={styles.taskBox}>{taskObj.task}</span>
+                )}
+                <button aria-label="delete task" className={styles.deleteBtn} onClick={() => deleteTaskFromDay(timeOfDay, index)}>
+                    <Image
+                        src="/images/delete-icon-white.png"
+                        alt=""
+                        width={30}
+                        height={30}
+                    />
+                </button>
+            </div>
+        ))
+    }
+    function renderAddTask(timeOfDay) {
+        return (
+            <div className={styles.addTaskContainer}>
+                <input 
+                    type="text"
+                    placeholder="Add new Task"
+                    value={newTasks[timeOfDay] || ""} 
+                    onChange={(e) => handleNewTaskChange(e, timeOfDay)}
+                    onKeyDown={(e) => e.key === "Enter" && addTaskToDay(timeOfDay)}
+                />
+                <button onClick={() => addTaskToDay(timeOfDay)} className={styles.addBtn}>
+                    <Image
+                        src="/images/add-icon-white.png"
+                        alt=""
+                        width={25}
+                        height={25}
+                    />
+                </button>
+            </div>
+        )
+    }
+
     return (
         <>
             <Head>
@@ -204,11 +333,24 @@ export default function Dashboard(props) {
                     <section className={styles.routineContainer}>
                         <div className={styles.dateContainer}>
                             {hasPastRoutine && date !== new Date().toLocaleDateString("en-CA") && (
-                                <button onClick={() => changeDate("prev")} className={styles.prevDateBtn}>⬅️</button>
+                                <button onClick={() => changeDate("prev")} className={styles.prevDateBtn}>                     <Image
+                                    src="/images/left-arrow-icon.svg"
+                                    alt=""
+                                    width={25}
+                                    height={25}
+                                />
+                                </button>
                             )}
                             <h2 className={styles.dateText}>{displayDate}</h2>
                             {!isToday && (
-                                <button onClick={() => changeDate("next")} className={styles.nextDateBtn}>➡️</button>
+                                <button onClick={() => changeDate("next")} className={styles.nextDateBtn}>
+                                    <Image
+                                        src="/images/right-arrow-icon.svg"
+                                        alt=""
+                                        width={25}
+                                        height={25}
+                                    />
+                                </button>
                             )}
                         </div>
                         {routine ? (
@@ -224,23 +366,8 @@ export default function Dashboard(props) {
                                     <h3>Morning</h3>
                                 </div>
                                 <div className={styles.tasksContainer}> 
-                                {routine.routine.morning.map((tasks, index) => (
-                                    <label key={index}>
-                                        <input 
-                                            type="checkbox"
-                                            checked={tasks.completed}
-                                            onChange={() => toggleTaskCompletion("morning", index)}
-                                            onKeyDown={(e) => {
-                                                if (e.key === "Enter") {
-                                                    toggleTaskCompletion("morning", index)
-                                                }
-                                            }}
-                                        />
-                                        <span style={{ textDecoration: tasks.completed ? "line-through" : "none" }}>
-                                            {tasks.task}
-                                        </span>
-                                    </label>
-                                ))}
+                                {renderTasks(routine.routine.morning, "morning")}
+                                {renderAddTask("morning")}
                                 </div>
                             </div>
                             <div className={styles.routineDivider}>
@@ -259,23 +386,8 @@ export default function Dashboard(props) {
                                     <h3>Afternoon</h3>
                                 </div>
                                 <div className={styles.tasksContainer}>
-                                {routine.routine.afternoon.map((tasks, index) => (
-                                    <label key={index}>
-                                        <input 
-                                            type="checkbox"
-                                            checked={tasks.completed}
-                                            onChange={() => toggleTaskCompletion("afternoon", index)}
-                                            onKeyDown={(e) => {
-                                                if (e.key === "Enter") {
-                                                    toggleTaskCompletion("afternoon", index)
-                                                }
-                                            }}
-                                        />
-                                        <span style={{ textDecoration: tasks.completed ? "line-through" : "none" }}>
-                                            {tasks.task}
-                                        </span>
-                                    </label>
-                                ))}
+                                {renderTasks(routine.routine.afternoon, "afternoon")}
+                                {renderAddTask("afternoon")}
                                 </div>
                             </div>
                             <div className={styles.routineDivider}>
@@ -294,23 +406,8 @@ export default function Dashboard(props) {
                                     <h3>Evening</h3>
                                 </div>
                                 <div className={styles.tasksContainer}>
-                                {routine.routine.evening.map((tasks, index) => (
-                                    <label key={index}>
-                                        <input 
-                                            type="checkbox"
-                                            checked={tasks.completed}
-                                            onChange={() => toggleTaskCompletion("evening", index)}
-                                            onKeyDown={(e) => {
-                                                if (e.key === "Enter") {
-                                                    toggleTaskCompletion("evening", index)
-                                                }
-                                            }}
-                                        />
-                                        <span style={{ textDecoration: tasks.completed ? "line-through" : "none" }}>
-                                            {tasks.task}
-                                        </span>
-                                    </label>
-                                ))}
+                                {renderTasks(routine.routine.evening, "evening")}
+                                {renderAddTask("evening")}
                                 </div>
                             </div>
                             <div className={styles.routineDivider}>
@@ -329,23 +426,8 @@ export default function Dashboard(props) {
                                     <h3>Night</h3>
                                 </div>
                                 <div className={styles.tasksContainer}>
-                                {routine.routine.night.map((tasks, index) => (
-                                    <label key={index}>
-                                        <input 
-                                            type="checkbox"
-                                            checked={tasks.completed}
-                                            onKeyDown={(e) => {
-                                                if (e.key === "Enter") {
-                                                    toggleTaskCompletion("night", index)
-                                                }
-                                            }}
-                                            onChange={() => toggleTaskCompletion("night", index)}
-                                        />
-                                        <span style={{ textDecoration: tasks.completed ? "line-through" : "none" }}>
-                                            {tasks.task}
-                                        </span>
-                                    </label>
-                                ))}
+                                {renderTasks(routine.routine.night, "night")}
+                                {renderAddTask("night")}
                                 </div>
                             </div>
                         </div>

@@ -5,7 +5,6 @@ import { useState } from "react";
 
 export default function ResourceLink({ resourceURL, resourceImgURL, resourceTitle, resourceDescription }) {
     return (
-        <div className={styles.resourceLinkContainer}>
             <Link href={resourceURL} target="_BLANK" className={styles.resourceLink}>
                 <Image
                     src={resourceImgURL}
@@ -19,6 +18,5 @@ export default function ResourceLink({ resourceURL, resourceImgURL, resourceTitl
                     <p>{resourceDescription}</p>
                 </div>
             </Link>
-        </div>
     )
 }

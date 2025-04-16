@@ -7,8 +7,9 @@ import Image from "next/image"
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from '../../config/session'
 import styles from '../../public/styles/Resources.module.css'
-import { useState } from "react"
+import { useState, useRef } from "react"
 import AccessibilityToggle from "../../components/accessibility/accessibilityToggle"
+import useFocusTrap from "../../hooks/useFocusTrap"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -28,6 +29,9 @@ export const getServerSideProps = withIronSessionSsr(
 export default function Mental(props) {
     const router = useRouter()
     const [showPopup, setShowPopup] = useState(false);
+    const popupRef = useRef(null)
+
+    useFocusTrap(popupRef, showPopup)
 
     const handleContactClick = (e) => {
         e.preventDefault();
@@ -36,6 +40,7 @@ export default function Mental(props) {
 
     const closePopup = () => {
         setShowPopup(false);
+
     };
 
     return (
@@ -56,8 +61,20 @@ export default function Mental(props) {
                         <div className={styles.emergencyResourceLink}>
                             <h4>988 Suicide & Crisis Lifeline (U.S.)</h4>
                             {showPopup && (
-                                <div className={styles.popup}>
-                                    <button onClick={closePopup} className={styles.closeBtn}>x</button>
+                                <div className={styles.popup} ref={popupRef} onKeyDown={(e) => {
+                                    if (e.key === "Escape") {
+                                        e.preventDefault()
+                                        setShowPopup(false)
+                                    }
+                                }}>
+                                    <button onClick={closePopup} className={styles.closeBtn}>
+                                        <Image
+                                            src="/images/x-icon.svg"
+                                            alt="close popup"
+                                            width={10}
+                                            height={10}
+                                        />
+                                    </button>
                                     <div className={styles.links}>
                                         <a href="tel:988">Call 📞</a>
                                         <a href="sms:988">Text 📱</a>

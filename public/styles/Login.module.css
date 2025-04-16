@@ -103,6 +103,12 @@
     color: var(--blue);
 }
 
+.link:hover, .link:focus {
+    color: var(--orange);
+    transform: scale(.95);
+    transition: .2s;
+}
+
 @media screen and (max-width: 670px) {
     .main {
         padding: 50px;

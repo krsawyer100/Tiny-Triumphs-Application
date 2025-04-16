@@ -2,6 +2,7 @@ import { withIronSessionApiRoute } from "iron-session/next";
 import sessionOptions from "../../../config/session";
 import db from "../../../db";
 import dbConnect from "../../../db/controllers/util/connection";
+import dailyRoutine from "../../../db/models/dailyRoutine";
 
 export default withIronSessionApiRoute(
     function handler(req, res) {
@@ -21,7 +22,13 @@ export default withIronSessionApiRoute(
             case 'edit-task':
                 return editTask(req, res)
             case 'delete-task':
-                    return deleteTask(req, res)
+                return deleteTask(req, res)
+            case 'edit-daily-task':
+                return editDailyTask(req, res)
+            case 'add-daily-task':
+                return addDailyTask(req, res)
+            case 'delete-daily-task':
+                return deleteDailyTask(req, res)
             default:
                 return res.status(404).end()
         }
@@ -209,5 +216,54 @@ async function deleteTask(req, res) {
     } catch (err) {
         console.error("error deleting task: ", err)
         return res.status(500)
+    }
+}
+
+async function editDailyTask(req, res) {
+    await dbConnect()
+    const userId = req.session.user?._id
+    const { date, timeOfDay, taskIndex, updatedTask } = req.body;
+
+    try {
+        const routine = await db.routine.editDailyRoutine(userId, date, timeOfDay, taskIndex, updatedTask)
+        return res.status(200).json({ routine })
+    } catch (err) {
+        return res.status(500).json({ message: "Failed to edit task" })
+    }
+}
+
+async function addDailyTask(req, res) {
+    await dbConnect()
+    const userId = req.session.user?._id
+    const { date, timeOfDay, newTask } = req.body
+
+    try {
+        const routine = await db.routine.getDailyRoutine(userId, date)
+
+        if (!routine) throw new Error("Routine not found")
+
+        routine.routine[timeOfDay].push(newTask)
+        await routine.save()
+        return res.status(201).json({ routine })
+    } catch (err) {
+        return res.status(500).json({ message: "Failed to add task", error: err.message })
+    }
+}
+
+async function deleteDailyTask(req, res) {
+    await dbConnect()
+    const userId = req.session.user?._id
+    const { date, timeOfDay, taskIndex } = req.body
+
+    try {
+        const routine = await db.routine.getDailyRoutine(userId, date)
+
+        if (!routine) throw new Error("Routine not found")
+
+        routine.routine[timeOfDay].splice(taskIndex, 1)
+        await routine.save()
+        return res.status(200).json({ routine })
+    } catch (err) {
+        return res.status(500).json({ message: "Failed to delete task", error: err.message })
     }
 }
