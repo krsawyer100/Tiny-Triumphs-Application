@@ -165,7 +165,7 @@ export default function Home(props) {
                             />
                             <div>
                                 <h4>Mental Health Resources</h4>
-                                <p>Explore a range of articles, hotlines, and online tools to support your mental health journey. Whether you're managing anxiety, depression, or simply need someone to talk to, these resources are here to help you feel less alone.</p>
+                                <p>Explore a range of articles, hotlines, and online tools to support your mental health journey. Whether you&apos;re managing anxiety, depression, or simply need someone to talk to, these resources are here to help you feel less alone.</p>
                             </div>
                         </Link>
                         <Link href="/resources/physical-health" className={styles.resourceLink} role="link">
