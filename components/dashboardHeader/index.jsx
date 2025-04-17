@@ -5,7 +5,6 @@ import { useState, useRef, useEffect } from "react"
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from "../../config/session";
 import Image from "next/image";
-import useFocusTrap from "../../hooks/useFocusTrap"
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({req}) {
@@ -29,9 +28,7 @@ export default function DashboardHeader({ username, profilePhoto}) {
   const [wasClosedByEscape, setWasClosedByEscape] = useState(false)
   const navMenuRef = useRef(null)
   const navMenuBtnRef = useRef(null)
-  const finalProfilePhoto = profilePhoto?.startsWith('/uploads')
-  ? profilePhoto
-  : `/images/account-icon-blue.png`
+  const finalProfilePhoto = profilePhoto || "/images/account-icon-blue.png"
 
   useEffect(() => {
     if (!menuOpen) return;

@@ -8,7 +8,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
-export default withIronSessionApiRoute(handleClientScriptLoad, sessionOptions)
+export default withIronSessionApiRoute(handler, sessionOptions)
 
 async function handler(req, res) {
     if (req.method !== "GET") return res.status(405).end()

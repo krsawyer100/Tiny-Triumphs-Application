@@ -394,7 +394,9 @@ export default function Settings(props) {
             public_id,
             apiKey,
             cloudName,
-        } = signatureRes.json()
+        } = await signatureRes.json()
+
+        console.log("Signature Res Info: ", signatureRes)
 
         const formData = new FormData()
         formData.append('file', blob)
@@ -404,6 +406,8 @@ export default function Settings(props) {
         formData.append('folder', folder)
         formData.append('public_id', public_id)
 
+        console.log("Form data: ", FormData)
+
         const uploadRes = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
             method: 'POST',
             body: formData,
@@ -411,7 +415,7 @@ export default function Settings(props) {
 
         const data = await uploadRes.json()
 
-        const updatedRes = await fetch('/api/user.update-profile-photo', {
+        const updatedRes = await fetch('/api/user/update-profile-photo', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -424,28 +428,6 @@ export default function Settings(props) {
         } else {
             console.error("Failed to update user photo in DB")
         }
-
-        // const formData = new FormData();
-        // formData.append('file', blob);
-        // formData.append('rotation', rotation)
-    
-        // try {
-        //     const res = await fetch('/api/user/upload-photo', {
-        //         method: 'POST',
-        //         body: formData,
-        //     });
-    
-        //     if (res.ok) {
-        //         const data = await res.json();
-        //         console.log('Upload success: ', data);
-        //         setProfilePhoto(data.filePath);
-        //         setSelectedImage(null);
-        //     } else {
-        //         console.error('Upload failed');
-        //     }
-        // } catch (error) {
-        //     console.error('Error uploading image: ', error);
-        // }
     }
 
     function handleCropKeyDown(e) {
@@ -538,7 +520,7 @@ export default function Settings(props) {
                         <div className={styles.userProfileImg}>
                             <label htmlFor="profilePhoto" className={styles.profilePhotoLabel}>Profile Photo:</label>
                             <Image
-                                src={profilePhoto.startsWith('/uploads') ? profilePhoto : `/images/account-icon-blue.png`}
+                                src={profilePhoto || "/images/account-icon-blue.png"}
                                 alt=""
                                 width={150}
                                 height={150}

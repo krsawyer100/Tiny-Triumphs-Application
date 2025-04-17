@@ -28,11 +28,7 @@ const UserSchema = new Schema({
     },
     profilePhoto: {
         type: String,
-        default: "/images/account-icon-blue.png",
-        validate: {
-            validator: (v) => /^https?:\/\/.+/.test(v) || v.startsWith('/images/'),
-            message: 'Invalid profile photo URL'
-        }
+        default: "/images/account-icon-blue.png"
     }
 })
 
