@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import emailjs from "@emailjs/browser"
 import styles from './style.module.css'
 export default function ContactForm() {
@@ -36,6 +36,21 @@ export default function ContactForm() {
             )
     }
 
+    useEffect(() => {
+        function handleEnterOnSelect(e) {
+            const activeElement = document.activeElement
+            if ( activeElement.tagName === "SELECT" && e.key === "Enter") {
+                e.preventDefault()
+            }
+        }
+
+        document.addEventListener("keydown", handleEnterOnSelect)
+
+        return () => {
+            document.removeEventListener("keydown", handleEnterOnSelect)
+        }
+    }, [])
+
     return (
         <div className={styles.contactContainer}>
             <form onSubmit={sendEmail} className={styles.formContainer}>
@@ -44,19 +59,19 @@ export default function ContactForm() {
                     <label htmlFor="name">First & Last Name*</label>
                     <input type="text" id='name' name='name' placeholder='Name' required tabIndex={0}
                     />
-                    <small>If you are not comfortable sharing your name, type N/A.</small>
+                    <small style={{ fontSize: "12px", marginTop: "5px" }}>If you are not comfortable sharing your name, type N/A.</small>
                 </div>
                 <div>
                     <label htmlFor="email">Email*</label>
                     <input type="email" id='email' name='email' placeholder='Email' required tabIndex={0} />
-                    <small>We will use your email to respond to your message.</small>
+                    <small style={{ fontSize: "12px", marginTop: "5px" }}>We will use your email to respond to your message.</small>
                 </div>
                 <div>
                     <label htmlFor="category">
                         Reason for Contacting*
                     </label>
                     <select id="category" name='category' defaultValue="" tabIndex={0} required>
-                        <option value="" selected disabled>Select from the Options Provided</option>
+                        <option value="" disabled>Select from the Options Provided</option>
                         <option value="Product">Product</option>
                         <option value="Support">Support</option>
                         <option value="General">General Inquiry</option>
