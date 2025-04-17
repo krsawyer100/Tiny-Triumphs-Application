@@ -27,7 +27,6 @@ export const getServerSideProps = withIronSessionSsr(
 
 export default function Quiz(props) {
     const router = useRouter()
-    const logout = useLogout()
 
     const [questions, setQuestions] = useState([])
     const [currentQuestion, setCurrentQuestion] = useState(0)
@@ -35,6 +34,7 @@ export default function Quiz(props) {
     const [hasStarted, setHasStarted] = useState(false)
     const [trapActive, setTrapActive] = useState(false);
     const [error, setError] = useState("")
+    const [answersByQuestion, setAnswersByQuestion] = useState({})
 
     const questionsContainerRef = useRef(null)
 
@@ -103,44 +103,53 @@ export default function Quiz(props) {
     }
 
     async function handleStartQuiz() {
+        localStorage.removeItem("temporaryRoutine")
+        setAnswersByQuestion({})
+        setSelectedAnswers([])
+        setCurrentQuestion(0)                      
+        
         await getQuestions()
         setHasStarted(true)
         setTrapActive(true)
     }
 
     function handleAnswerSelection(answer) {
-        setSelectedAnswers((prevSelected) => {
-            if (prevSelected.includes(answer)) {
-                return prevSelected.filter((item) => item !== answer)
-            } else {
-                return [...prevSelected, answer]
-            }
-        })
+        const updatedAnswers = selectedAnswers.includes(answer) ? selectedAnswers.filter((item) => item !== answer) : [...selectedAnswers, answer]
+
+        setSelectedAnswers(updatedAnswers)
+        setAnswersByQuestion(prev => ({
+            ...prev,
+            [currentQuestion]: updatedAnswers
+        }))
     }
 
     function saveRoutineToLocalStorage() {
-        const routineData = JSON.parse(localStorage.getItem("temporaryRoutine")) || {
+        const freshRoutine = {
             lowEnergy: { morning: [], afternoon: [], evening: [], night: [] },
             mediumEnergy: { morning: [], afternoon: [], evening: [], night: [] },
             highEnergy: { morning: [], afternoon: [], evening: [], night: [] }
-        }
+        };
 
-        selectedAnswers.forEach((answer) => {
+        Object.values(answersByQuestion).flat().forEach((answer) => {
             if (answer.tasks) {
-                Object.keys(answer.tasks).forEach((energyLevel) => {
-                    Object.keys(answer.tasks[energyLevel]).forEach((timeOfDay) => {
-                        routineData[energyLevel][timeOfDay] = [
-                            ...  routineData[energyLevel][timeOfDay],
-                            ...answer.tasks[energyLevel][timeOfDay]
-                        ]
-                    })
-                })
-            }
-        })
+                Object.entries(answer.tasks).forEach(([energyLevel, times]) => {
+                    Object.entries(times).forEach(([timeOfDay, tasks]) => {
+                        const existing = freshRoutine[energyLevel][timeOfDay];
 
-        localStorage.setItem("temporaryRoutine", JSON.stringify(routineData))
-        console.log("Saved routine: ", routineData)
+                        tasks.forEach(task => {
+                            if (!existing.includes(task)) {
+                                existing.push(task);
+                            }
+                        });
+                    });
+                });
+            }
+        });
+    
+        localStorage.setItem("temporaryRoutine", JSON.stringify(freshRoutine));
+        console.log("Saved routine: ", freshRoutine);
     }
+    
 
     function handleNextQuestion() {
         if (selectedAnswers.length === 0) {
@@ -162,6 +171,11 @@ export default function Quiz(props) {
         setTrapActive(false)
         router.push("review-routine")
     }
+
+    useEffect(() => {
+        const currentAnswers = answersByQuestion[currentQuestion] || []
+        setSelectedAnswers(currentAnswers)
+    }, [currentQuestion, answersByQuestion])
 
     return (
         <>

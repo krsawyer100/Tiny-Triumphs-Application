@@ -34,8 +34,7 @@
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-easy-crop": "^5.4.1",
-        "react-router-dom": "^7.3.0",
-        "sharp": "^0.34.0"
+        "react-router-dom": "^7.3.0"
     },
     "devDependencies": {
         "@next/bundle-analyzer": "^15.3.0",

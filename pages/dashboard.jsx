@@ -35,7 +35,7 @@ export default function Dashboard(props) {
     const [routine, setRoutine] = useState(null)
     const [energySelected, setEnergySelected] = useState(false)
     const [hasPastRoutine, setHasPastRoutine] = useState(true)
-    const [isToday, setIsToday] = useState(false)
+    const [isToday, setIsToday] = useState(null)
 
     const [isEditing, setIsEditing] = useState(null);
     const [newTasks, setNewTasks] = useState({
@@ -351,7 +351,7 @@ export default function Dashboard(props) {
                                 </button>
                             )}
                             <h2 className={styles.dateText}>{displayDate}</h2>
-                            {!isToday && (
+                            {isToday !== null && !isToday && (
                                 <button onClick={() => changeDate("next")} className={styles.nextDateBtn}>
                                     <Image
                                         src="/images/right-arrow-icon.svg"
