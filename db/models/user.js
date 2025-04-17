@@ -28,7 +28,11 @@ const UserSchema = new Schema({
     },
     profilePhoto: {
         type: String,
-        default: "/images/account-icon-blue.png"
+        default: "/images/account-icon-blue.png",
+        validate: {
+            validator: (v) => /^https?:\/\/.+/.test(v) || v.startsWith('/images/'),
+            message: 'Invalid profile photo URL'
+        }
     }
 })
 
@@ -36,6 +40,15 @@ UserSchema.pre('save', async function(next) {
     if (this.isNew)
         this.password = await bcrypt.hash(this.password, 10)
     next()
+})
+
+UserSchema.post("findOneAndDelete", async function(doc) {
+    if (doc) {
+        const userId = doc._id
+        await GeneratedRoutine.deleteMany({ userId })
+        await DailyRoutine.deleteMany({ userId })
+        console.log(`Deleted routines for user: ${userId}`)
+    }
 })
 
 export default models.User || model('User', UserSchema)

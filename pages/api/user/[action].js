@@ -1,7 +1,6 @@
 import { withIronSessionApiRoute } from "iron-session/next";
 import sessionOptions from "../../../config/session";
 import db from "../../../db";
-import multer from 'multer'
 import nextConnect from 'next-connect'
 import bcrypt from 'bcrypt'
 

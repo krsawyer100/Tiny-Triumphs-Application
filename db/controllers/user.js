@@ -1,6 +1,5 @@
 import User from '../models/user'
 import dbConnect from './util/connection'
-import Routine from '../models/dailyRoutine'
 
 
 export async function create (firstName, lastName, username, email, password, temporaryRoutine) {

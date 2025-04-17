@@ -31,7 +31,7 @@ export default function Settings(props) {
     const logout = useLogout()
     const userId = props.user._id
     const [profilePhoto, setProfilePhoto] = useState(props.user?.profilePhoto || "/images/account-icon-blue.png");
-    const [{ firstName, lastName, username, email, password }, setForm] = useState({
+    const [{ firstName, lastName, username, email }, setForm] = useState({
         firstName: props.user.firstName,
         lastName: props.user.lastName,
         username: props.user.username,
@@ -385,27 +385,67 @@ export default function Settings(props) {
 
     async function uploadImageToServer(croppedImageUrl) {
         const blob = await fetch(croppedImageUrl).then(res => res.blob());
-        const formData = new FormData();
-        formData.append('file', blob);
-        formData.append('rotation', rotation)
-    
-        try {
-            const res = await fetch('/api/user/upload-photo', {
-                method: 'POST',
-                body: formData,
-            });
-    
-            if (res.ok) {
-                const data = await res.json();
-                console.log('Upload success: ', data);
-                setProfilePhoto(data.filePath);
-                setSelectedImage(null);
-            } else {
-                console.error('Upload failed');
-            }
-        } catch (error) {
-            console.error('Error uploading image: ', error);
+
+        const signatureRes = await fetch('api/user/cloudinary-signature')
+        const {
+            timestamp,
+            signature,
+            folder,
+            public_id,
+            apiKey,
+            cloudName,
+        } = signatureRes.json()
+
+        const formData = new FormData()
+        formData.append('file', blob)
+        formData.append('api_key', apiKey)
+        formData.append('timestamp', timestamp)
+        formData.append('signature', signature)
+        formData.append('folder', folder)
+        formData.append('public_id', public_id)
+
+        const uploadRes = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+            method: 'POST',
+            body: formData,
+        })
+
+        const data = await uploadRes.json()
+
+        const updatedRes = await fetch('/api/user.update-profile-photo', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ filePath: data.secure_url })
+        })
+
+        if (updatedRes.ok) {
+            setProfilePhoto(data.secure_url)
+        } else {
+            console.error("Failed to update user photo in DB")
         }
+
+        // const formData = new FormData();
+        // formData.append('file', blob);
+        // formData.append('rotation', rotation)
+    
+        // try {
+        //     const res = await fetch('/api/user/upload-photo', {
+        //         method: 'POST',
+        //         body: formData,
+        //     });
+    
+        //     if (res.ok) {
+        //         const data = await res.json();
+        //         console.log('Upload success: ', data);
+        //         setProfilePhoto(data.filePath);
+        //         setSelectedImage(null);
+        //     } else {
+        //         console.error('Upload failed');
+        //     }
+        // } catch (error) {
+        //     console.error('Error uploading image: ', error);
+        // }
     }
 
     function handleCropKeyDown(e) {
