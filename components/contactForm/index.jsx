@@ -55,8 +55,8 @@ export default function ContactForm() {
                     <label htmlFor="category">
                         Reason for Contacting*
                     </label>
-                    <select id="category" name='category' defaultValue="N/A" tabIndex={0}>
-                        <option value="N/A" disabled>Select from the Options Provided</option>
+                    <select id="category" name='category' defaultValue="" tabIndex={0} required>
+                        <option value="" selected disabled>Select from the Options Provided</option>
                         <option value="Product">Product</option>
                         <option value="Support">Support</option>
                         <option value="General">General Inquiry</option>
