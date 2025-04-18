@@ -36,6 +36,8 @@ export default function ReviewRoutine(props) {
     const [message, setMessage] = useState("")
     const [error, setError] = useState("")
 
+    const inputRef = useRef(null)
+
     useEffect(() => {
         const generatedRoutine = JSON.parse(localStorage.getItem("temporaryRoutine"))
         if (generatedRoutine) {
@@ -139,8 +141,8 @@ export default function ReviewRoutine(props) {
         setEditingTask(null)
     }
 
-    function handleEdit(taskText) {
-        setEditingTask(taskText)
+    function handleEdit(taskId) {
+        setEditingTask(taskId)
     }
 
     function handleKeyDown(event, energyLevel, timeOfDay, index) {
@@ -156,18 +158,18 @@ export default function ReviewRoutine(props) {
             <div>
                 {tasks.map((taskObj, index) => (
                     <p key={index} className={styles.task}>
-                        {editingTask === taskObj.task ? (
+                        {editingTask === taskObj._id ? (
                             <input
                                 type="text"
                                 defaultValue={taskObj.task}
                                 onBlur={(e) => updateTask(energyLevel, timeOfDay, index, e.target.value)}
                                 onKeyDown={(e) => handleKeyDown(e, energyLevel, timeOfDay, index)}
                                 autoFocus
+                                tabIndex={0}
                             />
                         ) : (
-                            <span tabIndex={0} onClick={() => handleEdit(taskObj.task)} onFocus={(e) => {
-                                e.preventDefault()
-                                handleEdit(taskObj.task)
+                            <span tabIndex={0} onClick={() => handleEdit(taskObj._id)} onFocus={(e) => {
+                                handleEdit(taskObj._id)
                             }}>
                                 {taskObj.task}
                             </span>
