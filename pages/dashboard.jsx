@@ -252,9 +252,9 @@ export default function Dashboard(props) {
         setNewTasks((prev) => ({...prev, [timeOfDay]: e.target.value}))
     }
 
-    function handleEdit(taskText) {
+    function handleEdit(taskId) {
         setTimeout(() => {
-            setIsEditing(taskText)
+            setIsEditing(taskId)
           }, 0)
     }
 
@@ -275,7 +275,7 @@ export default function Dashboard(props) {
                     }}}
                 />
                 <p>
-                {isEditing === taskObj.task ? (
+                {isEditing === taskObj._id ? (
                     <input
                         type="text"
                         defaultValue={taskObj.task}
@@ -284,9 +284,9 @@ export default function Dashboard(props) {
                         autoFocus
                     />
                 ):(
-                    <span tabIndex={0} onClick={() => handleEdit(taskObj.task)} onFocus={(e) => {
+                    <span tabIndex={0} onClick={() => handleEdit(taskObj._id)} onFocus={(e) => {
                         e.preventDefault()
-                        handleEdit(taskObj.task)
+                        handleEdit(taskObj._id)
                     }}>{taskObj.task}</span>
                 )}
                 

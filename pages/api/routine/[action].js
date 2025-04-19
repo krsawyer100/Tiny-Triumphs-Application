@@ -29,6 +29,8 @@ export default withIronSessionApiRoute(
                 return addDailyTask(req, res)
             case 'delete-daily-task':
                 return deleteDailyTask(req, res)
+            case 'get-all-daily-routines':
+                return getAllDailyRoutines(req, res)
             default:
                 return res.status(404).end()
         }
@@ -265,5 +267,23 @@ async function deleteDailyTask(req, res) {
         return res.status(200).json({ routine })
     } catch (err) {
         return res.status(500).json({ message: "Failed to delete task", error: err.message })
+    }
+}
+
+async function getAllDailyRoutines(req, res) {
+    await dbConnect()
+
+    try {
+        const userId = req.session.user?._id
+
+        if (!userId) {
+            return res.status(401).json({error: "not authenticated"})
+        }
+
+        const dailyRoutines = await db.routine.getAllDailyRoutines(userId)
+        return res.status(200).json({dailyRoutines})
+    } catch (error) {
+        console.error("Error in api for daily routines: ", err)
+        return res.status(500).json({ error: "Failed to fetch daily routines" });
     }
 }

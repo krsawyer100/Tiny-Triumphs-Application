@@ -135,3 +135,21 @@ export async function editDailyRoutine(userId, date, timeOfDay, taskIndex, updat
         throw err;
     }
 }
+
+export async function getAllDailyRoutines(userId) {
+    await dbConnect()
+
+    try {
+        if (!userId) throw new Error("User id is required")
+
+        const validUserId = new mongoose.Types.ObjectId(userId)
+
+        const routines = await DailyRoutine.find({userId: validUserId})
+
+        console.log("All daily routines found: ", routines.length)
+        return routines
+    } catch (err) {
+        console.error("Error fetching all daily routines: ", err)
+        throw err
+    }
+}

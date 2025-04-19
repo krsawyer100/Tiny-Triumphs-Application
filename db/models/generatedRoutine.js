@@ -1,5 +1,6 @@
-import { Schema, model, models } from "mongoose";
-import TaskSchema from "./task";
+import mongoose from "mongoose"; 
+const { Schema, model, models } = mongoose;
+import TaskSchema from "./task.js";
 
 const GeneratedRoutineSchema = new Schema({
     userId: {

@@ -885,4 +885,4 @@ const seedQuestions = async () => {
     }
 };
 
-seedQuestions();
+export default seedQuestions

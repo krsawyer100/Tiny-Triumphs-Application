@@ -18,7 +18,7 @@
         "mongo:start:shell": "npm run mongo && npm run mongo:shell",
         "mongo:shell": "docker exec -it mongo-sandbox mongosh",
         "mongo:check": "until docker exec -it mongo-sandbox mongosh --eval \"use $npm_package_config_DB_NAME;\"; do echo ...; sleep 1; done",
-        "seed": "node db/seeder/seedQuestions.js"
+        "seed": "node db/seeder/seedAll.js"
     },
     "dependencies": {
         "@emailjs/browser": "^4.4.1",
