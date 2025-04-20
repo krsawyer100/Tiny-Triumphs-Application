@@ -5,6 +5,7 @@ import sessionOptions from "../config/session"
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image.js"
 import styles from "../public/styles/Dashboard.module.css"
+import { set } from "mongoose"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -36,6 +37,8 @@ export default function Dashboard(props) {
     const [energySelected, setEnergySelected] = useState(false)
     const [hasPastRoutine, setHasPastRoutine] = useState(null)
     const [isToday, setIsToday] = useState(null)
+    const [allDailyRoutines, setAllDailyRoutines] = useState([])
+    console.log("All daily routines: ", allDailyRoutines)
 
     const [isEditing, setIsEditing] = useState(null);
     const [newTasks, setNewTasks] = useState({
@@ -57,24 +60,30 @@ export default function Dashboard(props) {
         fetchUserProfile();
     }, []);
 
-    useEffect(() => {
-        async function getAllDailyRoutines() {
-            try {
-                const res = await fetch('/api/routine/get-all-daily-routines')
-    
-                if (res.ok) {
-                    const data = res.json()
-                    console.log("daily routines data: ", data)
-                } else {
-                    console.error("error fetch daily routines: ", err)
-                }
-            } catch (err) {
-                console.log("error fetch daily routines: ", err.message)
-            }
-        }
+    // useEffect(() => {
+    //     fetchAllDailyRoutines() 
+    // })
 
-        getAllDailyRoutines()
-    })
+    // async function fetchAllDailyRoutines() {
+    //     try {
+    //         const dailyRoutinesRes = await fetch('/api/routine/get-all-daily-routines')
+    //         if (dailyRoutinesRes.ok) {
+    //             const dailyRoutinesData = await dailyRoutinesRes.json()
+    //             console.log("Daily routines data: ", dailyRoutinesData.dailyRoutines)
+    //             const dailyRoutines = dailyRoutinesData.dailyRoutines.map((routine, i) => {
+    //                 return {
+    //                     index: i,
+    //                     date: routine.date.slice("T", 10),
+    //                 }
+    //             })
+                
+    //             setAllDailyRoutines(dailyRoutines)
+    //             console.log("daily routine dates: ", dailyRoutines)
+    //         }
+    //     } catch (err) {
+    //         console.error('Error fetching all daily routines:', err);
+    //     }
+    // }
 
     async function fetchUserProfile() {
         try {
@@ -82,7 +91,7 @@ export default function Dashboard(props) {
           if (res.ok) {
             const data = await res.json();
             setProfilePhoto(data.user.profilePhoto);
-        } else {
+          } else {
             console.error('Failed to fetch user profile');
           }
         } catch (error) {
@@ -107,12 +116,6 @@ export default function Dashboard(props) {
     }
     async function fetchRoutine() {
         try {
-            const res = await fetch(`/api/routine/get-daily-routine?date=${date}`, {
-                method: 'GET',
-                headers: {
-                    'content-type': 'application/json'
-                }
-            })
             let prevDate = new Date(date).toLocaleDateString("en-CA")
             const prevRes = await fetch(`/api/routine/get-daily-routine?date=${prevDate}`, {
                 method: 'GET',
@@ -120,9 +123,16 @@ export default function Dashboard(props) {
                     'content-type': 'application/json'
                 }
             })
+            const prevData = await prevRes.json()
+        
+            const res = await fetch(`/api/routine/get-daily-routine?date=${date}`, {
+                method: 'GET',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            })
 
             const data = await res.json()
-            const prevData = await prevRes.json()
 
             const today = new Date().toLocaleDateString("en-CA")
             console.log("today: ", today)
