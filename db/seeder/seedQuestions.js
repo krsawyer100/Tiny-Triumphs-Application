@@ -880,8 +880,6 @@ const seedQuestions = async () => {
         console.log("Database seeded with quiz questions!")
     } catch (error) {
         console.error("Error seeding database: ", error)
-    } finally {
-        mongoose.connection.close()
     }
 };
 

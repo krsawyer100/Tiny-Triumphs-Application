@@ -50,7 +50,7 @@ export async function getRoutines(userId) {
     }
 }
 
-export async function createDailyRoutine(userId, energyLevel, date) {
+export async function createDailyRoutine(userId) {
     await dbConnect()
 
     try {
@@ -60,7 +60,11 @@ export async function createDailyRoutine(userId, energyLevel, date) {
         
         const validUserId = new mongoose.Types.ObjectId(newUserId)
 
+        console.log("new date: ", newDate)
+
         const targetDate = new Date(`${newDate}T00:00:00.000Z`);
+
+        console.log("target date: ", targetDate)
 
         const existingRoutine = await DailyRoutine.findOne({ userId: validUserId, date: targetDate })
         if (existingRoutine) {
@@ -146,7 +150,8 @@ export async function getAllDailyRoutines(userId) {
 
         const routines = await DailyRoutine.find({userId: validUserId})
 
-        console.log("All daily routines found: ", routines.length)
+        routines.forEach(r => console.log(r.date.toISOString()))
+
         return routines
     } catch (err) {
         console.error("Error fetching all daily routines: ", err)

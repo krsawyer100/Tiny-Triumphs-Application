@@ -24,17 +24,17 @@ export const getServerSideProps = withIronSessionSsr(
 export default function Dashboard(props) {
     const [profilePhoto, setProfilePhoto] = useState(props.user?.profilePhoto || "/images/account-icon-blue.png");
 
-    const localDate = new Date().toLocaleDateString("en-CA");
     const [displayDate, setDisplayDate] = useState(new Date().toLocaleDateString())
-    console.log("Display date: ", displayDate)
+    console.log("display Date: ", displayDate)
     
-    const [date, setDate] = useState(localDate);
+    const [date, setDate] = useState(new Date().toLocaleDateString("en-CA"));
+    console.log("Date: ", typeof(date), date)
     const [quote, setQuote] = useState("")
     const [author, setAuthor] = useState("")
 
     const [routine, setRoutine] = useState(null)
     const [energySelected, setEnergySelected] = useState(false)
-    const [hasPastRoutine, setHasPastRoutine] = useState(true)
+    const [hasPastRoutine, setHasPastRoutine] = useState(null)
     const [isToday, setIsToday] = useState(null)
 
     const [isEditing, setIsEditing] = useState(null);
@@ -56,6 +56,25 @@ export default function Dashboard(props) {
     useEffect(() => {
         fetchUserProfile();
     }, []);
+
+    useEffect(() => {
+        async function getAllDailyRoutines() {
+            try {
+                const res = await fetch('/api/routine/get-all-daily-routines')
+    
+                if (res.ok) {
+                    const data = res.json()
+                    console.log("daily routines data: ", data)
+                } else {
+                    console.error("error fetch daily routines: ", err)
+                }
+            } catch (err) {
+                console.log("error fetch daily routines: ", err.message)
+            }
+        }
+
+        getAllDailyRoutines()
+    })
 
     async function fetchUserProfile() {
         try {
@@ -94,26 +113,45 @@ export default function Dashboard(props) {
                     'content-type': 'application/json'
                 }
             })
+            let prevDate = new Date(date).toLocaleDateString("en-CA")
+            const prevRes = await fetch(`/api/routine/get-daily-routine?date=${prevDate}`, {
+                method: 'GET',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            })
 
             const data = await res.json()
+            const prevData = await prevRes.json()
 
             const today = new Date().toLocaleDateString("en-CA")
+            console.log("today: ", today)
             const isSameDate = date === today
+
+            console.log("isSameDate: ", isSameDate)
 
             console.log(`Comparing dates - Selected: ${date}, Today: ${today}, isToday: ${isSameDate}`);
             setIsToday(isSameDate);
+
+            let newDate = new Date(date)
+            newDate.setDate(newDate.getDate() + 1)
+
+            console.log("date in fetch: ", new Date())
+            console.log("new date in fetch: ", newDate)
 
             if (data.routine) {
                 console.log("Routine exists for this date:", data.routine);
                 setRoutine(data.routine)
                 setEnergySelected(true)
-                setHasPastRoutine(true)
+                if (prevData.routine) {
+                    setHasPastRoutine(true)
+                } else {
+                    setHasPastRoutine(false)
+                }
             } else {
                 console.log("No routine for this date:", date);
                 setEnergySelected(false)
-                if (new Date(date) < new Date()) {
-                    setHasPastRoutine(false)
-                }
+                setHasPastRoutine(false)
             }
         } catch (err) {
             console.error("error fetching routine: ", err)
@@ -145,23 +183,28 @@ export default function Dashboard(props) {
     function changeDate(direction) {
         console.log(`Current date: ${date}, Direction ${direction}`)
 
-        const newDate = new Date(date);
-        newDate.setDate(newDate.getDate() + (direction === "next" ? 1 : -1));
-    
-        const today = new Date().toLocaleDateString("en-CA")
-        const newDateString = newDate.toLocaleDateString("en-CA")
+        let newDate = new Date(date);
+        newDate.setDate(newDate.getDate() + 1)
 
-        console.log(`Attempting to set new date: ${newDateString}`);
+        console.log("newDate:", newDate)
+
+        newDate.setDate(newDate.getDate() + direction)
+
+        console.log("newDate after:", newDate)
+
+        const today = new Date().toLocaleDateString("en-CA")
+
+        console.log("today in change date: ", today)
+
+        console.log(`Attempting to set new date: `, newDate.toLocaleDateString());
     
-        if (direction === "next" && newDate.toLocaleDateString("en-CA") > today) {
+        if (direction === -1 && newDate.toLocaleDateString("en-CA") > today) {
             console.log("🚫 Prevented from moving past today")
             return;
         }
     
-        setDate(newDateString);
+        setDate(newDate.toLocaleDateString("en-CA"));
         setDisplayDate(newDate.toLocaleDateString())
-
-        fetchRoutine()
     }
 
     async function toggleTaskCompletion(timeOfDay, taskIndex) {
@@ -341,8 +384,9 @@ export default function Dashboard(props) {
                     {/* Routine */}
                     <section className={styles.routineContainer}>
                         <div className={styles.dateContainer}>
-                            {hasPastRoutine && date !== new Date().toLocaleDateString("en-CA") && (
-                                <button onClick={() => changeDate("prev")} className={styles.prevDateBtn}>                     <Image
+                            {hasPastRoutine && (
+                                <button onClick={() => changeDate(-1)} className={styles.prevDateBtn}>                     
+                                <Image
                                     src="/images/left-arrow-icon.svg"
                                     alt=""
                                     width={25}
@@ -351,8 +395,8 @@ export default function Dashboard(props) {
                                 </button>
                             )}
                             <h2 className={styles.dateText}>{displayDate}</h2>
-                            {isToday !== null && !isToday && (
-                                <button onClick={() => changeDate("next")} className={styles.nextDateBtn}>
+                            {!isToday && (
+                                <button onClick={() => changeDate(1)} className={styles.nextDateBtn}>
                                     <Image
                                         src="/images/right-arrow-icon.svg"
                                         alt=""
