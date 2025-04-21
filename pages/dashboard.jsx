@@ -426,11 +426,12 @@ export default function Dashboard(props) {
                     </section>
                     <section className={styles.imgContainer}>
                         <Image
-                            src="/images/dashboard-decorative.webp"
+                            src="/images/decorative-img-dashboard.jpg"
                             alt=""
                             width={200}
                             height={150}
                             className={styles.decorativeImg}
+                            priority
                         />
                     </section>
                     <section className={styles.quoteContainer}>

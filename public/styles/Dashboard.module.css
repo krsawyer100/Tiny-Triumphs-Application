@@ -1,13 +1,14 @@
 .main > h1 {
     color: var(--orange);
     text-align: center;
-    margin-top: 50px;
+    margin-top: 80px;
+    margin-bottom: 60px;
 }
 
 .dashboardContainer {
     padding: 0 50px 0 30px;
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 55% 45%;
     grid-auto-rows: minmax(200px, auto);
     grid-template-areas: 
         "routine img"
