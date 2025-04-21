@@ -14,10 +14,15 @@
     padding: 5px 10px;
 }
 
+.userGreeting {
+  font-weight: 600;
+}
+
 .navLogo {
   display: flex;
   align-items: center;
   text-decoration: none;
+  font-family: "Playpen Sans";
   font-size: 18px;
   font-weight: 700;
   width: 200px;
@@ -87,6 +92,7 @@
   color: var(--orange);
   background-color: transparent;
   border: none;
+  font-weight: 600;
   font-size: 14px;
 }
 

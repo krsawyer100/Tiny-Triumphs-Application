@@ -5,6 +5,7 @@ import sessionOptions from "../config/session"
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image.js"
 import styles from "../public/styles/Dashboard.module.css"
+import DashboardFooter from "../components/dashboardFooter/index.jsx"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -463,6 +464,7 @@ export default function Dashboard(props) {
                     </section>
                 </section>
             </main>
+            <DashboardFooter />
         </>
     )
 }

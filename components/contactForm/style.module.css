@@ -45,7 +45,7 @@
 }
 
 .formContainer > div > label {
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .formContainer > div > input, .formContainer > div > textarea, .formContainer > div > select {
@@ -54,7 +54,7 @@
     border-radius: 10px;
     padding: 5px 10px;
     box-shadow: 0 0 1px 1px rgba(0,0,0,.3);
-    font-family: "Playpen Sans", cursive;
+    font-family: "Nunito";
     font-size: 14px;
 }
 
@@ -95,9 +95,8 @@
     color: var(--white);
     border: none;
     border-radius: 50px;
-    font-family: "Playpen Sans", cursive;
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 15px;
     padding: 20px 15px;
     margin: 20px 0 30px;
     cursor: pointer;

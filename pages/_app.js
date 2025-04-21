@@ -1,11 +1,17 @@
 import '../public/styles/globals.css'
-import {Playpen_Sans} from 'next/font/google'
+import {Playpen_Sans, Nunito} from 'next/font/google'
 import { AccessibilityProvider, useAccessibility } from '../components/accessibility/accessibilityContext'
 import { useEffect } from 'react'
 
 const playpenSans = Playpen_Sans({
     subsets: ['latin'],
     weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+    display: 'swap',
+})
+
+const nunito = Nunito({
+    subsets: ['latin'],
+    weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
     display: 'swap',
 })
 
@@ -30,7 +36,7 @@ function AppInner({ Component, pageProps }) {
 function MyApp({ Component, pageProps }) {
     return (
         <AccessibilityProvider>
-            <main>
+            <main className={`${playpenSans.className} ${nunito.className}`}>
                 <AppInner Component={Component} pageProps={pageProps} />
             </main>
         </AccessibilityProvider>

@@ -16,7 +16,7 @@
   
   .headerInfoLink {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
     color: var(--orange);
     cursor: pointer;
@@ -84,6 +84,7 @@
     border-radius: 50px;
     color: var(--white);
     box-shadow: 0 0 7px 1px rgba(0, 0, 0, .3);
+    font-weight: 600;
   }
 
   .quizBtn:hover, .quizBtn:focus {
@@ -213,6 +214,7 @@
   background: none;
   border: none;
   cursor: pointer;
+  font-weight: 600;
 }
 
 button.menuLink {
@@ -240,6 +242,7 @@ button.menuLink {
   text-decoration: none;
   color: var(--orange);
   font-size: 14px;
+  font-weight: 500;
 }
 
 .dropdownMenuLink:hover, .dropdownMenuLink:focus, .menuLink:hover, .menuLink:focus {

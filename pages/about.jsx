@@ -52,11 +52,11 @@ export default function About(props) {
                         </div>
                         <div className={styles.aboutTextContainer}>
                             <div>
-                                <h4>Tiny Triumphs was created with one goal in mind: to make self-care feel manageable and meaningful — especially for those who often feel overwhelmed by it.</h4>
+                                <h3>Tiny Triumphs was created with one goal in mind: to make self-care feel manageable and meaningful — especially for those who often feel overwhelmed by it.</h3>
                                 <p>This app is designed for neurodivergent, mentally ill, and chronically ill individuals who want support with building daily routines that match their real energy levels. Whether you&apos;re having a low, medium, or high energy day, Tiny Triumphs offers flexible routines to help you care for yourself without pressure or guilt.</p>
                             </div>
                             <div>
-                                <h4>We know that traditional self-care advice can feel unrealistic or even inaccessible.</h4>
+                                <h3>We know that traditional self-care advice can feel unrealistic or even inaccessible.</h3>
                                 <p>That&apos;s why Tiny Triumphs focuses on small, intentional steps that meet you where you are. With personalized quiz-generated routines, supportive content, and a growing resource library, this app was built to help you feel empowered — not overwhelmed — on your journey to better mental and physical health.</p>
                             </div>
                         </div>

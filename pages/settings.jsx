@@ -2,7 +2,6 @@ import Head from "next/head"
 import { useRouter } from 'next/router'
 import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
-import useLogout from "../hooks/useLogout"
 import { useState, useEffect, useRef } from "react"
 import DashboardHeader from "../components/dashboardHeader"
 import Cropper from 'react-easy-crop'
@@ -10,6 +9,8 @@ import getCroppedImg from '../utils/cropImage.js'
 import Image from "next/image.js"
 import styles from "../public/styles/Settings.module.css"
 import useFocusTrap from "../hooks/useFocusTrap.js"
+import DashboardFooter from "../components/dashboardFooter"
+import useLogout from "../hooks/useLogout.js"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -27,6 +28,7 @@ export const getServerSideProps = withIronSessionSsr(
 )
 
 export default function Settings(props) {
+    const logout = useLogout()
     const router = useRouter()
     const userId = props.user._id
     const [profilePhoto, setProfilePhoto] = useState(props.user?.profilePhoto || "/images/account-icon-blue.png");
@@ -181,8 +183,6 @@ export default function Settings(props) {
     }
 
     async function handleDelete() {
-        console.log("DELETE BUTTON CLICKED");
-        console.log("userId: ", props.user._id);
         try {
             const res = await fetch('/api/user/delete', {
                 method: 'DELETE',
@@ -911,6 +911,7 @@ export default function Settings(props) {
                     </div>
                 </section>
             </main>
+            <DashboardFooter />
         </div>
     )
 }

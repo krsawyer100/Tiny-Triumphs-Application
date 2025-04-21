@@ -61,6 +61,7 @@ async function deleteUser(req, res) {
         }
 
         console.log('user deleted: ', deletedUser)
+        req.session.destroy();
         res.status(200).json({message: 'user deleted'})
     } catch (error) {
         console.error('error deleting user: ', error)
