@@ -55,7 +55,7 @@ export default function AccessibilityToggle() {
 
                 <div className={styles.toggleRow}>
                     <label className={styles.switch}>
-                        <input type="checkbox" checked={dyslexiaFont} onChange={toggleDyslexiaFont} role="switch" aria-checked={dyslexiaFont} aria-label="Toggle dyslexia-friendly font" />
+                        <input type="checkbox" checked={dyslexiaFont} onChange={toggleDyslexiaFont} role="switch" aria-checked={dyslexiaFont} aria-label="Toggle dyslexia-friendly font" tabIndex={0}/>
                         <span className={styles.slider}></span>
                     </label>
                     <span>Dyslexia-Friendly Font</span>
@@ -63,7 +63,7 @@ export default function AccessibilityToggle() {
 
                 <div className={styles.toggleRow}>
                     <label className={styles.switch}>
-                        <input type="checkbox" checked={reduceMotion} onChange={toggleReduceMotion} role="switch" aria-checked={reduceMotion} aria-label="Toggle reduced motion"/>
+                        <input type="checkbox" checked={reduceMotion} onChange={toggleReduceMotion} role="switch" aria-checked={reduceMotion} aria-label="Toggle reduced motion" tabIndex={0}/>
                         <span className={styles.slider}></span>
                     </label>
                     <span>Reduce Motion</span>

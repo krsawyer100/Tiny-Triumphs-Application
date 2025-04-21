@@ -53,29 +53,32 @@ export default function ContactForm() {
 
     return (
         <div className={styles.contactContainer}>
-            <form onSubmit={sendEmail} className={styles.formContainer}>
+            <form onSubmit={sendEmail} className={styles.formContainer} role="contact-form">
                 <h2>Contact Form</h2>
                 <div>
                     <label htmlFor="name">First & Last Name*</label>
-                    <input type="text" id='name' name='name' placeholder='Name' required tabIndex={0}
+                    <input type="text" id='name' name='name' placeholder='Name' required tabIndex={0} aria-describedby="nameDescription"
                     />
-                    <small style={{ fontSize: "12px", marginTop: "5px" }}>If you are not comfortable sharing your name, type N/A.</small>
+                    <small id="nameDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px" }}>If you are not comfortable sharing your name, type N/A.</small>
                 </div>
                 <div>
                     <label htmlFor="email">Email*</label>
-                    <input type="email" id='email' name='email' placeholder='Email' required tabIndex={0} />
-                    <small style={{ fontSize: "12px", marginTop: "5px" }}>We will use your email to respond to your message.</small>
+                    <input type="email" id='email' name='email' placeholder='Email' required tabIndex={0} aria-describedby="emailDescription"/>
+                    <small id="emailDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px" }}>We will use your email to respond to your message.</small>
                 </div>
                 <div>
                     <label htmlFor="category">
                         Reason for Contacting*
                     </label>
-                    <select id="category" name='category' defaultValue="" tabIndex={0} required>
+                    <select id="category" name='category' defaultValue="" tabIndex={0} required aria-describedby="categoryDescription">
                         <option value="" disabled>Select from the Options Provided</option>
                         <option value="Product">Product</option>
                         <option value="Support">Support</option>
                         <option value="General">General Inquiry</option>
+                        <option value="Feedback">Feedback</option>
+                        <option value="Other">Other</option>
                     </select>
+                    <small id="categoryDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px" }}>Please select your reason for contacting us today from the dropdown menu.</small>
                 </div>
                 <div>
                     <label htmlFor="message">Message*</label>

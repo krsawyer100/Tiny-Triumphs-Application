@@ -46,7 +46,7 @@ export default function Home(props) {
                 isLoggedIn={props.isLoggedIn}
             />
             <AccessibilityToggle />
-            <main role="main">
+            <main>
                 {/* Hero Section */}
                 <section className={styles.hero}> 
                     <div className={styles.heroContainer}>
@@ -57,11 +57,11 @@ export default function Home(props) {
                         <div className={styles.heroBtn}>
                             {props.isLoggedIn ? (
                                 <p>
-                                    <Link href="/dashboard" className={styles.btnText}>Go to Dashboard</Link>
+                                    <Link href="/dashboard" className={styles.btnText} aria-label="Link to your dashboard">Go to Dashboard</Link>
                                 </p>
                             ):(
                                 <p>
-                                    <Link href="/quiz" className={styles.btnText}>Start your Journey Today</Link>
+                                    <Link href="/quiz" className={styles.btnText} aria-label="Link to our quiz">Start your Journey Today</Link>
                                 </p>
                             )}
                         </div>
@@ -100,8 +100,8 @@ export default function Home(props) {
                         />
                         <h2 className={styles.statisticTitle}>Link Between Self-care and Mental Health</h2>
                         <div className={styles.statisticQuote}>
-                            <h3>According to <a href="https://www.vagaro.com/news/press-release/survey-finds-three-quarters-of-americans-believe-self-care-activities-provide-stress-relief" target="_BLANK">Vagaro&apos;s</a> Survey, “64% said self-care has given them a confidence boost, 67% said it increased productivity, and 71% said it increased happiness.”</h3>
-                            <h4>~ <a href="https://www.azblue.com/inspire-health/blog/blueprint-for-happiness-connection-between-self-care-and-mental-health" target="_BLANK">BlueCross BlueShield</a></h4>
+                            <h3>According to <a aria-label="Link to Vagaro's survey" href="https://www.vagaro.com/news/press-release/survey-finds-three-quarters-of-americans-believe-self-care-activities-provide-stress-relief" target="_BLANK">Vagaro&apos;s</a> Survey, “64% said self-care has given them a confidence boost, 67% said it increased productivity, and 71% said it increased happiness.”</h3>
+                            <h4>~ <a aria-label="Link to BlueCross BlueShield Article" href="https://www.azblue.com/inspire-health/blog/blueprint-for-happiness-connection-between-self-care-and-mental-health" target="_BLANK">BlueCross BlueShield</a></h4>
                         </div>
                         <p className={styles.statisticDescription}>These findings show that self-care is not just about pampering — it is a powerful tool for boosting mood, motivation, and mental clarity. For individuals navigating mental illness, chronic conditions, or neurodivergence, even small routines can lead to meaningful improvements in daily life.</p>
                     </div>
@@ -185,7 +185,7 @@ export default function Home(props) {
                         <Link href="/resources/self-care" className={styles.resourceLink} role="link">
                             <Image 
                                 src="/images/self-care.webp"
-                                alt="Placeholder"
+                                alt=""
                                 width={250}
                                 height={250}
                                 className={styles.resourceLinkImg}

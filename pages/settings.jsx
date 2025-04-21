@@ -28,7 +28,6 @@ export const getServerSideProps = withIronSessionSsr(
 
 export default function Settings(props) {
     const router = useRouter()
-    const logout = useLogout()
     const userId = props.user._id
     const [profilePhoto, setProfilePhoto] = useState(props.user?.profilePhoto || "/images/account-icon-blue.png");
     const [{ firstName, lastName, username, email }, setForm] = useState({
@@ -542,7 +541,7 @@ export default function Settings(props) {
                                 Upload Photo
                             </button>
                         </div>
-                        <form onSubmit={handleUpdate} className={styles.updateUserForm}>
+                        <form onSubmit={handleUpdate} className={styles.updateUserForm} role="form" aria-label="edit your account information">
                             <div className={styles.firstName}>
                                 <label htmlFor="firstName">First Name: </label>
                                 <input 
@@ -551,7 +550,9 @@ export default function Settings(props) {
                                     id='firstName'
                                     onChange={handleChange}
                                     value={firstName}
-                                />
+                                    aria-describedby="firstDescription"
+                                />                                                      
+                                <small id="firstDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Edit your first name</small>
                             </div>
                             <div className={styles.lastName}>
                                 <label htmlFor="lastName">Last Name: </label>
@@ -561,7 +562,9 @@ export default function Settings(props) {
                                     id='lastName'
                                     onChange={handleChange}
                                     value={lastName}
-                                />
+                                    aria-describedby="firstDescription"
+                                />                                                      
+                                <small id="firstDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Edit your last name</small>
                             </div>
                             <div className={styles.username}>
                                 <label htmlFor="username">Username: </label>
@@ -571,7 +574,9 @@ export default function Settings(props) {
                                     id='username'
                                     onChange={handleChange}
                                     value={username}
-                                />
+                                    aria-describedby="usernameDescription"
+                                />                                                      
+                                <small id="usernameDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Edit your username</small>
                             </div>
                             <div className={styles.email}>
                                 <label htmlFor="email">Email: </label>
@@ -581,17 +586,19 @@ export default function Settings(props) {
                                     id='email'
                                     onChange={handleChange}
                                     value={email}
-                                />
+                                    aria-describedby="emailDescription"
+                                />                                                      
+                                <small id="emailDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Edit your email</small>
 
                             </div>         
-                            {error && <p className={styles.error}>{error}</p>}
-                            {confirm && <p className={styles.confirm}>{confirm}</p>}
+                            {error && <p className={styles.error} role="alert" aria-live="assertive">{error}</p>}
+                            {confirm && <p className={styles.confirm} role="status" aria-live="polite">{confirm}</p>}
                             <button className={styles.saveBtn}>Update Information</button>
                         </form>
                     </div>
                     <div>
                         {selectedImage && (
-                            <div className={styles.cropModal}>
+                            <div className={styles.cropModal} aria-label="Profile image cropper pop up">
                                 <div className={styles.cropModalBorder} ref={cropperRef}>
                                     <div className={styles.imgContainer} tabIndex={0} role="region" aria-label="Image crop area. Use arrow keys to move the image." onKeyDown={handleCropKeyDown} ref={cropAreaRef}>
                                         <Cropper
@@ -686,7 +693,7 @@ export default function Settings(props) {
                     </div>
                     <span className={styles.divider}></span>
                     <div className={styles.passwordContainer}>
-                        <form onSubmit={handlePasswordUpdate} className={styles.passwordForm} id="passwordForm">
+                        <form onSubmit={handlePasswordUpdate} className={styles.passwordForm} id="passwordForm" role="form" aria-label="change password">
                             <div className={styles.oldPassword}>
                                 <label htmlFor="oldPassword">Old Password:</label>
                                 <input
@@ -694,7 +701,9 @@ export default function Settings(props) {
                                     id="oldPassword" 
                                     value={oldPassword}
                                     onChange={(e) => setOldPassword(e.target.value)}
-                                />
+                                    aria-describedby="oldDescription"
+                                />                                                      
+                                <small id="oldDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Enter your current password</small>
                             </div>
                             <div className={styles.newPassword}>
                                 <label htmlFor="newPassword">New Password:</label>
@@ -703,7 +712,9 @@ export default function Settings(props) {
                                     id="newPassword" 
                                     value={newPassword}
                                     onChange={(e) => setNewPassword(e.target.value)}
-                                />
+                                    aria-describedby="newDescription"
+                                />                                                      
+                                <small id="newDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Enter your desired new password</small>
                             </div>
                             <div className={styles.confirmPassword}>
                                 <label htmlFor="confirmPassword">Confirm Password:</label>
@@ -712,12 +723,14 @@ export default function Settings(props) {
                                     id="confirmPassword" 
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
-                                />
+                                    aria-describedby="confirmDescription"
+                                />                                                      
+                                <small id="confirmDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Enter your new password to confirm</small>
                             </div>
                         </form>
                         <div className={styles.formBtnsContainer}>
-                            {passwordError && <p className={styles.passwordError}>{passwordError}</p>}
-                            {passwordSuccess && <p className={styles.passwordSuccess}>{passwordSuccess}</p>}
+                            {passwordError && <p className={styles.passwordError} role="alert" aria-live="assertive">{passwordError}</p>}
+                            {passwordSuccess && <p className={styles.passwordSuccess} role="status" aria-live="polite">{passwordSuccess}</p>}
                             <button className={styles.passwordBtn} type="submit" form="passwordForm">Update Password</button>
                             <button onClick={handleDelete} className={styles.deleteBtn}>Delete Account</button>
                         </div>
@@ -873,7 +886,7 @@ export default function Settings(props) {
                                     {renderAddTask("highEnergy", "night")}
                                 </div>
                                 {message && (
-                                    <p className={styles.message}>{message}</p>
+                                    <p className={styles.message} role="status" aria-live="polite">{message}</p>
                                 )}
                                 <button onClick={handleMessage} className={styles.saveRoutinesBtn}>Save Routines</button>
                             </div>

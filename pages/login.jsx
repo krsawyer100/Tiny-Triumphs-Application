@@ -73,8 +73,8 @@ export default function Login(props) {
             <AccessibilityToggle />
             <main className={styles.main}>
                 <div className={styles.loginContainer}>
-                    <h2>Login Page</h2>
-                    <form onSubmit={handleLogin} className={styles.form}>
+                    <h2>Login</h2>
+                    <form onSubmit={handleLogin} className={styles.form} role='form' aria-label='login to your account'>
                         <div>
                             <label htmlFor='username'>Username:</label>
                             <input 
@@ -83,7 +83,9 @@ export default function Login(props) {
                                 id='username'
                                 onChange={handleChange}
                                 value={username}
+                                aria-describedby='usernameDescription' 
                             />
+                            <small id="usernameDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Please enter your account username</small>
                         </div>
                         <div>
                             <label htmlFor='password'>Password:</label>
@@ -92,13 +94,15 @@ export default function Login(props) {
                                 name='password'
                                 id='password'
                                 onChange={handleChange}
-                                value={password}   
+                                value={password}  
+                                aria-describedby='passwordDescription' 
                             />
+                            <small id="passwordDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Please enter your account password</small>
                         </div>
-                        {error && <p className={styles.error}>{error}</p>}
-                        <button>Login</button>
+                        {error && <p className={styles.error} role='alert' aria-live="assertive">{error}</p>}
+                        <button aria-label='Login to your account'>Login</button>
                     </form>
-                    <p>Don&apos;t have an account? <Link href="/signup" className={styles.link}>Sign up here!</Link></p>
+                    <p>Don&apos;t have an account? <Link href="/signup" className={styles.link} aria-label='Create an account here'>Sign up here!</Link></p>
                 </div>
             </main>
             <Footer />

@@ -174,7 +174,7 @@ export default function ReviewRoutine(props) {
                                 {taskObj.task}
                             </span>
                         )}
-                        <button aria-label="delete task" className={styles.deleteBtn} onClick={() => deleteTask(energyLevel, timeOfDay, index)}>
+                        <button aria-label='Delete task' className={styles.deleteBtn} onClick={() => deleteTask(energyLevel, timeOfDay, index)}>
                             <Image
                                 src="/images/delete-icon.png"
                                 alt=""

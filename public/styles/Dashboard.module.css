@@ -54,6 +54,14 @@
     align-items: center;
     padding: 10px;
     border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+.prevDateBtn:focus, .nextDateBtn:focus, .prevDateBtn:hover, .nextDateBtn:hover {
+    background-color: var(--orange);
+    transform: scale(.97);
+    transition: .3s;
 }
 
 .dateText {

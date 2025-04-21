@@ -5,7 +5,6 @@ import sessionOptions from "../config/session"
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image.js"
 import styles from "../public/styles/Dashboard.module.css"
-import { set } from "mongoose"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -26,7 +25,6 @@ export default function Dashboard(props) {
     const [profilePhoto, setProfilePhoto] = useState(props.user?.profilePhoto || "/images/account-icon-blue.png");
 
     const [displayDate, setDisplayDate] = useState(new Date().toLocaleDateString())
-    console.log("display Date: ", displayDate)
     
     const [date, setDate] = useState(new Date().toLocaleDateString("en-CA"));
     console.log("Date: ", typeof(date), date)
@@ -35,10 +33,6 @@ export default function Dashboard(props) {
 
     const [routine, setRoutine] = useState(null)
     const [energySelected, setEnergySelected] = useState(false)
-    const [hasPastRoutine, setHasPastRoutine] = useState(null)
-    const [isToday, setIsToday] = useState(null)
-    const [allDailyRoutines, setAllDailyRoutines] = useState([])
-    console.log("All daily routines: ", allDailyRoutines)
 
     const [isEditing, setIsEditing] = useState(null);
     const [newTasks, setNewTasks] = useState({
@@ -60,31 +54,6 @@ export default function Dashboard(props) {
         fetchUserProfile();
     }, []);
 
-    // useEffect(() => {
-    //     fetchAllDailyRoutines() 
-    // })
-
-    // async function fetchAllDailyRoutines() {
-    //     try {
-    //         const dailyRoutinesRes = await fetch('/api/routine/get-all-daily-routines')
-    //         if (dailyRoutinesRes.ok) {
-    //             const dailyRoutinesData = await dailyRoutinesRes.json()
-    //             console.log("Daily routines data: ", dailyRoutinesData.dailyRoutines)
-    //             const dailyRoutines = dailyRoutinesData.dailyRoutines.map((routine, i) => {
-    //                 return {
-    //                     index: i,
-    //                     date: routine.date.slice("T", 10),
-    //                 }
-    //             })
-                
-    //             setAllDailyRoutines(dailyRoutines)
-    //             console.log("daily routine dates: ", dailyRoutines)
-    //         }
-    //     } catch (err) {
-    //         console.error('Error fetching all daily routines:', err);
-    //     }
-    // }
-
     async function fetchUserProfile() {
         try {
           const res = await fetch('/api/user/get-current');
@@ -105,7 +74,6 @@ export default function Dashboard(props) {
             if (!res.ok) throw new Error(`failed to fetch quote: ${res}`)
 
             const data = await res.json()
-            console.log("Quote data: ", data)
             const singleQuote = data.quotes[Math.floor(Math.random() * data.quotes.length)]
             console.log("Single Quote: ", singleQuote)
             setQuote(singleQuote.text)
@@ -116,15 +84,6 @@ export default function Dashboard(props) {
     }
     async function fetchRoutine() {
         try {
-            let prevDate = new Date(date).toLocaleDateString("en-CA")
-            const prevRes = await fetch(`/api/routine/get-daily-routine?date=${prevDate}`, {
-                method: 'GET',
-                headers: {
-                    'content-type': 'application/json'
-                }
-            })
-            const prevData = await prevRes.json()
-        
             const res = await fetch(`/api/routine/get-daily-routine?date=${date}`, {
                 method: 'GET',
                 headers: {
@@ -134,34 +93,12 @@ export default function Dashboard(props) {
 
             const data = await res.json()
 
-            const today = new Date().toLocaleDateString("en-CA")
-            console.log("today: ", today)
-            const isSameDate = date === today
-
-            console.log("isSameDate: ", isSameDate)
-
-            console.log(`Comparing dates - Selected: ${date}, Today: ${today}, isToday: ${isSameDate}`);
-            setIsToday(isSameDate);
-
-            let newDate = new Date(date)
-            newDate.setDate(newDate.getDate() + 1)
-
-            console.log("date in fetch: ", new Date())
-            console.log("new date in fetch: ", newDate)
-
             if (data.routine) {
-                console.log("Routine exists for this date:", data.routine);
                 setRoutine(data.routine)
                 setEnergySelected(true)
-                if (prevData.routine) {
-                    setHasPastRoutine(true)
-                } else {
-                    setHasPastRoutine(false)
-                }
             } else {
-                console.log("No routine for this date:", date);
                 setEnergySelected(false)
-                setHasPastRoutine(false)
+                setRoutine(null)
             }
         } catch (err) {
             console.error("error fetching routine: ", err)
@@ -191,27 +128,9 @@ export default function Dashboard(props) {
     }
 
     function changeDate(direction) {
-        console.log(`Current date: ${date}, Direction ${direction}`)
-
         let newDate = new Date(date);
         newDate.setDate(newDate.getDate() + 1)
-
-        console.log("newDate:", newDate)
-
         newDate.setDate(newDate.getDate() + direction)
-
-        console.log("newDate after:", newDate)
-
-        const today = new Date().toLocaleDateString("en-CA")
-
-        console.log("today in change date: ", today)
-
-        console.log(`Attempting to set new date: `, newDate.toLocaleDateString());
-    
-        if (direction === -1 && newDate.toLocaleDateString("en-CA") > today) {
-            console.log("🚫 Prevented from moving past today")
-            return;
-        }
     
         setDate(newDate.toLocaleDateString("en-CA"));
         setDisplayDate(newDate.toLocaleDateString())
@@ -394,27 +313,23 @@ export default function Dashboard(props) {
                     {/* Routine */}
                     <section className={styles.routineContainer}>
                         <div className={styles.dateContainer}>
-                            {hasPastRoutine && (
-                                <button onClick={() => changeDate(-1)} className={styles.prevDateBtn}>                     
+                            <button onClick={() => changeDate(-1)} className={styles.prevDateBtn}>                     
                                 <Image
                                     src="/images/left-arrow-icon.svg"
                                     alt=""
                                     width={25}
                                     height={25}
                                 />
-                                </button>
-                            )}
+                            </button>
                             <h2 className={styles.dateText}>{displayDate}</h2>
-                            {!isToday && (
-                                <button onClick={() => changeDate(1)} className={styles.nextDateBtn}>
-                                    <Image
-                                        src="/images/right-arrow-icon.svg"
-                                        alt=""
-                                        width={25}
-                                        height={25}
-                                    />
-                                </button>
-                            )}
+                            <button onClick={() => changeDate(1)} className={styles.nextDateBtn}>
+                                <Image
+                                    src="/images/right-arrow-icon.svg"
+                                    alt=""
+                                    width={25}
+                                    height={25}
+                                />
+                            </button>
                         </div>
                         {routine ? (
                         <div className={styles.routines}>

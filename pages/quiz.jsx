@@ -191,7 +191,7 @@ export default function Quiz(props) {
             <main className={styles.main}>
                 {!hasStarted ? (
                     <div className={styles.startMenu}>
-                        <h1>Start your Journey Today</h1>
+                        <h1 aria-label="Start your journey today with our quiz">Start your Journey Today</h1>
                         <h2>All it takes is one click to start your journey to self-care routines generated just for you!</h2>
                         <button onClick={handleStartQuiz}>Start Quiz</button>
                     </div>
@@ -220,10 +220,10 @@ export default function Quiz(props) {
                                   </label>
                                 ))}
                             </div>
-                            {error && <p role="alert" className={styles.error}>{error}</p>}
+                            {error && <p role="alert" aria-live="assertive" className={styles.error}>{error}</p>}
                             <div className={styles.questionNav}>
                                 {currentQuestion > 0 ? (
-                                    <button onClick={() => setCurrentQuestion(currentQuestion - 1)}>
+                                    <button aria-label="Previous Question" onClick={() => setCurrentQuestion(currentQuestion - 1)}>
                                         &larr;
                                     </button>
                                 ): (
@@ -238,9 +238,9 @@ export default function Quiz(props) {
                                     ))}
                                 </div>
                                 {currentQuestion < questions.length - 1 ? (
-                                    <button onClick={handleNextQuestion}>&rarr;</button>
+                                    <button aria-label="Next Question" onClick={handleNextQuestion}>&rarr;</button>
                                 ) : (
-                                    <button onClick={handleFinishQuiz} className={styles.reviewBtn}>Review</button>
+                                    <button aria-label="Review your generate routines" onClick={handleFinishQuiz} className={styles.reviewBtn}>Review</button>
                                 )}
                             </div>
                         </div>

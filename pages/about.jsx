@@ -75,7 +75,7 @@ export default function About(props) {
                             </div>
                             <div>
                                 <h4>My Inspiration for Tiny Triumphs</h4>
-                                <p>Tiny Triumphs was born from own journey with navigating anxiety, depression, adhd, ptsd, POTS, fibromylagia, chronic fatigue, chronic pain, and the list goes on.</p>
+                                <p>Tiny Triumphs was born from my own journey with navigating anxiety, depression, adhd, ptsd, POTS, fibromylagia, chronic fatigue, chronic pain, and the list goes on.</p>
                                 <p>I wanted to create something that could meet people where they are, rather than asking them to meet impossible expectations. I believe self-care doesn’t have to be “all or nothing” — and that even the smallest actions can be victories. This app is my way of offering that belief to others, one routine at a time.</p>
                             </div>
                         </div>

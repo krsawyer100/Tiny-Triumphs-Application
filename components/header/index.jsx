@@ -136,7 +136,7 @@ export default function Header(props) {
           />
         
         </Link>
-        <div className={styles.desktopMenu}>
+        <div className={styles.desktopMenu} role="navigation">
           {props.isLoggedIn ? (
             <>
               <Link href="/about" className={styles.headerInfoLink}>
@@ -144,7 +144,7 @@ export default function Header(props) {
               </Link>
 
               <div className={styles.dropdownContainer} ref={desktopDropdownRef}>
-                <button onClick={toggleResourcesMenu} className={styles.headerInfoLink} aria-haspopup="true" aria-expanded={resourcesMenu} aria-controls="resource-menu">
+                <button aria-label="Resources Dropdown Toggle" onClick={toggleResourcesMenu} className={styles.headerInfoLink} aria-haspopup="true" aria-expanded={resourcesMenu} aria-controls="resource-menu">
                   Resources {resourcesMenu ? "▲" : "▼"}
                 </button>
                 {resourcesMenu && (
@@ -168,7 +168,7 @@ export default function Header(props) {
                 <button onClick={logout}  className={styles.headerInfoLink}>
                   Logout
                 </button>
-                <Link href="/quiz" className={styles.quizBtn}>
+                <Link href="/quiz" className={styles.quizBtn} aria-label="Link to our quiz">
                   Try Our Quiz
                 </Link>
             </>
@@ -179,7 +179,7 @@ export default function Header(props) {
               </Link>
 
               <div className={styles.dropdownContainer} ref={desktopDropdownRef}>
-                <button onClick={toggleResourcesMenu} className={styles.headerInfoLink}>
+                <button onClick={toggleResourcesMenu} className={styles.headerInfoLink} aria-label="Resources Dropdown Toggle" aria-haspopup="true" aria-expanded={resourcesMenu} aria-controls="resource-menu">
                   Resources {resourcesMenu ? "▲" : "▼"}
                 </button>
                 {resourcesMenu && (
@@ -203,7 +203,7 @@ export default function Header(props) {
                 <Link href="/login" className={styles.headerInfoLink}>
                   Login
                 </Link>
-                <Link href="/quiz" className={styles.quizBtn}>
+                <Link href="/quiz" className={styles.quizBtn} aria-label="Link to our quiz">
                   Try Our Quiz
                 </Link>
             </>
@@ -226,11 +226,11 @@ export default function Header(props) {
         />
       )}
 
-      <div className={`${styles.menu} ${menuOpen ? styles.open : ""} ${menuClosing ? styles.close : "" }`} ref={menuRef} aria-modal="true">
+      <div className={`${styles.menu} ${menuOpen ? styles.open : ""} ${menuClosing ? styles.close : "" }`} ref={menuRef} aria-modal="true" aria-hidden={!menuOpen}>
         <nav id="mobile-menu" role="navigation" aria-label="Mobile">
           <Link href="/about" className={styles.menuLink} onClick={toggleMenu} tabIndex={menuOpen ? 0 : -1}>About</Link>
           <div className={styles.menuDropdown} ref={mobileDropdownRef}>
-            <button onClick={toggleResourcesMenu} className={styles.menuLink} aria-haspopup="true" aria-expanded={resourcesMenu} aria-controls="resources-menu-mobile" tabIndex={menuOpen ? 0 : -1}>
+            <button onClick={toggleResourcesMenu} className={styles.menuLink} aria-haspopup="true" aria-expanded={resourcesMenu} aria-controls="resources-menu-mobile" tabIndex={menuOpen ? 0 : -1} aria-label="Resources Dropdown Toggle">
                 Resources {resourcesMenu ? "▲" : "▼"}
             </button>
             {resourcesMenu && (
@@ -244,13 +244,13 @@ export default function Header(props) {
           <Link href="/contact" className={styles.menuLink} onClick={toggleMenu} tabIndex={menuOpen ? 0 : -1}>Contact Us</Link>
 
           {props.isLoggedIn ? (
-            <button onClick={() => { logout(); toggleMenu();}} tabIndex={menuOpen ? 0 : -1}>Logout</button>
+            <button onClick={() => { logout(); toggleMenu();}} tabIndex={menuOpen ? 0 : -1} className={styles.menuLink}>Logout</button>
           ):(
             <Link href="/login" className={styles.menuLink} onClick={toggleMenu} tabIndex={menuOpen ? 0 : -1}>Login/Signup</Link>
           )}
           <div className={styles.quizBtnContainer}>
             <p>Start your Journey Today with our Quiz:</p>
-            <Link href="/quiz" className={styles.quizBtn} onClick={toggleMenu} tabIndex={menuOpen ? 0 : -1}>Try Our Quiz!</Link>
+            <Link aria-label="Link to our quiz" href="/quiz" className={styles.quizBtn} onClick={toggleMenu} tabIndex={menuOpen ? 0 : -1}>Try Our Quiz!</Link>
           </div>
         </nav>
       </div>

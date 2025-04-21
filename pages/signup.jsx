@@ -107,7 +107,7 @@ export default function Signup(props) {
             <main className={styles.main}>
                 <div className={styles.loginContainer}>
                     <h2>Sign-Up</h2>
-                    <form onSubmit={handleSignup} className={styles.form}>
+                    <form onSubmit={handleSignup} className={styles.form} role="form" aria-label='Create an account'>
                         <div>
                             <label htmlFor='firstName'>First Name:</label>
                             <input
@@ -116,7 +116,9 @@ export default function Signup(props) {
                                 id='firstName'
                                 onChange={handleChange}
                                 value={firstName}
+                                aria-describedby='firstDescription'
                             />
+                            <small id="firstDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Please enter your first name</small>
                         </div>
                         <div>
                             <label htmlFor='lastName'>Last Name:</label>
@@ -126,7 +128,9 @@ export default function Signup(props) {
                                 id='lastName'
                                 onChange={handleChange}
                                 value={lastName}
+                                aria-describedby='lastDescription'
                             />
+                            <small id="lastDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Please enter your last name</small>
                         </div>
                         <div>
                             <label htmlFor='email'>Email:</label>
@@ -136,7 +140,9 @@ export default function Signup(props) {
                                 id='email'
                                 onChange={handleChange}
                                 value={email}
+                                aria-describedby='emailDescription'
                             />
+                            <small id="emailDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Please enter your email</small>
                         </div>
                         <div>
                             <label htmlFor='username'>Username:</label>
@@ -146,7 +152,9 @@ export default function Signup(props) {
                                 id='username'
                                 onChange={handleChange}
                                 value={username}
+                                aria-describedby='usernameDescription'
                             />
+                            <small id="usernameDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Please enter your selected username</small>
                         </div>
                         <div>
                             <label htmlFor='password'>Password:</label>
@@ -156,7 +164,9 @@ export default function Signup(props) {
                                 id='password'
                                 onChange={handleChange}
                                 value={password}
+                                aria-describedby='passwordDescription'
                             />
+                            <small id="passwordDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Please enter a password of your choosing</small>
                         </div>
                         <div>
                             <label htmlFor='confirm-password'>Confirm Password:</label>
@@ -166,12 +176,14 @@ export default function Signup(props) {
                                 id='confirm-password'
                                 onChange={handleChange}
                                 value={confirmPassword}
+                                aria-describedby='confirmPasswordDescription'
                             />
+                            <small id="confirmPasswordDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Please re-enter your password to confirm</small>
                         </div>
-                        {error && <p className={styles.error}>{error}</p>}
-                        <button>Sign Up</button>
+                        {error && <p className={styles.error} role='alert' aria-live="assertive">{error}</p>}
+                        <button aria-label='Create your account'>Sign Up</button>
                     </form>
-                    <p>Have an account? <Link href="/login" className={styles.link}>Login here!</Link></p>
+                    <p>Have an account? <Link href="/login" className={styles.link} aria-label='Login to your account here'>Login here!</Link></p>
                 </div>
             </main>
             <Footer />
