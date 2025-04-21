@@ -39,13 +39,4 @@ UserSchema.pre('save', async function(next) {
     next()
 })
 
-UserSchema.post("findOneAndDelete", async function(doc) {
-    if (doc) {
-        const userId = doc._id
-        await GeneratedRoutine.deleteMany({ userId })
-        await DailyRoutine.deleteMany({ userId })
-        console.log(`Deleted routines for user: ${userId}`)
-    }
-})
-
 export default models.User || model('User', UserSchema)

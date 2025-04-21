@@ -9,7 +9,7 @@ import Cropper from 'react-easy-crop'
 import getCroppedImg from '../utils/cropImage.js'
 import Image from "next/image.js"
 import styles from "../public/styles/Settings.module.css"
-
+import useFocusTrap from "../hooks/useFocusTrap.js"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -38,6 +38,7 @@ export default function Settings(props) {
     })
     const [error, setError] = useState('')
     const [confirm, setConfirm] = useState('')
+    const [toggleDeletePopup, setToggleDeletePopup] = useState(false)
 
     const [oldPassword, setOldPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
@@ -60,6 +61,10 @@ export default function Settings(props) {
 
     const cropperRef = useRef(null)
     const cropAreaRef = useRef(null)
+
+    const deletePopupRef = useRef(null)
+
+    useFocusTrap(deletePopupRef, toggleDeletePopup)
 
     useEffect(() => {
         fetchRoutines()
@@ -176,16 +181,14 @@ export default function Settings(props) {
     }
 
     async function handleDelete() {
-        const userId = props.user._id
-        console.log('userid: ', userId)
-
+        console.log("DELETE BUTTON CLICKED");
+        console.log("userId: ", props.user._id);
         try {
             const res = await fetch('/api/user/delete', {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json',
-                },
-                body: JSON.stringify({userId})
+                }
             })
 
             if (res.status === 200) {
@@ -728,11 +731,23 @@ export default function Settings(props) {
                                 <small id="confirmDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Enter your new password to confirm</small>
                             </div>
                         </form>
+                        {toggleDeletePopup && (
+                            <div className={styles.deletePopupOverlay}>
+                                <div ref={deletePopupRef} className={styles.deletePopupContainer}>
+                                    <h3>Are you sure you want to delete your account?</h3>
+                                    <p>Once you delete your account, it will not be able to be reversed.</p>
+                                    <div className={styles.deleteBtnsContainer}>
+                                        <button onClick={() => setToggleDeletePopup(false)}>Cancel</button>
+                                        <button onClick={handleDelete}>Delete Account</button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                         <div className={styles.formBtnsContainer}>
                             {passwordError && <p className={styles.passwordError} role="alert" aria-live="assertive">{passwordError}</p>}
                             {passwordSuccess && <p className={styles.passwordSuccess} role="status" aria-live="polite">{passwordSuccess}</p>}
                             <button className={styles.passwordBtn} type="submit" form="passwordForm">Update Password</button>
-                            <button onClick={handleDelete} className={styles.deleteBtn}>Delete Account</button>
+                            <button onClick={() => setToggleDeletePopup(true)} className={styles.deleteBtn}>Delete Account</button>
                         </div>
                     </div>
 

@@ -1,8 +1,10 @@
 import User from '../models/user'
 import dbConnect from './util/connection'
+import mongoose from 'mongoose'
+import GeneratedRoutine from "../models/generatedRoutine"
+import DailyRoutine from "../models/dailyRoutine"
 
-
-export async function create (firstName, lastName, username, email, password, temporaryRoutine) {
+export async function create (firstName, lastName, username, email, password) {
     if (!(firstName && lastName && username && email && password))
         throw new Error ('Must include first name, last name, username, email, and password')
 
@@ -32,14 +34,22 @@ export async function updateUser (userId, firstName, lastName, username, email) 
     return updatedUser
 }
 
-export async function deleteUser (userId) {
+export async function deleteUser(userId) {
     await dbConnect()
+
+    const validUserId = new mongoose.Types.ObjectId(userId)
+
+    console.log("user id in controller: ", userId)
 
     const deletedUser = await User.findByIdAndDelete(userId)
 
-    console.log("deleted user: ", deletedUser)
-
     if (!deletedUser) return null
+
+    console.log("deleted user in controller: ", deleteUser)
+
+    await GeneratedRoutine.deleteMany({ userId: validUserId })
+    await DailyRoutine.deleteMany({ userId: validUserId })
+    console.log(`Deleted routines for user: ${userId}`)
 
     return { message: 'User deleted successfully' }
 }
