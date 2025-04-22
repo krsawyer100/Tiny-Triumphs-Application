@@ -8,18 +8,18 @@
 }
 
 .main > h1 {
-    color: var(--orange);
+    color: var(--primary);
 }
 
 .userInformation, .routineInformation {
-    background-color: var(--white);
-    border: var(--blue) 3px solid;
+    background-color: var(--bg-color);
+    border: var(--secondary) 3px solid;
     border-radius: 30px;
     width: 100%;
 }
 
 .userInformation > h2, .routineInformation > h2 {
-    background-color: var(--blue);
+    background-color: var(--secondary);
     padding: 20px;
     height: 40px;
     margin: 0;
@@ -37,9 +37,52 @@
     grid-template-areas: 
         "userTitle"
         "userDetails"
-        "divider"
+        "divider1"
+        "theme"
+        "divider2"
         "userPassword"
     ;
+}
+
+.themeContainer {
+    grid-area: theme;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 50px;
+}
+
+.themeSelectionContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.themeSelectionContainer > select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("/images/down-arrow-icon.svg");
+    background-repeat: no-repeat;
+    background-position: right 5px center;
+    cursor: pointer;
+    height: 40px;
+    background-size: 25px;
+    border: var(--secondary) solid 2px;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 5px 7px;
+    border-radius: 10px;
+    background-color: var(--bg-color);
+    box-shadow: 0 0 2px 1px rgba(0,0,0,0.3);
+    color: var(--black);
+}
+
+[data-theme='dark'] .themeSelectionContainer > select {
+    background-image: url("/images/down-arrow-white.svg");
+    background-size: 12px;
+    background-position: right 10px center;
 }
 
 .userInformation > h2 {
@@ -61,7 +104,7 @@
 
 .userProfileImg {
     grid-area: userImg;
-    border: var(--blue) solid 3px;
+    border: var(--secondary) solid 3px;
     margin-right: 30px;
     display: flex;
     flex-direction: column;
@@ -79,7 +122,7 @@
 .newProfilePhoto {
     object-fit: cover;
     border-radius: 50%;
-    border: var(--blue) solid 2px;
+    border: var(--secondary) solid 2px;
 }
 
 .updateUserForm {
@@ -123,7 +166,7 @@
 }
 
 .confirm {
-    color: var(--purple);
+    color: var(--tertiary);
 }
 
 .saveBtn {
@@ -134,26 +177,27 @@
     flex-direction: column;
 }
 
-.firstName > label, .lastName > label, .username > label, .email > label, .oldPassword > label, .newPassword > label, .confirmPassword > label, .userProfileImg > label {
+.firstName > label, .lastName > label, .username > label, .email > label, .oldPassword > label, .newPassword > label, .confirmPassword > label, .userProfileImg > label, .themeSelectionContainer > label {
     font-weight: 500;
     font-size: 14px;
     margin-bottom: 3px;
-    color: var(--orange);
+    color: var(--primary);
 }
 
 .firstName > input, .lastName > input, .username > input, .email > input, .oldPassword > input, .newPassword > input, .confirmPassword > input {
-    border: var(--blue) solid 2px;
+    border: var(--secondary) solid 2px;
     height: 30px;
     font-size: 12px;
     font-weight: 400;
     padding: 3px 7px;
     border-radius: 10px;
-    background-color: var(--white);
+    background-color: var(--bg-color);
     box-shadow: 0 0 2px 1px rgba(0,0,0,0.3);
+    color: var(--black);
 }
 
 .saveBtn {
-    background-color: var(--blue);
+    background-color: var(--secondary);
     color: var(--white);
     font-weight: 600;
     border-radius: 30px;
@@ -167,15 +211,22 @@
 .saveBtn:hover, .saveBtn:focus {
     transform: scale(.99);
     transition: .3s;
-    background-color: var(--orange);
+    background-color: var(--primary);
 }
 
 .divider {
-    grid-area: divider;
     margin: 15px 50px;
-    background-color: var(--blue);
+    background-color: var(--secondary);
     height: 3px;
     border-radius: 5px;
+}
+
+.divider:nth-of-type(1) {
+    grid-area: divider1; 
+}
+
+.divider:nth-of-type(2) {
+    grid-area: divider2; 
 }
 
 .passwordContainer {
@@ -242,17 +293,17 @@
 }
 
 .passwordSuccess {
-    color: var(--purple);
+    color: var(--tertiary);
 }
 
 .passwordBtn {
     grid-area: passwordBtn;
-    background-color: var(--blue);
+    background-color: var(--secondary);
 }
 
 .deleteBtn {
     grid-area: deleteBtn;
-    background-color: var(--orange);
+    background-color: var(--primary);
 }
 
 .passwordBtn, .deleteBtn {
@@ -268,7 +319,7 @@
 .passwordBtn:hover, .deleteBtn:hover, .passwordBtn:focus, .deleteBtn:focus {
     transform: scale(.95);
     transition: .3s;
-    background-color: var(--orange);
+    background-color: var(--primary);
 }
 
 .routinesContainer {
@@ -302,11 +353,12 @@
     justify-content: space-between;
     margin-bottom: 30px;
     padding-bottom: 5px;
-    border-bottom: var(--orange) solid 2px;
+    border-bottom: var(--primary) solid 2px;
+    color: var(--black);
 }
 
 .routineDivider {
-    background-color: var(--purple);
+    background-color: var(--tertiary);
     width: 90%;
     height: 2px;
 }
@@ -328,6 +380,11 @@
     border: none;
     font-size: 16px;
     text-wrap: wrap;
+    color: var(--black);
+}
+
+.addTaskContainer > input::placeholder {
+    color: var(--black);
 }
 
 .task > input:focus, .addTaskContainer > input:focus {
@@ -342,22 +399,22 @@
     margin-top: 50px;
     margin-bottom: 60px;
     padding-bottom: 5px;
-    border-bottom: var(--blue) solid 2px;
+    border-bottom: var(--secondary) solid 2px;
 }
 
 .routine > h3 {
-    color: var(--blue);
+    color: var(--secondary);
 }
 
 .routine > h4 {
-    color: var(--orange);
+    color: var(--primary);
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
 .saveRoutinesBtn {
-    background-color: var(--blue);
+    background-color: var(--secondary);
     border: none;
     text-align: center;
     width: 100%;
@@ -372,13 +429,13 @@
 }
 
 .saveRoutinesBtn:focus {
-    background-color: var(--orange);
+    background-color: var(--primary);
     transform: scale(.98);
     transition: .2s;
 }
 
 .message {
-    color: var(--purple);
+    color: var(--tertiary);
     margin-top: -30px;
 }
 
@@ -386,7 +443,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    background-color: var(--blue);
+    background-color: var(--secondary);
     border: none;
     border-radius: 30px;
     color: var(--white);
@@ -400,7 +457,7 @@
 .uploadBtn:hover, .uploadBtn:focus {
     transform: scale(.99);
     transition: .2s;
-    background-color: var(--orange);
+    background-color: var(--primary);
 }
 
 /* Cropping Modal */
@@ -410,7 +467,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: var(--brown-overlay);
+    background-color: var(--overlay);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -487,22 +544,22 @@
 }
 
 .modalBtn:nth-child(1) {
-    border: var(--orange) solid 2px;
-    color: var(--orange);
+    border: var(--primary) solid 2px;
+    color: var(--primary);
 }
 
 .modalBtn:nth-child(2) {
-    border: var(--blue) solid 2px;
-    color: var(--blue);
+    border: var(--secondary) solid 2px;
+    color: var(--secondary);
 }
 
 .modalBtn:nth-child(1):hover, .modalBtn:nth-child(1):focus {
-    background-color: var(--orange);
+    background-color: var(--primary);
     color: var(--white);
 }
 
 .modalBtn:nth-child(2):hover, .modalBtn:nth-child(2):focus {
-    background-color: var(--blue);
+    background-color: var(--secondary);
     color: var(--white);
 }
 
@@ -542,7 +599,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: var(--brown-overlay);
+    background-color: var(--overlay);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -566,7 +623,7 @@
   }
 
   .deletePopupContainer > h3 {
-    color: var(--orange);
+    color: var(--primary);
   }
 
   .deleteBtnsContainer {
@@ -584,11 +641,11 @@
   }
 
   .deleteBtnsContainer > button:nth-of-type(1) {
-    background-color: var(--blue);
+    background-color: var(--secondary);
   }
 
   .deleteBtnsContainer > button:nth-of-type(2) {
-    background-color: var(--orange);
+    background-color: var(--primary);
   }
 
 @-moz-keyframes rotateLeft { 
@@ -638,7 +695,9 @@
         grid-template-areas: 
             "userTitle"
             "userDetails"
-            "divider"
+            "divider1"
+            "theme"
+            "divider2"
             "userPassword"
         ;
     }
@@ -832,6 +891,10 @@
     
     .routineDivider {
         width: 100%;
+    }
+    
+    .themeContainer {
+        padding: 20px 15px;
     }
 }
 

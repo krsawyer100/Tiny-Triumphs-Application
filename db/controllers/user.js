@@ -80,3 +80,13 @@ export async function findUserById(userId) {
     await dbConnect()
     return await User.findById(userId)
 }
+
+export async function updateTheme(userId, theme) {
+    if (!userId || !theme) {
+      throw new Error("Missing userId or theme");
+    }
+  
+    const updatedUser = await User.findByIdAndUpdate( userId, { theme }, { new: true });
+  
+    return updatedUser;
+  }

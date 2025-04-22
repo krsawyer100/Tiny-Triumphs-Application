@@ -1,16 +1,17 @@
 .main > h1 {
-    color: var(--orange);
+    color: var(--primary);
     text-align: center;
-    margin-top: 80px;
-    margin-bottom: 60px;
+    padding-top: 80px;
+    margin-bottom: 50px;
 }
 
 .dashboardContainer {
     padding: 0 50px 0 30px;
     display: grid;
     grid-template-columns: 55% 45%;
-    grid-auto-rows: minmax(200px, auto);
-    grid-template-areas: 
+    grid-auto-rows: minmax(400px, auto);
+    grid-template-areas:
+        "routine progress" 
         "routine img"
         "routine quote"
         "routine energy"
@@ -19,12 +20,50 @@
     grid-gap: 30px;
 }
 
+.progressSection {
+    grid-area: progress;
+    background-color: var(--tertiary);
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 50px;
+    color: var(--white);
+}
+
+.progressContainer {
+    text-align: center;
+    width: 100%;
+}
+.progressContainer > h2 {
+    margin-bottom: 30px;
+}
+
+.progressContainer > h3 {
+    margin-bottom: 20px;
+}
+
+.progressBarWrapper {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 20px;
+    border: var(--white) 2px solid;
+}
+
+.progressBar {
+    height: 100%;
+    background-color: var(--white);
+    transition: width 0.4s ease;
+}
+
 .routineContainer {
     grid-area: routine;
-    background-color: var(--blue);
+    background-color: var(--secondary);
     border-radius: 30px;
     color: var(--white);
-    border: var(--blue) solid 5px;
+    border: var(--secondary) solid 5px;
 }
 
 .dateContainer {
@@ -37,7 +76,7 @@
     align-items: center;
     justify-items: center;
     gap: auto;
-    color: var(--blue);
+    color: var(--secondary);
     background-color: var(--white);
     width: 100%;
     height: 100px;
@@ -49,7 +88,7 @@
 }
 
 .prevDateBtn, .nextDateBtn {
-    background-color: var(--blue);
+    background-color: var(--secondary);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,7 +99,7 @@
 }
 
 .prevDateBtn:focus, .nextDateBtn:focus, .prevDateBtn:hover, .nextDateBtn:hover {
-    background-color: var(--orange);
+    background-color: var(--primary);
     transform: scale(.97);
     transition: .3s;
 }
@@ -79,7 +118,7 @@
 
 .quoteContainer {
     grid-area: quote;
-    background-color: var(--purple);
+    background-color: var(--tertiary);
     border-radius: 30px;
     color: var(--white);
     padding: 20px 50px;
@@ -92,9 +131,12 @@
 
 .imgContainer {
     grid-area: img;
-    background-color: var(--orange);
+    background-color: var(--primary);
     border-radius: 30px;
     padding: 10px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
 .energyContainer {
@@ -102,9 +144,10 @@
     justify-content: center;
     align-items: center;
     grid-area: energy;
-    border: var(--orange) solid 3px;
+    border: var(--primary) solid 3px;
     border-radius: 30px;
     padding: 20px 50px;
+    background-color: var(--bg-color);
 }
 
 .decorativeImg {
@@ -123,7 +166,7 @@
 }
 
 .energyInfo > h2 {
-    color: var(--blue);
+    color: var(--secondary);
     margin-top: 30px;
     text-align: center;
 }
@@ -156,16 +199,26 @@
     padding: 30px 100px;
 }
 
+.btnsContainer > button:hover, .btnsContainer > button:focus {
+    transform: scale(.97);
+    transition: .2s;
+}
+
+.btnsContainer > button:focus {
+    box-shadow: none;
+    outline: var(--secondary) 2px solid;
+}
+
 .btnsContainer > button:nth-child(1) {
-    background-color: var(--orange);
+    background-color: var(--primary);
 }
 
 .btnsContainer > button:nth-child(2) {
-    background-color: var(--blue);
+    background-color: var(--secondary);
 }
 
 .btnsContainer > button:nth-child(3) {
-    background-color: var(--purple);
+    background-color: var(--tertiary);
 }
 
 .preRoutine {
@@ -248,7 +301,7 @@
 .task > input[type="checkbox"]:focus {
     outline: 2px solid var(--white);
     outline-offset: 3px;
-    box-shadow: 0 0 0 2px var(--purple);
+    box-shadow: 0 0 0 2px var(--tertiary);
     transition: box-shadow 0.2s ease-in-out;
 }
 
@@ -322,7 +375,8 @@
     .dashboardContainer {
         padding: 0 50px 0 30px;
         grid-template-columns: 80%;
-        grid-template-areas: 
+        grid-template-areas:
+            "progress" 
             "img"
             "routine"
             "quote"
@@ -359,6 +413,7 @@
     .main > h1 {
         padding-right: 20px;
         padding-left: 20px;
+        margin-bottom: 20px;
     }
 
     .dashboardContainer {

@@ -17,7 +17,8 @@ const seedUserRoutines = async () => {
       username: "TestUser123",
       email: "test123@email.com",
       password: "test@123",
-      profilePhoto: "/images/account-icon-blue.png"
+      profilePhoto: "/images/account-icon-blue.png",
+      theme: "default"
     })
 
     await newUser.save()

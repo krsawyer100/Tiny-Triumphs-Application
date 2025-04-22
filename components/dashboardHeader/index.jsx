@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react"
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from "../../config/session";
 import Image from "next/image";
+import { useTheme } from '../../context/ThemeContext';
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({req}) {
@@ -111,13 +112,6 @@ export default function DashboardHeader({ username, profilePhoto}) {
     <header className={styles.header}>
       <div className={styles.navContainer}>
         <Link href="/dashboard" className={styles.navLogo}>
-          <Image
-            src="/images/Logo-Icon.png"
-            alt="Navigation link to dashboard"
-            width={80}
-            height={80}
-            className={styles.navLogoIcon}
-          />
         Tiny Triumphs Dashboard
         </Link>
         <div>

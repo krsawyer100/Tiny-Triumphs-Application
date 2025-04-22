@@ -1,8 +1,9 @@
 import { withIronSessionApiRoute } from "iron-session/next";
 import sessionOptions from "../../../config/session";
 import db from "../../../db";
-import nextConnect from 'next-connect'
+import User from "../../../db/models/user.js"
 import bcrypt from 'bcrypt'
+import dbConnect from "../../../db/controllers/util/connection.js";
 
 export default withIronSessionApiRoute(
     function handler(req, res) {
@@ -15,6 +16,8 @@ export default withIronSessionApiRoute(
                 return deleteUser(req, res)
             case 'get-current':
                 return getCurrentUserRoute(req, res)
+            case 'theme':
+                return updateTheme(req, res)
             default:
                 return res.status(404).end()
         }
@@ -112,5 +115,26 @@ async function updatePassword(req, res) {
     } catch (error) {
         console.error('Error updating password:', error)
         return res.status(500).json({ error: 'An error occurred while updating the password.' })
+    }
+}
+
+async function updateTheme(req, res) {
+    const {theme, userId} = req.body
+
+    await dbConnect()
+    try {
+        const updatedUser = await db.user.updateTheme(userId, theme)
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        req.session.user.theme = updatedUser.theme;
+        await req.session.save();
+
+        return res.status(200).json({ message: "Theme updated", theme: updatedUser.theme });
+    } catch (err) {
+        console.error('Error updating theme:', err);
+        res.status(500).json({ message: 'Internal server error' });
     }
 }

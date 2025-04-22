@@ -47,7 +47,7 @@
     font-weight: 600;
 }
 
-.form > div > input {
+.form > div > input, .inputContainer {
     background-color: var(--white);
     height: 30px;
     border: var(--purple) solid 2px;
@@ -59,7 +59,7 @@
     box-shadow: 0 0 1px 1px rgba(0,0,0,.3);
 }
 
-.form > div > input:focus {
+.form > div > input:focus, .inputContainer:focus-within  {
     outline: none;
     box-shadow: 0 0 0 2px var(--blue);
     transition: box-shadow 0.2s ease-in-out;
@@ -107,6 +107,41 @@
     transform: scale(.95);
     transition: .2s;
 }
+
+.showPasswordIcon {
+    color: var(--black);
+}
+
+.inputContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.inputContainer > input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    background-color: var(--white);
+    padding: 0;
+}
+
+.inputContainer > input:focus {
+    box-shadow: none;
+}
+
+.toggleBtn {
+    position: absolute;
+    right: 0.75rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0;
+  }
 
 @media screen and (max-width: 670px) {
     .main {

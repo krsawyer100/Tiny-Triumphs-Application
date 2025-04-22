@@ -2,10 +2,11 @@ import DashboardHeader from "../components/dashboardHeader/index.jsx"
 import Head from "next/head"
 import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image.js"
 import styles from "../public/styles/Dashboard.module.css"
 import DashboardFooter from "../components/dashboardFooter/index.jsx"
+import { ThemeProvider, useTheme } from "../context/ThemeContext.js"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -14,6 +15,7 @@ export const getServerSideProps = withIronSessionSsr(
         if (user) {
             props.user = req.session.user
             props.isLoggedIn = true
+            props.theme = user.theme || "default"
         } else {
             props.isLoggedIn = false
         }
@@ -23,8 +25,17 @@ export const getServerSideProps = withIronSessionSsr(
 )
 
 export default function Dashboard(props) {
+    return (
+        <ThemeProvider initialTheme={props.theme || "default"}>
+            <DashboardContent {...props} />
+        </ThemeProvider>
+    )
+}
+
+function DashboardContent(props) {
     const [profilePhoto, setProfilePhoto] = useState(props.user?.profilePhoto || "/images/account-icon-blue.png");
 
+    console.log("props.theme value: ", props.theme)
     const [displayDate, setDisplayDate] = useState(new Date().toLocaleDateString())
     
     const [date, setDate] = useState(new Date().toLocaleDateString("en-CA"));
@@ -42,6 +53,11 @@ export default function Dashboard(props) {
         evening: '',
         night: ''
     });
+
+    const [completedTasks, setCompletedTasks] = useState(0)
+    const [totalTasks, setTotalTasks] = useState(0)
+
+    const { setTheme } = useTheme()
 
     useEffect(() => {
         fetchRoutine()
@@ -61,6 +77,7 @@ export default function Dashboard(props) {
           if (res.ok) {
             const data = await res.json();
             setProfilePhoto(data.user.profilePhoto);
+            setTheme(data.user.theme || 'default')
           } else {
             console.error('Failed to fetch user profile');
           }
@@ -297,6 +314,32 @@ export default function Dashboard(props) {
         )
     }
 
+    function calculateProgress(routineData) {
+        if (!routineData) return 0;
+
+        const timesOfDay = ['morning', 'afternoon', 'evening', 'night']
+        let total = 0
+        let completed = 0
+
+        timesOfDay.forEach(time => {
+            const tasks = routineData.routine[time] || []
+            total += tasks.length
+            completed += tasks.filter(t => t.completed).length
+        })
+
+        if (total === 0) return 0
+        const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
+        return { total, completed, percent };
+    }
+
+    useEffect(() => {
+        if (routine) {
+            const { total, completed } = calculateProgress(routine);
+            setTotalTasks(total);
+            setCompletedTasks(completed);
+        }
+    }, [routine]);
+
     return (
         <>
             <Head>
@@ -424,12 +467,30 @@ export default function Dashboard(props) {
                             </div>
                         )}
                     </section>
+                    <section className={styles.progressSection}>
+                        {routine ? (
+                            <div className={styles.progressContainer}>
+                                <h2>Progress Tracker</h2>
+                                <h3>{calculateProgress(routine).percent}% of the way there... Keep up the great work!</h3>
+                                <div className={styles.progressBarWrapper}>
+                                    <div className={styles.progressBar}  style={{ width: `${calculateProgress(routine).percent}%`}}></div>
+                                </div>
+                                <h4>{completedTasks} out of {totalTasks} tasks completed</h4>
+                            </div>
+                        ):(
+                            <div className={styles.progressContainer}>
+                                <h2>Progress Tracker</h2>
+                                <h3>To get started, tell us how you are feeling today?</h3>
+                            </div>
+                        )}
+
+                    </section>
                     <section className={styles.imgContainer}>
                         <Image
                             src="/images/decorative-img-dashboard.jpg"
                             alt=""
                             width={200}
-                            height={150}
+                            height={450}
                             className={styles.decorativeImg}
                             priority
                         />

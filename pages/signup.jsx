@@ -8,6 +8,8 @@ import { withIronSessionSsr } from 'iron-session/next'
 import sessionOptions from '../config/session'
 import useLogout from '../hooks/useLogout'
 import styles from '../public/styles/Login.module.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({ req }) {
@@ -39,6 +41,24 @@ export default function Signup(props) {
     })
     const [error, setError] = useState('')
     const [temporaryRoutine, setTemporaryRoutine] = useState(null)
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+    function togglePasswordVisibility() {
+        if (showPassword) {
+            setShowPassword(false)
+        } else {
+            setShowPassword(true)
+        }
+    }
+
+    function toggleConfirmPasswordVisibility() {
+        if (showConfirmPassword) {
+            setShowConfirmPassword(false)
+        } else {
+            setShowConfirmPassword(true)
+        }
+    }
 
     useEffect(() => {
         const storedRoutine = localStorage.getItem("temporaryRoutine");
@@ -48,15 +68,6 @@ export default function Signup(props) {
       }, []);
 
     function handleChange(e) {
-        // setForm({
-        //   firstName,
-        //   lastName,
-        //   username,
-        //   email,
-        //   password,
-        //   "confirm-password": confirmPassword,
-        //   ...{ [e.target.name]: e.target.value.trim() },
-        // });
         setForm(prevForm => ({
             ...prevForm,
             [e.target.name]: e.target.value.trim()
@@ -158,26 +169,46 @@ export default function Signup(props) {
                         </div>
                         <div>
                             <label htmlFor='password'>Password:</label>
-                            <input
-                                type='password'
-                                name='password'
-                                id='password'
-                                onChange={handleChange}
-                                value={password}
-                                aria-describedby='passwordDescription'
-                            />
+                            <div className={styles.inputContainer}>
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    name='password'
+                                    id='password'
+                                    onChange={handleChange}
+                                    value={password}  
+                                    aria-describedby='passwordDescription' 
+                                />
+                                <button onClick={togglePasswordVisibility} onKeyDown={(e) => {
+                                    if(e.key === "Enter") {
+                                        e.preventDefault()
+                                        togglePasswordVisibility()
+                                    }
+                                }} tabIndex={0} aria-label='Toggle show password' type='button' className={styles.toggleBtn}>
+                                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} className={styles.showPasswordIcon}/>
+                                </button>
+                            </div>
                             <small id="passwordDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Please enter a password of your choosing</small>
                         </div>
                         <div>
                             <label htmlFor='confirm-password'>Confirm Password:</label>
-                            <input
-                                type='password'
-                                name='confirm-password'
-                                id='confirm-password'
-                                onChange={handleChange}
-                                value={confirmPassword}
-                                aria-describedby='confirmPasswordDescription'
-                            />
+                            <div className={styles.inputContainer}>
+                                <input
+                                    type={showConfirmPassword ? 'text' : 'password'}
+                                    name='confirm-password'
+                                    id='confirm-password'
+                                    onChange={handleChange}
+                                    value={confirmPassword}  
+                                    aria-describedby='confirmPasswordDescription' 
+                                />
+                                <button onClick={toggleConfirmPasswordVisibility} onKeyDown={(e) => {
+                                    if(e.key === "Enter") {
+                                        e.preventDefault()
+                                        toggleConfirmPasswordVisibility()
+                                    }
+                                }} tabIndex={0} aria-label='Toggle show confirm password' type='button' className={styles.toggleBtn}>
+                                    <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} className={styles.showPasswordIcon}/>
+                                </button>
+                            </div>
                             <small id="confirmPasswordDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Please re-enter your password to confirm</small>
                         </div>
                         {error && <p className={styles.error} role='alert' aria-live="assertive">{error}</p>}

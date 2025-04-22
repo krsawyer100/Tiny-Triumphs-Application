@@ -30,6 +30,11 @@ const UserSchema = new Schema({
     profilePhoto: {
         type: String,
         default: "/images/account-icon-blue.png"
+    },
+    theme: {
+        type: String,
+        enum: ['default', 'nature', 'urban', 'high-contrast', 'dark', 'pastel'],
+        default: 'default'
     }
 })
 

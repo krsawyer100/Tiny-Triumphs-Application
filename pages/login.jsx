@@ -9,6 +9,8 @@ import Footer from '../components/footer'
 import useLogout from "../hooks/useLogout"
 import styles from "../public/styles/Login.module.css"
 import AccessibilityToggle from '../components/accessibility/accessibilityToggle'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({ req }) {
@@ -34,6 +36,15 @@ export default function Login(props) {
         password: ''
     })
     const [error, setError] = useState("")
+    const [showPassword, setShowPassword] = useState(false)
+
+    function togglePasswordVisibility() {
+        if (showPassword) {
+            setShowPassword(false)
+        } else {
+            setShowPassword(true)
+        }
+    }
 
     function handleChange(e) {
         setForm({ username, password, ... { [e.target.name]: e.target.value }})
@@ -89,14 +100,24 @@ export default function Login(props) {
                         </div>
                         <div>
                             <label htmlFor='password'>Password:</label>
-                            <input
-                                type='password'
-                                name='password'
-                                id='password'
-                                onChange={handleChange}
-                                value={password}  
-                                aria-describedby='passwordDescription' 
-                            />
+                            <div className={styles.inputContainer}>
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    name='password'
+                                    id='password'
+                                    onChange={handleChange}
+                                    value={password}  
+                                    aria-describedby='passwordDescription' 
+                                />
+                                <button onClick={togglePasswordVisibility} onKeyDown={(e) => {
+                                    if(e.key === "Enter") {
+                                        e.preventDefault()
+                                        togglePasswordVisibility()
+                                    }
+                                }} tabIndex={0} aria-label='Toggle show password' type='button' className={styles.toggleBtn}>
+                                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} className={styles.showPasswordIcon}/>
+                                </button>
+                            </div>
                             <small id="passwordDescription" aria-hidden="true" style={{ fontSize: "12px", marginTop: "5px", display: "none" }}>Please enter your account password</small>
                         </div>
                         {error && <p className={styles.error} role='alert' aria-live="assertive">{error}</p>}

@@ -11,6 +11,8 @@ import styles from "../public/styles/Settings.module.css"
 import useFocusTrap from "../hooks/useFocusTrap.js"
 import DashboardFooter from "../components/dashboardFooter"
 import useLogout from "../hooks/useLogout.js"
+import { useTheme } from '../context/ThemeContext.js'
+import { ThemeProvider } from "../context/ThemeContext.js"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({req}) {
@@ -19,6 +21,7 @@ export const getServerSideProps = withIronSessionSsr(
         if (user) {
             props.user = req.session.user
             props.isLoggedIn = true
+            props.theme = user.theme || "default"
         } else {
             props.isLoggedIn = false
         }
@@ -28,7 +31,14 @@ export const getServerSideProps = withIronSessionSsr(
 )
 
 export default function Settings(props) {
-    const logout = useLogout()
+    return (
+        <ThemeProvider initialTheme={props.theme || "default"}>
+            <SettingsContent {...props} />
+        </ThemeProvider>
+    )
+}
+
+function SettingsContent(props) {
     const router = useRouter()
     const userId = props.user._id
     const [profilePhoto, setProfilePhoto] = useState(props.user?.profilePhoto || "/images/account-icon-blue.png");
@@ -53,6 +63,9 @@ export default function Settings(props) {
     const [editingTask, setEditingTask] = useState(null)
     const [message, setMessage] = useState("")
 
+    const [themeConfirmation ,setThemeConfirmation] = useState("")
+    const [themeError ,setThemeError] = useState("")
+
     const [selectedImage, setSelectedImage] = useState(null)
     const [crop, setCrop] = useState({x:0, y:0})
     const [zoom, setZoom] = useState(1)
@@ -65,6 +78,13 @@ export default function Settings(props) {
     const cropAreaRef = useRef(null)
 
     const deletePopupRef = useRef(null)
+
+    const { theme } = useTheme()
+    function getIconForTheme(baseName, theme) {
+        const validThemes = ["default", "nature", "high-contrast", "urban", "dark", "pastel"];
+        const sanitizedTheme = validThemes.includes(theme) ? theme : "default";
+        return `/images/themes/${sanitizedTheme}/${baseName}.png`;
+    }
 
     useFocusTrap(deletePopupRef, toggleDeletePopup)
 
@@ -306,7 +326,7 @@ export default function Settings(props) {
                             )}
                             <button aria-label="delete task" className={styles.deleteTaskBtn} onClick={() => deleteTask(energyLevel, timeOfDay, index)}>
                                 <Image
-                                    src="/images/delete-icon.png"
+                                    src={getIconForTheme("delete-icon", theme)}
                                     alt=""
                                     width={25}
                                     height={25}
@@ -342,7 +362,7 @@ export default function Settings(props) {
                     addTask(energyLevel, timeOfDay, newTask)
                 }}>
                     <Image
-                        src="/images/add-icon.png"
+                        src={getIconForTheme("add-icon", theme)}
                         alt=""
                         width={25}
                         height={25}
@@ -503,6 +523,50 @@ export default function Settings(props) {
           document.removeEventListener('keydown', handleTab);
         };
       }, [selectedImage]);
+
+      function ThemeSelector({ userId }) {
+        const { theme, setTheme } = useTheme()
+
+        const handleThemeChange = async (e) => {
+            const newTheme = e.target.value
+            setTheme(newTheme)
+            console.log("New theme: ", newTheme)
+
+            const res = await fetch (`/api/user/theme`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ theme: newTheme, userId })
+            })
+
+            if (res.ok) {
+                const data = await res.json()
+                console.log("User theme updated: ", data)
+                setThemeConfirmation("Theme changed successfully")
+                setTimeout (() => {
+                    setThemeConfirmation("")
+                } , 5000)
+            } else {
+                setThemeError("Error changing the theme")
+                setTimeout (() => {
+                    setThemeError("")
+                } , 5000)
+            }
+        }
+
+        return (
+        <div className={styles.themeSelectionContainer}>
+            <label htmlFor="theme">Theme:</label>
+            <select value={theme} onChange={handleThemeChange} className={styles.themeSelect}>
+                <option value="default">Default</option>
+                <option value="nature">Nature</option>
+                <option value="high-contrast">High Contrast</option>
+                <option value="urban">Urban</option>
+                <option value='dark'>Dark</option>
+                <option value='pastel'>Pastel</option>
+            </select>
+        </div>
+        )
+      }
       
     return (
         <div>
@@ -695,6 +759,12 @@ export default function Settings(props) {
                         )}
                     </div>
                     <span className={styles.divider}></span>
+                    <div className={styles.themeContainer}>
+                        {themeError && <p className={styles.error} role="alert" aria-live="assertive">{themeError}</p>}
+                        {themeConfirmation && <p className={styles.confirm} role="status" aria-live="polite">{themeConfirmation}</p>}
+                        <ThemeSelector userId={userId} />
+                    </div>
+                    <span className={styles.divider}></span>
                     <div className={styles.passwordContainer}>
                         <form onSubmit={handlePasswordUpdate} className={styles.passwordForm} id="passwordForm" role="form" aria-label="change password">
                             <div className={styles.oldPassword}>
@@ -761,7 +831,7 @@ export default function Settings(props) {
                                 <h3>Low Energy Routine</h3>
                                 <h4>
                                     <Image
-                                        src="/images/morning-icon.png"
+                                        src={getIconForTheme("morning-icon", theme)}
                                         alt=""
                                         width={30}
                                         height={30}
@@ -772,7 +842,7 @@ export default function Settings(props) {
                                 {renderAddTask("lowEnergy", "morning")}
                             <h4>
                                 <Image
-                                    src="/images/afternoon-icon.png"
+                                    src={getIconForTheme("afternoon-icon", theme)}
                                     alt=""
                                     width={30}
                                     height={30}
@@ -783,7 +853,7 @@ export default function Settings(props) {
                                 {renderAddTask("lowEnergy", "afternoon")}
                             <h4>
                                 <Image
-                                    src="/images/evening-icon.png"
+                                    src={getIconForTheme("evening-icon", theme)}
                                     alt=""
                                     width={30}
                                     height={30}
@@ -794,7 +864,7 @@ export default function Settings(props) {
                                 {renderAddTask("lowEnergy", "evening")}
                             <h4>
                                 <Image
-                                    src="/images/night-icon.png"
+                                    src={getIconForTheme("night-icon", theme)}
                                     alt=""
                                     width={30}
                                     height={30}
@@ -809,7 +879,7 @@ export default function Settings(props) {
                                 <h3>Medium Energy Routine</h3>
                                 <h4>
                                     <Image
-                                        src="/images/morning-icon.png"
+                                        src={getIconForTheme("morning-icon", theme)}
                                         alt=""
                                         width={30}
                                         height={30}
@@ -820,7 +890,7 @@ export default function Settings(props) {
                                 {renderAddTask("mediumEnergy", "morning")}
                             <h4>
                                 <Image
-                                    src="/images/afternoon-icon.png"
+                                    src={getIconForTheme("afternoon-icon", theme)}
                                     alt=""
                                     width={30}
                                     height={30}
@@ -831,7 +901,7 @@ export default function Settings(props) {
                                 {renderAddTask("mediumEnergy", "afternoon")}
                             <h4>
                                 <Image
-                                    src="/images/evening-icon.png"
+                                    src={getIconForTheme("evening-icon", theme)}
                                     alt=""
                                     width={30}
                                     height={30}
@@ -842,7 +912,7 @@ export default function Settings(props) {
                                 {renderAddTask("mediumEnergy", "evening")}
                             <h4>
                                 <Image
-                                    src="/images/night-icon.png"
+                                    src={getIconForTheme("night-icon", theme)}
                                     alt=""
                                     width={30}
                                     height={30}
@@ -857,7 +927,7 @@ export default function Settings(props) {
                                 <h3>High Energy Routine</h3>
                                 <h4>
                                     <Image
-                                        src="/images/morning-icon.png"
+                                        src={getIconForTheme("morning-icon", theme)}
                                         alt=""
                                         width={30}
                                         height={30}
@@ -868,7 +938,7 @@ export default function Settings(props) {
                                     {renderAddTask("highEnergy", "morning")}
                             <h4>
                                 <Image
-                                    src="/images/afternoon-icon.png"
+                                    src={getIconForTheme("afternoon-icon", theme)}
                                     alt=""
                                     width={30}
                                     height={30}
@@ -879,7 +949,7 @@ export default function Settings(props) {
                                     {renderAddTask("highEnergy", "afternoon")}
                             <h4>
                                 <Image
-                                    src="/images/evening-icon.png"
+                                    src={getIconForTheme("evening-icon", theme)}
                                     alt=""
                                     width={30}
                                     height={30}
@@ -890,7 +960,7 @@ export default function Settings(props) {
                                     {renderAddTask("highEnergy", "evening")}
                             <h4>
                                 <Image
-                                    src="/images/night-icon.png"
+                                    src={getIconForTheme("night-icon", theme)}
                                     alt=""
                                     width={30}
                                     height={30}
