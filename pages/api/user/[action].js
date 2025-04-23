@@ -18,6 +18,8 @@ export default withIronSessionApiRoute(
                 return getCurrentUserRoute(req, res)
             case 'theme':
                 return updateTheme(req, res)
+            case 'accessibility':
+                return updateAccessibility(req, res)
             default:
                 return res.status(404).end()
         }
@@ -138,3 +140,21 @@ async function updateTheme(req, res) {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+
+async function updateAccessibility(req, res) {
+    const userId = req.session.user._id
+    const { accessibility } = req.body
+  
+    if (!accessibility) return res.status(400).json({ error: "Missing accessibility data" })
+  
+    try {
+      const updatedUser = await db.user.updateAccessibility(userId, accessibility)
+      req.session.user.accessibility = updatedUser.accessibility
+      await req.session.save()
+  
+      res.status(200).json({ message: "Accessibility updated", accessibility: updatedUser.accessibility })
+    } catch (err) {
+      console.error("Accessibility update error:", err)
+      res.status(500).json({ error: "Failed to update accessibility" })
+    }
+  }

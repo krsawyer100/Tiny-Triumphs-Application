@@ -4,13 +4,15 @@ import mongoose from 'mongoose'
 import GeneratedRoutine from "../models/generatedRoutine"
 import DailyRoutine from "../models/dailyRoutine"
 
-export async function create (firstName, lastName, username, email, password) {
+export async function create (firstName, lastName, username, email, password, accessibility) {
     if (!(firstName && lastName && username && email && password))
         throw new Error ('Must include first name, last name, username, email, and password')
 
     await dbConnect()
 
-    const user = await User.create({firstName, lastName, username, email, password})
+    const userTheme = accessibility?.highContrast ? 'high-contrast' : 'default'
+
+    const user = await User.create({firstName, lastName, username, email, password, theme: userTheme, accessibility})
 
     if (!user)
         throw new Error('Error creating User')
@@ -22,6 +24,8 @@ export async function create (firstName, lastName, username, email, password) {
         username: user.username,
         email: user.email,
         profilePhoto: user.profilePhoto,
+        theme: user.theme,
+        accessibility: user.accessibility
     }
 }
 
@@ -89,4 +93,13 @@ export async function updateTheme(userId, theme) {
     const updatedUser = await User.findByIdAndUpdate( userId, { theme }, { new: true });
   
     return updatedUser;
+  }
+
+  export async function updateAccessibility(userId, accessibility) {
+    await dbConnect()
+    return await User.findByIdAndUpdate(
+      userId,
+      { accessibility },
+      { new: true }
+    )
   }

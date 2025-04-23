@@ -35,6 +35,11 @@ const UserSchema = new Schema({
         type: String,
         enum: ['default', 'nature', 'urban', 'high-contrast', 'dark', 'pastel'],
         default: 'default'
+    },
+    accessibility: {
+        highContrast: { type: Boolean, default: false },
+        reduceMotion: { type: Boolean, default: false },
+        dyslexiaFont: { type: Boolean, default: false }
     }
 })
 

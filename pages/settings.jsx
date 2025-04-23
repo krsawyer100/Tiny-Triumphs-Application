@@ -80,6 +80,41 @@ function SettingsContent(props) {
     const deletePopupRef = useRef(null)
 
     const { theme } = useTheme()
+
+    const [accessibility, setAccessibility] = useState(props.user?.accessibility || {
+        highContrast: false,
+        reduceMotion: false,
+        dyslexiaFont: false
+    })
+
+    useEffect(() => {
+        document.body.classList.toggle("reduce-motion", accessibility.reduceMotion)
+        document.body.classList.toggle("dyslexia-font", accessibility.dyslexiaFont)
+      }, [accessibility])
+      
+    function handleToggle(key) {
+        setAccessibility(prev => ({
+          ...prev,
+          [key]: !prev[key]
+        }))
+    }
+
+    async function saveAccessibility() {
+        const res = await fetch('/api/user/accessibility', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ accessibility })
+        })
+
+        if (res.ok) {
+            console.log("Accessibility preferences updated")
+        } else {
+            console.error("Error updating accessibility")
+        }
+    }
+      
     function getIconForTheme(baseName, theme) {
         const validThemes = ["default", "nature", "high-contrast", "urban", "dark", "pastel"];
         const sanitizedTheme = validThemes.includes(theme) ? theme : "default";
@@ -759,10 +794,48 @@ function SettingsContent(props) {
                         )}
                     </div>
                     <span className={styles.divider}></span>
-                    <div className={styles.themeContainer}>
-                        {themeError && <p className={styles.error} role="alert" aria-live="assertive">{themeError}</p>}
-                        {themeConfirmation && <p className={styles.confirm} role="status" aria-live="polite">{themeConfirmation}</p>}
-                        <ThemeSelector userId={userId} />
+                    <div className={styles.appearanceContainer}>
+                        <div className={styles.themeSelectionContainer}>
+                            {themeError && <p className={styles.error} role="alert" aria-live="assertive">{themeError}</p>}
+                            {themeConfirmation && <p className={styles.confirm} role="status" aria-live="polite">{themeConfirmation}</p>}
+                            <ThemeSelector userId={userId} />
+                        </div>
+                        <div className={styles.accessibilityContainer}>
+                        <label htmlFor="accessibility">Accessibility Options:</label>
+                        <div className={styles.accessibilityOptions}>
+                        <label>
+                            <input
+                            type="checkbox"
+                            checked={accessibility.reduceMotion}
+                            onChange={() => handleToggle('reduceMotion')}
+                            aria-label="Toggle reduce motion"
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault()
+                                    handleToggle('reduceMotion')
+                                }
+                            }}
+                            />
+                            Reduce Motion
+                        </label>
+                        <label>
+                            <input
+                            type="checkbox"
+                            checked={accessibility.dyslexiaFont}
+                            onChange={() => handleToggle('dyslexiaFont')}
+                            aria-label="Toggle dyslexia-friendly font"
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault()
+                                    handleToggle('dyslexiaFont')
+                                }
+                            }}
+                            />
+                            Dyslexia-Friendly Font
+                        </label>
+                        </div>
+                        </div>
+                        <button onClick={saveAccessibility}>Save Accessibility Settings</button>
                     </div>
                     <span className={styles.divider}></span>
                     <div className={styles.passwordContainer}>

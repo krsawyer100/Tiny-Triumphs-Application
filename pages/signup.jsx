@@ -44,6 +44,34 @@ export default function Signup(props) {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
+    const [accessibility, setAccessibility] = useState({
+        highContrast: false,
+        reduceMotion: false,
+        dyslexiaFont: false
+      });
+
+      useEffect(() => {
+        const highContrast = localStorage.getItem('highContrast') === 'true';
+        const reduceMotion = localStorage.getItem('reduceMotion') === 'true';
+        const dyslexiaFont = localStorage.getItem('dyslexiaFont') === 'true';
+      
+        setAccessibility({ highContrast, reduceMotion, dyslexiaFont });
+
+        console.log("accessibility: ", accessibility)
+      }, []);
+
+    useEffect(() => {
+        if (props.user?.accessibility?.highContrast) {
+          document.body.dataset.theme = "high-contrast";
+        }
+        if (props.user?.accessibility?.reduceMotion) {
+          document.body.classList.add("reduce-motion");
+        }
+        if (props.user?.accessibility?.dyslexiaFont) {
+          document.body.classList.add("dyslexia-font");
+        }
+      }, []);
+
     function togglePasswordVisibility() {
         if (showPassword) {
             setShowPassword(false)
@@ -86,7 +114,7 @@ export default function Signup(props) {
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify({ firstName, lastName, username, email, password, temporaryRoutine })
+                body: JSON.stringify({ firstName, lastName, username, email, password, temporaryRoutine, accessibility })
             })
             if (res.ok) {
                 const data = await res.json()

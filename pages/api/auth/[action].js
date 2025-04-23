@@ -1,6 +1,7 @@
 import { withIronSessionApiRoute } from "iron-session/next";
 import sessionOptions from "../../../config/session";
 import db from "../../../db";
+import User from "../../../db/models/user"
 
 export default withIronSessionApiRoute(
     function handler(req, res) {
@@ -42,33 +43,34 @@ async function logout(req, res) {
 
 async function signup(req, res) {
     try {
-        const {firstName, lastName, username, email, password, temporaryRoutine} = req.body
-
-        console.log("temporary routine: ", temporaryRoutine)
-
-        const {
-            password: _,
-            ...otherFields
-        } = await db.user.create(firstName, lastName, username, email, password)
-        req.session.user = otherFields
-
-        await req.session.save()
-
-        console.log("user created: ", req.session.user)
-        
-        if (temporaryRoutine) {
-            const newRoutine = await db.routine.createRoutines(otherFields._id, temporaryRoutine)
-            
-            if (!newRoutine) throw new Error('error creating new routine: ', error)
-
-            console.log("new routines created: ", newRoutine._id)
-
-            return res.status(200).json({ redirect: "/dashboard" })
-        } if (temporaryRoutine === null) {
-            return res.status(200).json({ redirect: "/quiz" })
-        }
-
-    } catch(err) {
-        res.status(400).json({error: err.message})
+      const { firstName, lastName, username, email, password, temporaryRoutine, accessibility } = req.body;
+  
+      console.log("➡️ Received signup request");
+      console.log("➡️ Accessibility:", accessibility);
+  
+      const userTheme = accessibility?.highContrast ? 'high-contrast' : 'default';
+  
+      const createdUser = await db.user.create(firstName, lastName, username, email, password, accessibility, userTheme);
+  
+      req.session.user = {
+        _id: createdUser._id,
+        username: createdUser.username,
+        theme: createdUser.theme,
+        accessibility: createdUser.accessibility
+      };
+  
+      await req.session.save();
+  
+      if (temporaryRoutine) {
+        const newRoutine = await db.routine.createRoutines(createdUser._id, temporaryRoutine);
+        if (!newRoutine) throw new Error("Routine creation failed");
+        return res.status(200).json({ redirect: "/dashboard" });
+      }
+  
+      return res.status(200).json({ redirect: "/quiz" });
+  
+    } catch (err) {
+      console.error("❌ Signup error:", err);
+      return res.status(400).json({ error: err.message });
     }
-}
+  }

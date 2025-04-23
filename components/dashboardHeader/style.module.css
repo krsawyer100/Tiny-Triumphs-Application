@@ -71,12 +71,13 @@
 .navMenuContainer {
   position: absolute;
   right: 0;
-  top: 110px;
+  top: 95px;
   opacity: 0;
   transform: translateY(-100%);
   z-index: 9;
   padding: 20px 50px;
-  border: var(--primary) solid 2px;
+  border-bottom: var(--primary) solid 2px;
+  border-left: var(--primary) solid 2px;
   background-color: var(--bg-color);
   width: 200px;
   text-align: end;
@@ -194,7 +195,7 @@
   }
 
   .navMenuContainer {
-    top: 90px;
+    top: 85px;
   }
 }
 
@@ -222,10 +223,10 @@
   }
 
   .navMenuContainer {
-    top: 80px;
+    top: 75px;
     width: 100%;
     text-align: center;
-    padding: 10px 0;
+    padding: 20px;
   }
   
 }
